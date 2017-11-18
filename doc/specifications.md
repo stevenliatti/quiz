@@ -1,4 +1,6 @@
-# Spécifications
+# YouQuiz - Spécifications
+
+*Raed ABDENNADHER, Mayron BOUCHET, Matthieu CONSTANT, Nicolas DENBY, Nathanael NUFER, Steven LIATTI*
 
 ## Analyse
 
@@ -97,4 +99,26 @@ form->cond(yes)->valid
 
 
 ### Maquettes
+
+![mainPage.png](../mockups/png/mainPage.png)
+
+![notMemberHome.png](../mockups/png/notMemberHome.png)
+
+![enregistrement.png](../mockups/png/enregistrement.png)
+
+![logIn.png](../mockups/png/logIn.png)
+
+![inQuestion.png](../mockups/png/inQuestion.png)
+
+![afterQuestion.png](../mockups/png/afterQuestion.png)
+
+![scores.png](../mockups/png/scores.png)
+
+![myQuiz.png](../mockups/png/myQuiz.png)
+
+![myParticipations.png](../mockups/png/myParticipations.png)
+
+![createQuiz.png](../mockups/png/createQuiz.png)
+
+![createQuestion.png](../mockups/png/createQuestion.png)
 

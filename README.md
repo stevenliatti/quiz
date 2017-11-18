@@ -3,5 +3,5 @@ Raed ABDENNADHER
 Mayron BOUCHET
 Matthieu CONSTANT
 Nicolas DENBY
-Nathanae GNUFER
+Nathanael NUFER
 Steven LIATTI
