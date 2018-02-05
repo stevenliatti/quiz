@@ -1,0 +1,33 @@
+Users Stories
+
+Anonyme
+•	En tant que rôle anonyme, je veux avoir accès aux boutons S’inscrire et Se connecter de la page pagePrincipale, afin d’avoir accès aux page inscription et connexion.
+•	En tant que rôle anonyme, je veux avoir accès aux informations générales des quizz présent sur la page pagePrincipale.
+•	En tant que rôle anonyme sur la page enregistrement, je veux être capable de saisir un pseudonyme, un mot de passe, une confirmation de mot de passe et un email, afin de m’inscrire à YourQuiz.
+•	En tant que rôle anonyme sur la page connexion, je veux être capable de saisir mon pseudonyme et mon mot de passe, afin de m’authentifier sur YourQuiz en tant qu’utilisateur ou administrateur selon le niveau de privilège de mon compte.
+
+Utilisateur 
+•	En tant qu’utilisateur authentifier, je veux être capables de me déconnecter de mon compte.
+•	En tant qu’utilisateur authentifier sur la page pagePrincipale, je veux pouvoir appuyer sur le bouton Je participe d’un quiz, afin de commencer un quiz.
+•	En tant qu’utilisateur authentifier sur la page pagePrincipale, je veux pouvoir appuyer sur le bouton Voir le classement, afin d’accéder à la page classement
+•	En tant qu’utilisateur authentifier sur la page classement, je veux pouvoir consulter le classement général et le classement par catégorie, ainsi que ma place dans chacun d’entre eux.
+•	En tant qu’utilisateur authentifier sur la page pagePrincipale, je veux pouvoir appuyer sur le bouton Vos quiz, afin d’accéder à la page mesquiz
+•	En tant qu’utilisateur authentifier sur la page mesquiz, je veux pouvoir visualiser mes quiz.
+•	En tant qu’utilisateur authentifier sur la page mesquiz, je veux pouvoir publier, modifier ou supprimer un quiz pas encore publier.
+•	En tant qu’utilisateur authentifier sur la page mesquiz, je veux pouvoir relancer un quiz terminé.
+•	En tant qu’utilisateur authentifier sur la page pagePrincipale, je veux pouvoir appuyer sur le bouton Vos participations, afin d’accéder à la page mes participations.
+•	En tant qu’utilisateur authentifier sur la page mesparticipations, je veux pouvoir visualiser les quiz auxquels j’ai participé. 
+•	En tant qu’utilisateur authentifier sur la page mesparticipations, je veux pouvoir appuyer sur le bouton Voir vos résultats, afin de consulter mes résultats pour un quiz donné.
+•	En tant qu’utilisateur authentifier sur la page pagePrincipale, je veux pouvoir appuyer sur le bouton Créer un quiz, afin d’être redirigé sur la page creationQuiz
+•	En tant qu’utilisateur authentifier sur la page creationQuiz, je veux pouvoir saisir les champs suivants :
+    o	Nom du quiz
+    o	Date Début quiz
+    o	Date Fin quiz
+    o	Nombre de question
+•	En tant qu’utilisateur authentifier sur la page creationQuiz, je veux pouvoir appuyer sur le bouton Enregistrer le quiz ou Annuler, afin de sauvegarder mon quiz ou d’arrêter sa création.
+•	En tant qu’utilisateur authentifier sur la page quizX, je veux pouvoir saisir les champs suivants :
+    o	Temps disponible pour la question
+    o	Contenu de la question
+    o	Sélectionner la proposition correcte
+    o	Propotition 1, 2, 3 et 4
+•	En tant qu’utilisateur authentifier sur la pagequizX, je veux pouvoir appuyer sur le bouton Sauvegarder la question ou Annuler, afin de sauvegarder ma question ou d’arrêter sa création.
