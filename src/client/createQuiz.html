@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Formulaire</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="./js/managerFormCreationQuiz.js"></script>
+    </head>
+    <body>
+        <form id="createQuiz" action="" method="post">
+            <fieldset>
+                <legend>Création de Quiz</legend>
+                <label for="startDate" >Date début</label>
+                <input id="startDate" type="date" required> <br>
+                <label for="endDate">Date fin</label>
+                <input id="endDate" type="date" required> <br>
+                <select name="questions">
+                    <option value="hello">hello</option>
+                </select><br>
+                <label for="maxParticipant">Fixer un maximum de participant</label>
+                <input id="maxParticipant" type="checkbox"><br>
+                <button onclick="addQuestion('#questions')" >Ajouter une question</button>
+                <div id="questions" />
+            </fieldset>
+        </form>
+    </body>
+</html>
