@@ -11,6 +11,7 @@
 \floatplacement{figure}{H}
 \usepackage{authblk}
 \usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -207,41 +208,44 @@ pour la facilité d'intégration avec Node.js, la simplicité d'utilisation et l
 Les clients seront faits en HTML + Javascript pour le navigateur et en Java pour Android.
 
 \section{User stories}
-\subsection{Utilisateur anonyme}
+\textit{Un administrateur possède les mêmes users stories qu'un utilisateur authentifié en plus des siennes}
 \begin{enumerate}
-    \item En tant qu'utilisateur anonyme, je veux pouvoir consulter les informations des quiz actuels.
-    \item En tant qu'utilisateur anonyme, je veux pouvoir consulter le classement général de YourQuiz.
-    \item En tant qu'utilisateur anonyme, je veux pouvoir m'inscrire au site YourQuiz.
+    \item Utilisateur anonyme
+    \begin{enumerate}
+        \item En tant qu'utilisateur anonyme, je veux pouvoir consulter les informations des quiz actuels.
+        \item En tant qu'utilisateur anonyme, je veux pouvoir consulter le classement général de YourQuiz.
+        \item En tant qu'utilisateur anonyme, je veux pouvoir m'inscrire au site YourQuiz.
+    \end{enumerate}
+    \item Utilisateur authentifié
+    \begin{enumerate}
+        \item En tant qu'utilisateur non-authentifié, je veux pouvoir m'authentifier sur le site YourQuiz, afin d'avoir accès à son contenu.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir afficher/modifier mon profil personnel.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir participer à un quiz d'un autre membre (lorsque la période pour effectuer le quiz est valide).
+        \item En tant qu'utilisateur authentifié, je veux pouvoir consulter mes résultats par rapport à un quiz auquel j'ai participé.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir consulter ma place dans le classement générale, ainsi que les X meilleurs participants.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir consulter ma place dans le classement, selon une catégorie de mon choix, ainsi que les X meilleurs participants de cette catégorie.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir créer un quiz.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir visualiser le nombre de quiz que j'ai créé.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir publier, modifier ou supprimer mes quiz.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir relancer mes quiz qui sont terminés.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir signaler un quiz dont le contenu me paraît inapproprié, incomplet, ou ayant un problème autre.
+        \item En tant qu'utilisateur authentifié, je veux pouvoir me déconnecter de mon compte YourQuiz.
+    \end{enumerate}
+    \item Administrateur
+    \begin{enumerate}
+        \item En tant qu'administrateur authentifié, je veux pouvoir recevoir un message m'informant qu'un quiz a été signalé X fois, afin de prendre les mesures nécessaires.
+        \item En tant qu'administrateur authentifié, je veux pouvoir avoir accès à l'ensemble des quiz des utilisateurs, afin de supprimer ceux qui me seraient signalés.
+    \end{enumerate}
 \end{enumerate}
-\subsection{Utilisateur authentifié}
-\begin{enumerate}
-    \item En tant qu'utilisateur non-authentifié, je veux pouvoir m'authentifier sur le site YourQuiz, afin d'avoir accès à son contenu.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir afficher/modifier mon profil personnel.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir participer à un quiz d'un autre membre (lorsque la période pour effectuer le quiz est valide).
-    \item En tant qu'utilisateur authentifié, je veux pouvoir consulter mes résultats par rapport à un quiz auquel j'ai participé.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir consulter ma place dans le classement générale, ainsi que les X meilleurs participants.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir consulter ma place dans le classement, selon une catégorie de mon choix, ainsi que les X meilleurs participants de cette catégorie.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir créer un quiz.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir visualiser le nombre de quiz que j'ai créé.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir publier, modifier ou supprimer mes quiz.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir relancer mes quiz qui sont terminés.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir signaler un quiz dont le contenu me paraît inapproprié, incomplet, ou ayant un problème autre.
-    \item En tant qu'utilisateur authentifié, je veux pouvoir me déconnecter de mon compte YourQuiz.
-\end{enumerate}
-\subsection{Administrateur}
-\textit{Un administrateur possède les mêmes users stories qu'un utilisateur authentifié, ainsi que les cas suivants :}
-\begin{enumerate}
-    \item En tant qu'administrateur authentifié, je veux pouvoir recevoir un message m'informant qu'un quiz a été signalé X fois, afin de prendre les mesures nécessaires.
-    \item En tant qu'administrateur authentifié, je veux pouvoir avoir accès à l'ensemble des quiz des utilisateurs, afin de supprimer ceux qui me seraient signalés.
-\end{enumerate}
+
 
 \section{Planification du sprint 1}
 Nous partons du principe qu'un sprint s'étale sur 1 semaine, avec 5 jours de 8 heures, ce qui représente 
 40 heures. Nous sommes 5 à coder, cela fait 200 heures de temps total au maximum, nous pensons plutôt atteindre les 100 heures, 
 avec les autres cours en parallèle et les phases de \textit{pair programming} et concertation. Nous pensions commencer par les 
-User stories numéros 7 et 3 (Utilisateur authentifié). Ce sont les deux cas d'utilisation les plus importants.
+User stories numéros 2.7 et 2.3 (Utilisateur authentifié). Ce sont les deux cas d'utilisation les plus importants.
 \bigbreak
-\textbf{7 - En tant qu'utilisateur authentifié, je veux pouvoir créer un quiz.}
+\textbf{2.7 - En tant qu'utilisateur authentifié, je veux pouvoir créer un quiz.}
 \bigbreak
 \begin{tabular}{|p{.6\linewidth}|c|c|} \hline
 	\textbf{Tâche} & \textbf{Priorité} & \textbf{Temps (h)} \\ \hline
@@ -257,7 +261,7 @@ User stories numéros 7 et 3 (Utilisateur authentifié). Ce sont les deux cas d'
 
 \bigbreak
 \bigbreak
-\textbf{3 - En tant qu'utilisateur authentifié, je veux pouvoir participer à un quiz d'un autre membre (lorsque la période pour effectuer le quiz est valide).}
+\textbf{2.3 - En tant qu'utilisateur authentifié, je veux pouvoir participer à un quiz d'un autre membre (lorsque la période pour effectuer le quiz est valide).}
 \bigbreak
 \begin{tabular}{|p{.6\linewidth}|c|c|} \hline
 	\textbf{Tâche} & \textbf{Priorité} & \textbf{Temps (h)} \\ \hline
