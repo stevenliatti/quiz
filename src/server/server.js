@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }));             // parse applica
 app.use(bodyParser.json());                                     // parse application/json
 app.use(cors());
 
-
 router(app);
 
 app.listen(8080);

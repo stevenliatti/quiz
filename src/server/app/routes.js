@@ -1,4 +1,5 @@
 const authController = require('./controllers/authentication');
+const createQuizController = require('./controllers/createquiz');
 const express = require('express');
 const passportService = require('../config/passport');
 const passport = require('passport');
@@ -9,6 +10,7 @@ const requireLogin = passport.authenticate('local', {session: false});
 module.exports = function(app) {
     const router = express.Router();
     const authRoutes = express.Router();
+    const createQuizRoutes = express.Router();
 
     // Auth Routes
     router.use('/auth', authRoutes);
@@ -18,8 +20,9 @@ module.exports = function(app) {
         res.json({ content: 'Success' });
     });
 
-    
-
+    // Create Quiz Routes
+    router.use('/createquiz', createQuizRoutes);
+    createQuizRoutes.post('/', createQuizController.createQuiz);
     
     // Set up routes
     app.use('/', router);

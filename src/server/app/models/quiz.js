@@ -13,22 +13,21 @@ const QuizSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    // TODO: use UserSchema here instead of String
     owner: String,
     questions: [{
         question: {
             type: String,
             required: true
         },
-        time: {
+        answerTime: {
             type: Number,
             required: true
         },
         answers: [{
             content: {
                 type: String,
-                required: [true, function() {
-                    return this.questions.answers.length === 4;
-                }]
+                required: true
             },
         }],
         rightAnswer: {
