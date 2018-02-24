@@ -13,21 +13,47 @@ and open the template in the editor.
         <script src="./js/managerFormCreationQuiz.js"></script>
     </head>
     <body>
-        <form id="createQuiz" action="" method="post">
+        <form id="createQuiz" action="." method="post">
             <fieldset>
                 <legend>Création de Quiz</legend>
+                <label for="name" >Nom</label>
+                <input id="name" type="text"> <br>
+                
+                <label for="description">Description</label><br>
+                <textarea name="description" id="description"></textarea><br>
+                
                 <label for="startDate" >Date début</label>
-                <input id="startDate" type="date" required> <br>
+                <input id="startDate" type="date"> <br>
                 <label for="endDate">Date fin</label>
-                <input id="endDate" type="date" required> <br>
-                <select name="questions">
-                    <option value="hello">hello</option>
-                </select><br>
+                <input id="endDate" type="date"> <br>
+                <select id="selectorQuestions" name="questions"></select><br>
+
                 <label for="maxParticipant">Fixer un maximum de participant</label>
                 <input id="maxParticipant" type="checkbox"><br>
-                <button onclick="addQuestion('#questions')" >Ajouter une question</button>
-                <div id="questions" />
+                <input id="maxParticipantNumUpDown" type="number" min="1" value="1" disabled ><br>
+
+                <button id="btnAddQuestion" type="button">Ajouter une question</button>
+                <input id="questionName" type="text">
+
+                <div id="questions"></div>
             </fieldset>
         </form>
+        <script>
+            let manager = new ManagerFormCreationQuiz();
+            $("#btnAddQuestion").on("click", function(){
+                manager.addQuestion('#questions', '#selectorQuestions');
+            });
+            
+            $("#maxParticipant").change(function(){
+                if($(this).is(":checked")) 
+                {
+                    $("#maxParticipantNumUpDown").prop('disabled', false);
+                }
+                else
+                {
+                    $("#maxParticipantNumUpDown").prop('disabled', true);
+                }
+            });
+        </script>
     </body>
 </html>
