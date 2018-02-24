@@ -9,7 +9,11 @@ exports.createQuiz = function(req, res) {
     log.debug(quiz);
     Quiz.create(quiz)
     .then(quiz => {
-        res.status(200).json(quiz);        
+        res.status(200).json({
+            error: false,
+            date: new Date(),
+            message: 'Quiz saved !'
+        });        
     })
-    .catch(error => { use.send_error(error, res, 500, false); });
+    .catch(error => { use.send_error(error, res, 500, error); });
 }
