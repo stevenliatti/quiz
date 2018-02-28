@@ -41,24 +41,24 @@ function ManagerFormCreationQuiz()
 
             /* QUESTION */
             //
-            $(target).append("<div id=\"q" + questionId + "\"></div>");
-            $(questionTarget).append("<label>Question " + questionId + " :" + "</label><br>");
+            $(target).append("<div class=\"w3-center w3-large w3-margin\" id=\"q" + questionId + "\">");
+            $(questionTarget).append("<label class=\"w3-text-teal w3-xlarge w3-margin\">Question " + questionId + " :" + "</label><br>");
             $(questionTarget).append(questionName.val() + "<br>");
 
             if (selectorQuestions !== null) {
-                $(selectorQuestions).append("<option value=\"" + questionName.val() + "\">" + questionName.val() + "</option>");
+                $(selectorQuestions).append("<option class=\"w3-center w3-text-teal w3-xlarge w3-margin\" value=\"" + questionName.val() + "\">" + questionName.val() + "</option>");
             }
 
             let rId = responseId();
 
             /* RESPONSES */
 
-            $(questionTarget).append("<button type=\"button\"  onclick=\"addResponse('" + target + "','" + responseTarget + "'," + questionId + ")\">Ajouter une réponse</button>");
-            $(questionTarget).append("<button type=\"button\"  onclick=\"deleteQuestion('" + "#q" + questionId + "','" + target + "')\">Supprimer la question</button>");
-            $(questionTarget).append("<button type=\"button\"  onclick=\"deleteResponses('" + "#rq" + questionId + "')\">Supprimer les réponses</button>");
+            $(questionTarget).append("<button class=\"w3-button w3-round-large w3-teal w3-margin\" type=\"button\"  onclick=\"addResponse('" + target + "','" + responseTarget + "'," + questionId + ")\">Ajouter une réponse</button>");
             $(questionTarget).append('<input id="rq' + questionId + 'Name" type="text">');
-            $(questionTarget).append("<div id=\"rq" + questionId + "\"></div>");
-
+            $(questionTarget).append("<div class=\"w3-row-padding w3-center\" id=\"rq" + questionId + "\"></div>");
+            $(questionTarget).append("<button class=\"w3-button w3-round-large w3-red w3-margin\" type=\"button\"  onclick=\"deleteQuestion('" + "#q" + questionId + "','" + target + "')\">Supprimer la question</button>");
+            $(questionTarget).append("<button class=\"w3-button w3-round-large w3-red w3-margin\" type=\"button\"  onclick=\"deleteResponses('" + "#rq" + questionId + "')\">Supprimer les réponses</button></div>");
+            
             /* CLEAR FORM */
             $(questionName).val("");
             $(modifyTarget).hide();
@@ -79,8 +79,8 @@ function addResponse(target, responseTarget, questionId) {
     let idBlock = "q" + questionId + "_r" + currentId;
     let responseBlock = "#" + idBlock;
 
-    $(responseTarget).append("<div id=\"q" + questionId + "_r" + currentId + "\"></div>");
-    $(responseBlock).append("<button type=\"button\" onclick=\"deleteResponse('" + responseBlock + "','" + responseTarget + "','" + questionId + "')\"> Supprimer </button>");
+    $(responseTarget).append("<div class=\"w3-left\" id=\"q" + questionId + "_r" + currentId + "\"></div>");
+    $(responseBlock).append("<button class=\"w3-button w3-small w3-round-large w3-red w3-margin\" type=\"button\" onclick=\"deleteResponse('" + responseBlock + "','" + responseTarget + "','" + questionId + "')\"> Supprimer </button>");
     $(responseBlock).append($("#rq" + questionId + "Name").val());
     $("#rq" + questionId + "Name").val("");
 }
