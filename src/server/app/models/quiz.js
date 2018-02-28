@@ -9,7 +9,7 @@ const QuizSchema = new mongoose.Schema({
         },
         required: true
     },
-    startDate: {
+    startDateTime: {
         type: Date,
         validate: {
             validator: function(v) { return v.getTime() >= new Date().getTime() },
@@ -17,7 +17,7 @@ const QuizSchema = new mongoose.Schema({
         },
         required: true
     },
-    endDate: {
+    endDateTime: {
         type: Date,
         validate: {
             validator: function(v) { return v.getTime() > this.startDate.getTime() + 3600 * 1000 },
