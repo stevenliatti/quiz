@@ -5,21 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hepia.ch.yourquiz.MainActivity">
-
-    <LinearLayout
+    <Button
+        android:id="@+id/btnCreateQuiz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Créer Quiz"
-            android:onClick="CreateQuizOnClick"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Participer"
-            android:onClick="ParticipateQuizOnClick"/>
-    </LinearLayout>
+        android:layout_marginEnd="267dp"
+        android:layout_marginStart="16dp"
+        android:text="CREER QUIZ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnParticipateQuiz" />
 
+    <Button
+        android:id="@+id/btnParticipateQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="230dp"
+        android:layout_marginStart="16dp"
+        android:text="Participer Quiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnListQuiz" />
+
+    <Button
+        android:id="@+id/btnListQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="280dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Quiz List"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
