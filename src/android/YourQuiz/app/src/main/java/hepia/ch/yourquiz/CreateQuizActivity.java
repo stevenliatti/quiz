@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -26,11 +28,25 @@ public class CreateQuizActivity extends AppCompatActivity {
 
         myCalendar = Calendar.getInstance();
 
-        quizBeginDateButton = findViewById(R.id.quiz_begin_date_button);
-        quizBeginDate = findViewById(R.id.quiz_begin_date);
+        quizBeginDateButton = findViewById(R.id.begin_date_button);
+        quizBeginDate = findViewById(R.id.begin_date_textview);
 
-        quizEndDateButton = findViewById(R.id.quiz_end_date_button);
-        quizEndDate = findViewById(R.id.quiz_end_date);
+        quizEndDateButton = findViewById(R.id.end_date_button);
+        quizEndDate = findViewById(R.id.end_date_textview);
+
+        CheckBox participantsNbrCheckBox = findViewById(R.id.enter_participants_nbr);
+        final TextView participantsNbrTextView = findViewById(R.id.participant_nbr);
+        participantsNbrCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    participantsNbrTextView.setVisibility(View.VISIBLE);
+                } else {
+                    participantsNbrTextView.setText("");
+                    participantsNbrTextView.setVisibility(View.GONE);
+                }
+            }
+        });
 
         final DatePickerDialog.OnDateSetListener dateBegin = new DatePickerDialog.OnDateSetListener() {
 
@@ -93,5 +109,9 @@ public class CreateQuizActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         quizEndDate.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    public void AddQuestion(View view) {
+
     }
 }

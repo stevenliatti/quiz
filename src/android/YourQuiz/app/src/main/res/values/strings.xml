@@ -5,9 +5,11 @@
     <string name="date_de_d_but">Date de début</string>
     <string name="choisir">Choisir</string>
     <string name="date_de_fin">Date de fin</string>
-    <string name="nombre_maximum_de_participants">Nombre maximum de participants</string>
+    <string name="nombre_maximum_de_participants">Nombre maximum de participants ?</string>
     <string name="question">Question</string>
     <string name="ajouter_une_question">Ajouter une question</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_login">Login</string>
 
     <!-- Strings related to login -->
