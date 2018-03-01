@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/YourQuiz.iml" filepath="$PROJECT_DIR$/YourQuiz.iml" />
+      <module fileurl="file://C:\Users\Mayron\Documents\HEPIA\3emeAnnee\GenieLogiciel\quiz\src\android\YourQuiz\YourQuiz.iml" filepath="C:\Users\Mayron\Documents\HEPIA\3emeAnnee\GenieLogiciel\quiz\src\android\YourQuiz\YourQuiz.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Mayron\Documents\HEPIA\3emeAnnee\GenieLogiciel\quiz\src\android\YourQuiz\app\app.iml" filepath="C:\Users\Mayron\Documents\HEPIA\3emeAnnee\GenieLogiciel\quiz\src\android\YourQuiz\app\app.iml" />
     </modules>
   </component>
 </project>

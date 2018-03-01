@@ -7,7 +7,7 @@ const Participation = require('../models/participation');
 exports.ParticipationSchema = function(req, res) {
     const commit = req.body;
     log.debug(commit);
-    /* Participation.create(commit)
+    Participation.create(commit)
     .then(commit => {
         res.status(200).json({
             error: false,
@@ -15,5 +15,5 @@ exports.ParticipationSchema = function(req, res) {
             message: 'Quiz ended !'
         });        
     })
-    .catch(error => { use.send_error(error, res, 500, error); }); */
+    .catch(error => { use.send_error(error, res, 500, error); });
 }
