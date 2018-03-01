@@ -110,4 +110,8 @@ public class CreateQuizActivity extends AppCompatActivity {
 
         quizEndDate.setText(sdf.format(myCalendar.getTime()));
     }
+
+    public void AddQuestion(View view) {
+
+    }
 }

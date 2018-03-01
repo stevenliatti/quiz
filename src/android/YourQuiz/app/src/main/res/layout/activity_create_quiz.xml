@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context="hepia.ch.yourquiz.CreateQuizActivity">
+    tools:context="hepia.ch.yourquiz.CreateQuizActivity"
+    android:background="@color/colorBackground">
 
     <TextView
         android:layout_width="match_parent"
@@ -103,14 +104,11 @@
                 android:inputType="number"
                 android:visibility="gone" />
 
-            <EditText
-                style="@style/EditTextForm"
-                android:hint="@string/question" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ajouter_une_question" />
+                android:text="@string/ajouter_une_question"
+                android:onClick="AddQuestion"/>
 
         </LinearLayout>
     </ScrollView>
