@@ -29,14 +29,7 @@ and open the template in the editor.
         <img src="http://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
         <h4><b>MENU</b></h4>
       </div>
-      <div class="w3-bar-block">
-        <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw w3-margin-right"></i>Accueil</a>
-        <a href="./login.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-book fa-fw w3-margin-right"></i>Se connecter</a> 
-        <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-trophy fa-fw w3-margin-right"></i>Voir le classement</a> 
-        <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-list fa-fw w3-margin-right"></i>Vos quiz</a>
-        <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-ticket fa-fw w3-margin-right"></i>Vos participations</a>
-        <a href="./createQuiz.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-plus-square fa-fw w3-margin-right"></i>Créer un nouveau quiz</a>
-      </div>
+      <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar()"></div>
     </nav>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -65,7 +58,7 @@ and open the template in the editor.
           <fieldset class="w3-round-large">
             <legend class="w3-text-teal w3-xxlarge w3-center">Connectez-vous pour jouer</legend>
             <div class="w3-container w3-row-padding">
-              
+
               <div class="w3-container w3-row-padding w3-half">
                 <label class="w3-text-teal" for="uname"><b>Username</b></label>
                 <input class="w3-margin-bottom w3-input" type="text" placeholder="Enter Username" name="uname" required>
@@ -79,7 +72,7 @@ and open the template in the editor.
                 <label>
                   <input class="w3-margin-bottom" type="checkbox" checked="checked" name="remember"> Remember me
                 </label>
-                </div>
+              </div>
               <div class="w3-container w3-row-padding">
                 <button class="w3-round-large w3-xlarge w3-button w3-hover-opacity w3-red w3-third w3-left" type="button">Cancel</button>
                 <button class="w3-round-large w3-xlarge w3-button w3-hover-opacity w3-teal w3-third w3-right" type="submit">Login</button>
@@ -89,25 +82,26 @@ and open the template in the editor.
         </form>
       </div>
       <div class="w3-center w3-margin-top w3-padding-24 w3-teal" style="position: fixed; left: 150px; width: 100%; bottom: 0px;">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
-      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      // Script to open and close sidebar
+      function w3_open() {
+          document.getElementById("mySidebar").style.display = "block";
+          document.getElementById("myOverlay").style.display = "block";
+      }
 
-      <script>
-        // Script to open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-      </script>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+      function w3_close() {
+          document.getElementById("mySidebar").style.display = "none";
+          document.getElementById("myOverlay").style.display = "none";
+      }
+    </script>
+    <script>
+        $("#menu_navbar").load("menu/menu_navbar.html");
+    </script>
   </body>
 </html>
 

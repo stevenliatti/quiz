@@ -30,14 +30,7 @@ and open the template in the editor.
         <img src="http://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
         <h4><b>MENU</b></h4>
       </div>
-      <div class="w3-bar-block">
-        <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw w3-margin-right"></i>Accueil</a>
-        <a href="./login.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-book fa-fw w3-margin-right"></i>Se connecter</a> 
-        <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-trophy fa-fw w3-margin-right"></i>Voir le classement</a> 
-        <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-list fa-fw w3-margin-right"></i>Vos quiz</a>
-        <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-ticket fa-fw w3-margin-right"></i>Vos participations</a>
-        <a href="./createQuiz.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-plus-square fa-fw w3-margin-right"></i>Créer un nouveau quiz</a>
-      </div>
+      <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar()"></div>
     </nav>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -140,7 +133,10 @@ and open the template in the editor.
       <!-- End page content -->
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
 // Script to open and close sidebar
       function w3_open() {
@@ -154,18 +150,7 @@ and open the template in the editor.
       }
     </script>
     <script>
-// Get the modal
-      var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-      window.onclick = function (event) {
-          if (event.target == modal) {
-              modal.style.display = "none";
-          }
-      }
+        $("#menu_navbar").load("menu/menu_navbar.html");
     </script>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
   </body>
 </html>
