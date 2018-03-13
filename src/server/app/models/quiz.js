@@ -58,12 +58,14 @@ const QuizSchema = new mongoose.Schema({
             }
         }],
         rightAnswer: {
-            type: String,
-            validate: {
-                validator: function(v) { return v.length > 1 && v.length < 51; },
-                message: 'Right answer length must be between 2 and 50'
-            },
-            required: true
+            content: {
+                type: String,
+                validate: {
+                    validator: function(v) { return v.length > 1 && v.length < 51; },
+                    message: 'Right answer length must be between 2 and 50'
+                },
+                required: true
+            }
         }
     }]
 }, { timestamps: true });

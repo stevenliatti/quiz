@@ -24,20 +24,13 @@ and open the template in the editor.
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-collapse w3-animate-left w3-teal" style="z-index:3;width:300px;" id="mySidebar"><br>
       <div class="w3-container">
-	<a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
-	  <i class="fa fa-remove"></i>
-	</a>
-	<img src="http://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
-	<h4><b>MENU</b></h4>
+        <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
+          <i class="fa fa-remove"></i>
+        </a>
+        <img src="http://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
+        <h4><b>MENU</b></h4>
       </div>
-      <div class="w3-bar-block">
-	<a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw w3-margin-right"></i>Accueil</a>
-	<a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-book fa-fw w3-margin-right"></i>Se connecter</a> 
-	<a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-trophy fa-fw w3-margin-right"></i>Voir le classement</a> 
-	<a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-list fa-fw w3-margin-right"></i>Vos quiz</a>
-	<a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-ticket fa-fw w3-margin-right"></i>Vos participations</a>
-        <a href="./createQuiz.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-plus-square fa-fw w3-margin-right"></i>Créer un nouveau quiz</a>
-      </div>
+      <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar()"></div>
     </nav>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -48,91 +41,91 @@ and open the template in the editor.
 
       <!-- Header -->
       <header id="portfolio">
-	<a href="#"><img src="http://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-	<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
-	<div class="w3-container">
-	  <h1><b>YouQuiz</b></h1>
-	</div>
+        <a href="#"><img src="http://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+        <div class="w3-container">
+          <h1><b>YouQuiz</b></h1>
+        </div>
       </header>
 
       <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-	<h4><b>A propos de YouQuiz</b></h4>
-	<p>YouQuiz est un site multiplate-forme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
+        <h4><b>A propos de YouQuiz</b></h4>
+        <p>YouQuiz est un site multiplate-forme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
       </div>
 
 
       <!-- First Photo Grid-->
       <div class="w3-row-padding">
-	<div class="w3-third w3-container w3-margin-bottom">
-	  <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-	  <div class="w3-container w3-teal">
-	    <p><b>Nom du quiz 1</b></p>
-	    <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-	    <p>2 / 15 Inscrits.</p>
-	    <button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
-	  </div>
-	</div>
-	<div class="w3-third w3-container w3-margin-bottom">
-	  <img src="http://via.placeholder.com/300x100" style="width:100%" class="w3-hover-opacity">
-	  <div class="w3-container w3-teal">
-	    <p><b>Nom du quiz 2</b></p>
-	    <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-	    <p>2 / 15 Inscrits.</p>
-	    <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
-	  </div>
-	</div>
-	<div class="w3-third w3-container">
-	  <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-	  <div class="w3-container w3-teal">
-	    <p><b>Nom du quiz 3</b></p>
-	    <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-	    <p>2 / 15 Inscrits.</p>
-	    <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
-	  </div>
-	</div>
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 1</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
+          </div>
+        </div>
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="http://via.placeholder.com/300x100" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 2</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
+          </div>
+        </div>
+        <div class="w3-third w3-container">
+          <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 3</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
+          </div>
+        </div>
       </div>
 
       <!-- Second Photo Grid-->
       <div class="w3-row-padding">
-	<div class="w3-third w3-container w3-margin-bottom">
-	  <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-	  <div class="w3-container w3-teal">
-	    <p><b>Nom du quiz 4</b></p>
-	    <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-	    <p>2 / 15 Inscrits.</p>
-	    <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
-	  </div>
-	</div>
-	<div class="w3-third w3-container w3-margin-bottom">
-	  <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-	  <div class="w3-container w3-teal">
-	    <p><b>Nom du quiz 5</b></p>
-	    <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-	    <p>2 / 15 Inscrits.</p>
-	    <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
-	  </div>
-	</div>
-	<div class="w3-third w3-container">
-	  <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-	  <div class="w3-container w3-teal">
-	    <p><b>Nom du quiz 6</b></p>
-	    <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-	    <p>2 / 15 Inscrits.</p>
-	    <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
-	  </div>
-	</div>
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 4</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
+          </div>
+        </div>
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 5</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
+          </div>
+        </div>
+        <div class="w3-third w3-container">
+          <img src="http://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 6</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <button type="button" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button>
+          </div>
+        </div>
       </div>
 
       <!-- Pagination -->
       <div class="w3-center w3-padding-32">
-	<div class="w3-bar">
-	  <a href="#" class="w3-bar-item w3-button w3-hover-teal">«</a>
-	  <a href="#" class="w3-bar-item w3-teal w3-button">1</a>
-	  <a href="#" class="w3-bar-item w3-button w3-hover-teal">2</a>
-	  <a href="#" class="w3-bar-item w3-button w3-hover-teal">3</a>
-	  <a href="#" class="w3-bar-item w3-button w3-hover-teal">4</a>
-	  <a href="#" class="w3-bar-item w3-button w3-hover-teal">»</a>
-	</div>
+        <div class="w3-bar">
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">«</a>
+          <a href="#" class="w3-bar-item w3-teal w3-button">1</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">2</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">3</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">4</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">»</a>
+        </div>
       </div>
 
       <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
@@ -140,21 +133,24 @@ and open the template in the editor.
       <!-- End page content -->
     </div>
 
-
-    <script>
-// Script to open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-    </script>
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+// Script to open and close sidebar
+      function w3_open() {
+          document.getElementById("mySidebar").style.display = "block";
+          document.getElementById("myOverlay").style.display = "block";
+      }
+
+      function w3_close() {
+          document.getElementById("mySidebar").style.display = "none";
+          document.getElementById("myOverlay").style.display = "none";
+      }
+    </script>
+    <script>
+        $("#menu_navbar").load("menu/menu_navbar.html");
+    </script>
   </body>
 </html>
