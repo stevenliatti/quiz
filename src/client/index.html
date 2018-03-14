@@ -139,15 +139,35 @@ and open the template in the editor.
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
 // Script to open and close sidebar
-      function w3_open() {
-          document.getElementById("mySidebar").style.display = "block";
-          document.getElementById("myOverlay").style.display = "block";
-      }
-
-      function w3_close() {
-          document.getElementById("mySidebar").style.display = "none";
-          document.getElementById("myOverlay").style.display = "none";
-      }
+       let manager = new ManagerFormCreationQuiz();
+            $("#btnAddQuestion").on("click", function(){
+                manager.addQuestion('#questions', '#selectorQuestions');
+            });
+            
+            $("#btnSend").on("click", function(){
+                let quiz = new Quiz("Loic", $("#name").val(), $("#startDate").val(), $("#endDate").val());
+                console.log(allQuestions);
+                quiz.addQuestions(allQuestions);
+                console.log(quiz);
+            
+            $.ajax("http://172.20.15.35:8080/createquiz", {
+                    data : JSON.stringify(quiz),
+                    contentType : 'application/json',
+                    type : 'POST'
+                });
+                
+            });
+            
+            $("#maxParticipant").change(function(){
+                if($(this).is(":checked")) 
+                {
+                    $("#maxParticipantNumUpDown").prop('disabled', false);
+                }
+                else
+                {
+                    $("#maxParticipantNumUpDown").prop('disabled', true);
+                }
+            });
     </script>
     <script>
         $("#menu_navbar").load("menu/menu_navbar.html");
