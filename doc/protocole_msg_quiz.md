@@ -1,6 +1,7 @@
 ```json
 MESSAGE : JOIN
 {
+	token,
     idUser,
     idQuiz
 }
