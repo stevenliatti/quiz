@@ -11,10 +11,10 @@ const bodyParser = require('body-parser');         // pull information from HTML
 
 // My modules and const
 const router = require('./app/routes');
-const dbConfig = require('./config/db');
+const config = require('./config/config');
 
 // Config
-mongoose.connect(dbConfig.url);
+mongoose.connect(config.dbUrl);
 app.use(morgan('dev'));                                          // log every request to the console
 app.use(bodyParser.urlencoded({ extended: true }));             // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
@@ -22,4 +22,5 @@ app.use(cors());
 
 router(app);
 
-app.listen(8080);
+app.listen(config.serverPort);
+log.info('server listen on port', config.serverPort)
