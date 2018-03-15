@@ -2,6 +2,9 @@
     "name": "yourquizserver",
     "version": "0.1.0",
     "main": "server.js",
+    "scripts": {
+        "config": "./genConfig.sh"
+    },
     "description": "Server REST for YourQuiz",
     "apidoc": {
         "name": "YourQuiz Server REST",
