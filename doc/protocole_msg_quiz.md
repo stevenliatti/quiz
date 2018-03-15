@@ -26,7 +26,7 @@ MESSAGE : ANSWER / ANSWER_CONFIRM
 {
     idQuestion,
     idAnswer,
-    status { TIMEOUT, CHECK }
+    status { TIMEOUT, CHECK, FINISH }
     score,
 	coefficient,
 
