@@ -1,6 +1,6 @@
 const authController = require('./controllers/authentication');
 const createQuizController = require('./controllers/createquiz');
-const commitParticipationController = require('./controllers/commitparticipation');
+const participationQuizController = require('./controllers/participationquiz');
 
 const express = require('express');
 const passportService = require('../config/passport');
@@ -28,8 +28,9 @@ module.exports = function(app) {
     createQuizRoutes.post('/', createQuizController.createQuiz);
     
 	// Participate quiz Routes
-    router.use('/commitquiz', participateQuizRoutes);
-    participateQuizRoutes.post('/', commitParticipationController.ParticipationSchema);
+    router.use('/participation', participateQuizRoutes);
+    participateQuizRoutes.get('/startquiz', participationQuizController.Start);
+    participateQuizRoutes.post('/commitquiz', participationQuizController.ParticipationSchema);
 	
     // Set up routes
     app.use('/', router);
