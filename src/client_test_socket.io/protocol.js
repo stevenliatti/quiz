@@ -12,16 +12,21 @@ const PROTOCOL_ANSER_STATUS_CHECK = 'CHECK';
 
 var socket = io.connect('http://'+SERVER_IP+':'+SERVER_PORT);
 
-socket.on('newQuestion', function(message) {
-        alert('Le serveur a un message pour vous : ' + message);
+socket.on('NEW_QUESTION', function(message) {
+    console.log('NEW_QUESTION : ');
+    console.log(message);
 });
 
-socket.on('answerConfirm', function(message) {
-        alert('Le serveur a un message pour vous : ' + message);
+socket.on('ANSWER_CONFIRM', function(message) {
+    console.log('ANSWER_CONFIRM : ' + message);
 });
 
 socket.on('news', function(message) {
-        console.log('NEWS : ' + message.hello);
+    console.log('NEWS : ' + message);
+});
+
+socket.on('ANSWER', function(message) {
+    console.log('ANSWER : ' + message);
 });
 
 $('#join').click(function () {
@@ -45,6 +50,7 @@ function join() {
 
 
 function nextQuestion() {
+    console.log('EMIT NEXT_QUESTION');
     socket.emit('NEXT_QUESTION', '');
 }
 
