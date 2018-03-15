@@ -26,13 +26,23 @@ MESSAGE : ANSWER / ANSWER_CONFIRM
 {
     idQuestion,
     idAnswer,
-    status { TIMEOUT, CHECK, FINISH }
+    status { TIMEOUT, CHECK }
     score,
 	coefficient,
 
 	/* verifier si necessaire */
 	idUser,
 	idQuiz
+}
+
+MESSAGE : NEXT_QUESTION
+{
+    
+}
+
+MESSAGE : QUIZ_FINISH
+{
+    
 }
 ```
 
@@ -43,11 +53,13 @@ Client->Server: REQUEST
 Server-->Client: HTML + JS
 Note right of Client: SOCKET.IO
 Client->Server: CONNECT()
-Server->Client: JOIN [idUser + idQuiz]
+Client->Server: JOIN [idUser + idQuiz]
 Client->Server: NEXT_QUESTION
 Server->Client: NEW_QUESTION
 Client->Server: ANSWER
 Server->Client: ANSWER_CONFIRM
+Client->Server: NEXT_QUESTION
+Server->Client: QUIZ_FINISH
 
 
 
