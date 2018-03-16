@@ -24,14 +24,13 @@ app.use(cors());
 
 router(app);
 
-app.listen(8080);
+app.listen(config.serverPort);
+log.info('server listen on port', config.serverPort)
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-var app1 = require('express')();
-var server1 = require('http').Server(app1);
-var io = require('socket.io')(server1);
-
-server1.listen(12345);
+server.listen(12345);
 
 
 io.on('connection', function (socket) {
@@ -85,7 +84,3 @@ io.on('connection', function (socket) {
 		});
 	});
 });
-// =======
-// app.listen(config.serverPort);
-// log.info('server listen on port', config.serverPort)
-// >>>>>>> dcdc727fe89f0adb347e196e7e3bae0f5cf57000
