@@ -5,6 +5,8 @@ const log = new Log('debug');
 const cors = require('cors');
 const express = require('express');
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 const mongoose = require('mongoose');
 const morgan = require('morgan');                   // log requests to the console (express4)
@@ -24,14 +26,8 @@ app.use(cors());
 
 router(app);
 
-app.listen(config.serverPort);
+server.listen(config.serverPort);
 log.info('server listen on port', config.serverPort)
-
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-
-server.listen(12345);
-
 
 io.on('connection', function (socket) {
 	// get socket id
