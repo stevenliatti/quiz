@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+// const shortid = require('shortid');
 
 const mongoose = require('mongoose');
 const morgan = require('morgan');                   // log requests to the console (express4)
@@ -28,12 +29,13 @@ router(app);
 
 server.listen(config.serverPort);
 log.info('server listen on port', config.serverPort)
+var clients = [];
 
 io.on('connection', function (socket) {
 	// get socket id
-	console.log(socket.id);
-
+	console.log("connection");
 	socket.on('JOIN', function (data) {
+		console.log("JOIN id " + socket.id);
 		console.log(data);
 	});
 
@@ -78,5 +80,9 @@ io.on('connection', function (socket) {
 		    // idUser,
 		    // idQuiz
 		});
+	});
+
+	socket.on('disconnect', function () { 
+		console.log("disconnect id " + socket.id);
 	});
 });
