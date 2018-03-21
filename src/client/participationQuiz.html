@@ -9,7 +9,7 @@ and open the template in the editor.
     <title>Quiz en cours</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,63 +17,53 @@ and open the template in the editor.
   </head>
   <body class="w3-content w3-sand" style="max-width:1600px;">
     <!-- !PAGE CONTENT! -->
-        <div class="w3-main">
+    <div class="w3-main">
 
-            <!-- Header -->
-            <div class="w3-container">
-              <h1><b>YouQuiz</b></h1>
+      <!-- Header -->
+      <div class="w3-container">
+        <h1><b>YouQuiz</b></h1>
+      </div>
+
+      <!--Formulaire-->
+      <div class="w3-container w3-padding-large">
+        <form id="createQuiz" class="w3-container" action="." method="post">
+          <fieldset class="w3-round-large">
+            <legend class="w3-text-teal w3-xxlarge w3-center">Nom du quiz</legend>
+            
+            <label class="w3-text-teal w3-large w3-left w3-margin-right" for="quest">Question : </label>
+            <p id="quest" class="w3-text-teal w3-large">x/x</p><br>
+            
+            <label class="w3-text-teal w3-large w3-left w3-margin-right" for="mult">Multiplicateur : </label>
+            <p id="mult" class="w3-text-teal w3-large">test</p>
+            
+            <div class="w3-row w3-center">
+              <p class="w3-text-teal w3-xxlarge w3-center w3-input">contenu de la question</p><br>
             </div>
 
-            <!--Formulaire-->
-            <div class="w3-container w3-padding-large">
-                <form id="createQuiz" class="w3-container" action="." method="post">
-                    <fieldset class="w3-round-large">
-                        <legend class="w3-text-teal w3-xxlarge w3-center">Création de Quiz</legend>
-                        <div class="w3-row-padding w3-center">
-                            <label for="name" class="w3-text-teal w3-xlarge w3-center w3-input">Nom</label>
-                            <input id="name" class="w3-margin-bottom w3-input" type="text"> <br>
-                        </div>
+            <div class="w3-row-padding w3-center">
+              <div class="w3-half">
+                <input id="rep1" class="w3-round-large w3-xxlarge w3-button w3-margin-bottom w3-teal w3-margin-right repBoxes" type="button" value="rep1"/>
+              </div>
 
-                        <div class="w3-row-padding w3-center">
-                            <label for="description" class="w3-text-teal w3-xlarge">Description</label><br>
-                            <textarea name="description" id="description" class="w3-margin-bottom w3-input"></textarea><br>
-                        </div>
-                        <div class="w3-row-padding">
-                            <div class="w3-half">
-                                <label for="startDate" class="w3-text-teal w3-xlarge">Date début</label>
-                                <input id="startDate" type="datetime-local" class="w3-margin-bottom w3-input">
-                            </div>
-
-                            <div class="w3-half">
-                                <label for="endDate" class="w3-text-teal w3-xlarge">Date fin</label>
-                                <input id="endDate" type="datetime-local" class="w3-margin-bottom w3-input">
-                            </div>
-                        </div>
-
-                        <div class="w3-row-padding"> 
-                            <select id="selectorQuestions" class="w3-select w3-margin-bottom w3-round-large" name="questions"></select>
-                        </div>
-
-                        <label for="maxParticipant" class="w3-text-teal w3-xlarge">Fixer un maximum de participant ?</label>
-                        <input id="maxParticipant" class="w3-check w3-margin" type="checkbox">
-                        <input id="maxParticipantNumUpDown" class="w3-input w3-margin-bottom" type="number" min="1" value="1" disabled >
-                        <div id="questions"></div>
-                        <hr>
-                        <div class="w3-container w3-row-padding">
-                            <div class="w3-third">
-                                <button id="btnAddQuestion" class="w3-round-large w3-large w3-button w3-margin-bottom w3-teal w3-margin-right" type="button"><i class="w3-padding-right fa fa-plus-square fa-fw"></i>Ajouter une question</button>
-                            </div>
-                            <div class="w3-third">
-                              <input id="questionName" class="w3-input" type="text">
-                            </div>
-                        </div>
-                        <hr>
-                        <button id="btnSend" class="w3-round-large w3-large w3-button w3-margin-bottom w3-teal w3-margin-right" type="button">Envoyer le quiz</button>
-                    </fieldset>
-                </form>
+              <div class="w3-half">
+                <input id="rep2" class="w3-round-large w3-xxlarge w3-button w3-margin-bottom w3-teal w3-margin-right repBoxes" type="button" value="rep2"/>
+              </div>
             </div>
 
-            <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
-        </div>
+            <div class="w3-row-padding w3-center">
+              <div class="w3-half">
+                <input id="rep3" class="w3-round-large w3-xxlarge w3-button w3-margin-bottom w3-teal w3-margin-right repBoxes" type="button" value="rep3"/>
+              </div>
+
+              <div class="w3-half">
+                <input id="rep4" class="w3-round-large w3-xxlarge w3-button w3-margin-bottom w3-teal w3-margin-right repBoxes" type="button" value="rep4"/>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+    </div>
   </body>
 </html>
