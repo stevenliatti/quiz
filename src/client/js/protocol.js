@@ -1,6 +1,6 @@
 "use strict";
 
-const SERVER_PORT = '12345';
+const SERVER_PORT = '443';
 
 const PROTOCOL_NEXT_QUESTION = 'NEXT_QUESTION';
 const PROTOCOL_ANSWER = 'ANSWER';

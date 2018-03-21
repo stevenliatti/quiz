@@ -44,7 +44,7 @@ const StatusQuestion = Object.freeze({
 });
 
 const currentTime = () => Math.round(new Date().getTime() / 1000);
-const getChain = (correctAw) => 
+// const getChain = (correctAw) => 
 
 // status {START, IN_PROGRESS, END}
 
@@ -66,8 +66,7 @@ io.on('connection', function (socket) {
 
 	socket.on('NEXT_QUESTION', function (data) {
 		
-		clients[socket.id].statusgame = StatusGame.IN_PROGRESS;
-
+		
 		//clients[socket.id].StatusQuestion = StatusQuestion.CHECK;
 		//Quiz.find({"name": }); 
 
@@ -105,7 +104,10 @@ io.on('connection', function (socket) {
 
 		socket.emit('NEW_QUESTION', obj);
 		clients[socket.id].questioncount++;
+		//get current question id ?
 		clients[socket.id].time = currentTime();
+
+		//clients[socket.id].statusgame = StatusGame.IN_PROGRESS;
 	});
 
 	socket.on('ANSWER', function (data) {
@@ -119,7 +121,7 @@ io.on('connection', function (socket) {
 		socket.emit('ANSWER_CONFIRM', {
 		    idQuestion: "0",
 		    idAnswer: "1",
-		    // status { TIMEOUT, CHECK }
+		    //status { TIMEOUT, CHECK }
 		    // score,
 		    // coefficient,
 
