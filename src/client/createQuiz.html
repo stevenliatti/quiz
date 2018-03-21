@@ -9,17 +9,11 @@ and open the template in the editor.
         <title>Création d'un quiz</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <style>
-            body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
-        </style>
-
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <link rel="stylesheet" href="./styles.css">
         <script src="./js/quizItems.js"></script>
         <script src="./js/managerFormCreationQuiz.js"></script>
     </head>
@@ -54,7 +48,7 @@ and open the template in the editor.
 
             <div class="w3-container w3-padding-large" style="margin-bottom:32px">
                 <h4><b>A propos de YouQuiz</b></h4>
-                <p>YouQuiz est un site multiplate-forme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
+                <p>YouQuiz est un site multi-plateforme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
             </div>
 
             <!--Formulaire-->
@@ -90,16 +84,18 @@ and open the template in the editor.
                         <label for="maxParticipant" class="w3-text-teal w3-xlarge">Fixer un maximum de participant ?</label>
                         <input id="maxParticipant" class="w3-check w3-margin" type="checkbox">
                         <input id="maxParticipantNumUpDown" class="w3-input w3-margin-bottom" type="number" min="1" value="1" disabled >
-
+                        <div id="questions"></div>
+                        <hr>
                         <div class="w3-container w3-row-padding">
                             <div class="w3-third">
-                                <button id="btnAddQuestion" class="w3-round-large w3-large w3-button w3-hover-opacity w3-margin-bottom w3-teal w3-margin-right" type="button"><i class="w3-padding-right fa fa-plus-square fa-fw"></i>Ajouter une question</button>
+                                <button id="btnAddQuestion" class="w3-round-large w3-large w3-button w3-margin-bottom w3-teal w3-margin-right" type="button"><i class="w3-padding-right fa fa-plus-square fa-fw"></i>Ajouter une question</button>
                             </div>
                             <div class="w3-third">
-                                <input id="questionName" class="w3-input" type="text">
+                              <input id="questionName" class="w3-input" type="text">
                             </div>
                         </div>
-                        <div id="questions"></div>                
+                        <hr>
+                        <button id="btnSend" class="w3-round-large w3-large w3-button w3-margin-bottom w3-teal w3-margin-right" type="button">Envoyer le quiz</button>
                     </fieldset>
                 </form>
             </div>
@@ -107,39 +103,11 @@ and open the template in the editor.
             <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
         </div>
 
-
-
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="./js/managerFormCreationQuiz.js"></script>
-        <!--      <form id="createQuiz" action="." method="post">
-                <fieldset>
-                    <legend>Création de Quiz</legend>
-                    <label for="name">Nom</label>
-                    <input id="name" type="text" value="GhostedLoic"> <br>
-    
-                    <label for="description">Description</label><br>
-                    <textarea name="description" id="description"></textarea><br>
-    
-                    <label for="startDate" >Date début</label>
-                    <input id="startDate" type="datetime-local"> <br>
-                    <label for="endDate">Date fin</label>
-                    <input id="endDate" type="datetime-local"> <br>
-                    <select id="selectorQuestions" name="questions"></select><br>
-    
-                    <label for="maxParticipant">Fixer un maximum de participant</label>
-                    <input id="maxParticipant" type="checkbox"><br>
-                    <input id="maxParticipantNumUpDown" type="number" min="1" value="1" disabled ><br>
-    
-                    <button id="btnAddQuestion" type="button">Ajouter une question</button>
-                    <input id="questionName" type="text">
-    
-                    <div id="questions"></div>
-                    <button id="btnSend" type="button">Envoyer</button>
-                </fieldset>
-            </form>-->
         <script>
 // Script to open and close sidebar
             function w3_open() {
@@ -183,7 +151,7 @@ and open the template in the editor.
             });
         </script>
         <script>
-            $("#menu_navbar").load("menu/menu_navbar.html");
+            $( "#menu_navbar" ).load( "menu/menu_navbar.html" );
         </script>
 
     </body>

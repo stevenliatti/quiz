@@ -28,32 +28,72 @@ router(app);
 
 server.listen(config.serverPort);
 log.info('server listen on port', config.serverPort)
-var clients = [];
+
+// Global
+const clients = [];
+
+const StatusGame = Object.freeze({
+    START:        Symbol("start"),
+    IN_PROGRESS:  Symbol("in_progress"),
+    END:          Symbol("end")
+});
+
+const StatusQuestion = Object.freeze({
+    TIMEOUT:      Symbol("timeout"),
+    CHECK:        Symbol("check")
+});
+
+const currentTime = () => Math.round(new Date().getTime() / 1000);
+const getChain = (correctAw) => 
+
+// status {START, IN_PROGRESS, END}
 
 io.on('connection', function (socket) {
+
 	// get socket id
 	console.log("connection");
 	socket.on('JOIN', function (data) {
 		console.log("JOIN id " + socket.id);
+		clients[socket.id] = {};
+		clients[socket.id].score = 0;
+		clients[socket.id].coeff = 0;
+		clients[socket.id].data = data;
+		clients[socket.id].questioncount = 0;
+		clients[socket.id].statusgame = StatusGame.START;
 		console.log(data);
+		console.log(clients[socket.id]);
 	});
 
 	socket.on('NEXT_QUESTION', function (data) {
-		console.log(data);
+		
+		clients[socket.id].statusgame = StatusGame.IN_PROGRESS;
+
+		//clients[socket.id].StatusQuestion = StatusQuestion.CHECK;
+		//Quiz.find({"name": }); 
 
 		var obj = { 
 			idQuestion: "0",
-		    question: "Combien de fois t-as niqué ta mère?",
+		    question: "Une question envoyé par le serveur ?",
 		    answers: [
 		    	{
 		    		id: "0", 
 		    		content: "une fois"
-		    	}, {
+		    	}, 
+		    	{
 		    		id: "1",
 		    		content: "deux fois"
-		    	} 
+		    	}, 
+		    	{
+		    		id: "2",
+		    		content: "trois fois"
+		    	}, 
+		    	{
+		    		id: "3",
+		    		content: "quatre fois"
+		    	}
 		    ],
-		    time: "",
+		    time: "time from",
+
 		    // status {START, IN_PROGRESS, END},
 		    // questionCount,
 		    // questionIndex
@@ -62,11 +102,19 @@ io.on('connection', function (socket) {
 		    // idUser,
 		    // idQuiz
 		    };
+
 		socket.emit('NEW_QUESTION', obj);
+		clients[socket.id].questioncount++;
+		clients[socket.id].time = currentTime();
 	});
 
 	socket.on('ANSWER', function (data) {
-		console.log(data);
+		
+		let elapsed = currentTime() - clients[socket.id].time;
+		clients[socket.id].statusquestion = 
+				(elapsed > data.answerTime) ? StatusQuestion.TIMEOUT : StatusQuestion.CHECK;
+
+		//test question time
 
 		socket.emit('ANSWER_CONFIRM', {
 		    idQuestion: "0",
@@ -82,6 +130,8 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('disconnect', function () { 
+		//Clear client
+		clients[socket.id] = {};
 		console.log("disconnect id " + socket.id);
 	});
 });

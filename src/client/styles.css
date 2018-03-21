@@ -24,3 +24,11 @@ div {
     top: 0;
     border-width: 0 0 1px;
 }
+
+hr {
+    border:1px teal dashed;
+}
+
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Raleway", sans-serif
+}
