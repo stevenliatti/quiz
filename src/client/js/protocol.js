@@ -1,6 +1,5 @@
 "use strict";
 
-const SERVER_IP = '172.20.0.130';
 const SERVER_PORT = '12345';
 
 const PROTOCOL_NEXT_QUESTION = 'NEXT_QUESTION';
@@ -9,8 +8,7 @@ const PROTOCOL_ANSWER = 'ANSWER';
 const PROTOCOL_ANSER_STATUS_TIMEOUT = 'TIMEOUT';
 const PROTOCOL_ANSER_STATUS_CHECK = 'CHECK';
 
-
-var socket = io.connect('http://'+SERVER_IP+':'+SERVER_PORT);
+var socket = io.connect('https://'+SERVER_IP+':'+SERVER_PORT);
 
 socket.on('NEW_QUESTION', function(message) {
     console.log('NEW_QUESTION : ');
