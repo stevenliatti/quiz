@@ -15,7 +15,7 @@ const QuizSchema = new mongoose.Schema({
             validator: function(v) { return v.getTime() >= new Date().getTime() },
             message: 'Start date must be after now'
         },
-        required: true
+        required: false // TODO: not yet checked
     },
     endDateTime: {
         type: Date,
@@ -23,7 +23,7 @@ const QuizSchema = new mongoose.Schema({
             validator: function(v) { return v.getTime() > this.startDate.getTime() + 3600 * 1000 },
             message: 'End date must be after start date'
         },
-        required: true
+        required: false // TODO: not yet checked
     },
     // TODO: use UserSchema here instead of String
     owner: {
