@@ -61,7 +61,5 @@ Server->Client: ANSWER_CONFIRM
 Client->Server: NEXT_QUESTION
 Server->Client: QUIZ_FINISH
 
-
-
 ```
 

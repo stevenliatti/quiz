@@ -38,7 +38,7 @@ $('#nextQuestion').click(function () {
 function join() {
     var myJoin = {
         idUser : "EL BAGNADOR",
-        idQuiz : "ISSOU",
+        idQuiz : "5ab2831e7838d61936013cfb",
         token : "LA CHANCLA"
     };
     console.log(myJoin);

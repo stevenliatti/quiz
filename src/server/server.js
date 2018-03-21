@@ -48,72 +48,54 @@ const currentTime = () => Math.round(new Date().getTime() / 1000);
 
 // status {START, IN_PROGRESS, END}
 
+const Quiz = require("./app/models/quiz");
+
 io.on('connection', function (socket) {
 
 	// get socket id
 	console.log("connection");
 	socket.on('JOIN', function (data) {
+
 		console.log("JOIN id " + socket.id);
-		clients[socket.id] = {};
+		clients[socket.id] = data;
 		clients[socket.id].score = 0;
 		clients[socket.id].coeff = 0;
-		clients[socket.id].data = data;
-		clients[socket.id].questioncount = 0;
-		clients[socket.id].statusgame = StatusGame.START;
-		console.log(data);
+		// clients[socket.id].idUser = data.idUser;
+		// clients[socket.id].idQuiz = data.idQuiz;
+		// clients[socket.id].token = data.token;
+		clients[socket.id].questionIndex = 0;
+		clients[socket.id].statusGame = StatusGame.START;
+
+		Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
+			clients[socket.id].quiz = quiz;
+		})
+
 		console.log(clients[socket.id]);
 	});
 
 	socket.on('NEXT_QUESTION', function (data) {
+		if (clients[socket.id].statusgame === StatusGame.START)
+		{
+			clients[socket.id].statusgame = StatusGame.IN_PROGRESS;
+		}
 		
-		
+		let idQuestion = "q" + clients[socket.id].questionIndex;
+	
+
 		//clients[socket.id].StatusQuestion = StatusQuestion.CHECK;
-		//Quiz.find({"name": }); 
-
-		var obj = { 
-			idQuestion: "0",
-		    question: "Une question envoyé par le serveur ?",
-		    answers: [
-		    	{
-		    		id: "0", 
-		    		content: "une fois"
-		    	}, 
-		    	{
-		    		id: "1",
-		    		content: "deux fois"
-		    	}, 
-		    	{
-		    		id: "2",
-		    		content: "trois fois"
-		    	}, 
-		    	{
-		    		id: "3",
-		    		content: "quatre fois"
-		    	}
-		    ],
-		    time: "time from",
-
-		    // status {START, IN_PROGRESS, END},
-		    // questionCount,
-		    // questionIndex
-
-		    /* verifier si necessaire */
-		    // idUser,
-		    // idQuiz
-		    };
-
-		socket.emit('NEW_QUESTION', obj);
-		clients[socket.id].questioncount++;
-		//get current question id ?
-		clients[socket.id].time = currentTime();
-
-		//clients[socket.id].statusgame = StatusGame.IN_PROGRESS;
+		let idx = clients[socket.id].questionIndex;
+		
+			socket.emit('NEW_QUESTION', clients[socket.id].quiz.questions[idx]);
+			clients[socket.id].questionIndex++;
+			//get current question id ?
+			clients[socket.id].time = currentTime();
+		
 	});
 
 	socket.on('ANSWER', function (data) {
 		
 		let elapsed = currentTime() - clients[socket.id].time;
-		clients[socket.id].statusquestion = 
+		clients[socket.id].statusQuestion = 
 				(elapsed > data.answerTime) ? StatusQuestion.TIMEOUT : StatusQuestion.CHECK;
 
 		//test question time
@@ -121,7 +103,7 @@ io.on('connection', function (socket) {
 		socket.emit('ANSWER_CONFIRM', {
 		    idQuestion: "0",
 		    idAnswer: "1",
-		    //status { TIMEOUT, CHECK }
+		    status : clients[socket.id].statusQuestion 
 		    // score,
 		    // coefficient,
 
