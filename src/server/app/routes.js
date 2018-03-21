@@ -29,8 +29,8 @@ module.exports = function(app) {
     
 	// Participate quiz Routes
     router.use('/participation', participateQuizRoutes);
-    participateQuizRoutes.get('/startquiz', participationQuizController.Start);
-    participateQuizRoutes.post('/commitquiz', participationQuizController.ParticipationSchema);
+    participateQuizRoutes.get('/startquiz', participationQuizController.start);
+    participateQuizRoutes.post('/commitquiz', participationQuizController.createParticipation);
 	
     // Set up routes
     app.use('/', router);

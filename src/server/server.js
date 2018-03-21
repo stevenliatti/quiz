@@ -1,5 +1,4 @@
 // NPM modules
- 
 const Log = require('log');
 const log = new Log('debug');
 const cors = require('cors');
