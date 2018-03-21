@@ -4,7 +4,7 @@ const use = require('./use');
 
 const Participation = require('../models/participation');
 
-exports.ParticipationSchema = function(req, res) {
+exports.createParticipation = function(req, res) {
     const commit = req.body;
     log.debug(commit);
     Participation.create(commit)
@@ -18,7 +18,7 @@ exports.ParticipationSchema = function(req, res) {
     .catch(error => { use.send_error(error, res, 500, error); });
 }
 
-exports.Start = function(req, res) {
+exports.start = function(req, res) {
     // var msg = require('../../server');
 
     // console.log(msg.SimpleMessage);
