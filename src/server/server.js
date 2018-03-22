@@ -44,6 +44,20 @@ const StatusQuestion = Object.freeze({
 });
 
 const currentTime = () => Math.round(new Date().getTime() / 1000);
+const getQuestion = (client,idx) => client.quiz.questions[idx];
+const createQuestionId = (client) => "q" + client.questionIndex;
+const getCurrentQuestionId = (client) => client.questionIndex;
+const getStatusQuestion = (client,answerTime) => ((currentTime() - client.time) > answerTime) ? StatusQuestion.TIMEOUT : StatusQuestion.CHECK;
+
+function getStatusGame(client) {
+	if(client.questionIndex > client.nbQuestions){
+		client.statusGame = StatusGame.END;
+	}else if (client.statusGame === StatusGame.START){
+		client.statusGame = StatusGame.IN_PROGRESS;
+	}
+	return client.statusGame;
+}
+
 // const getChain = (correctAw) => 
 
 // status {START, IN_PROGRESS, END}
@@ -74,43 +88,43 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('NEXT_QUESTION', function (data) {
-		if (clients[socket.id].statusgame === StatusGame.START)
-		{
-			clients[socket.id].statusgame = StatusGame.IN_PROGRESS;
-		}
-		
-		let idQuestion = "q" + clients[socket.id].questionIndex;
-	
 
-		//clients[socket.id].StatusQuestion = StatusQuestion.CHECK;
-		let idx = clients[socket.id].questionIndex;
-		
-			socket.emit('NEW_QUESTION', clients[socket.id].quiz.questions[idx]);
+		//TODO: check if quiz is finised
+		if(getStatusGame(clients[socket.id]) === StatusGame.END) { 
+			console.log('END GAME');
+			socket.emit('NEW_QUESTION', {"status" : StatusGame.END});
+		}
+
+		if(getStatusGame(clients[socket.id]) === StatusGame.IN_PROGRESS) {
+
+			let idQuestion = createQuestionId(clients[socket.id]);
+			let idx = getCurrentQuestionId(clients[socket.id]);
+			
+			socket.emit('NEW_QUESTION', getQuestion(clients[socket.id],idx));
 			clients[socket.id].questionIndex++;
-			//get current question id ?
 			clients[socket.id].time = currentTime();
-		
+		}
 	});
 
 	socket.on('ANSWER', function (data) {
-		
-		let elapsed = currentTime() - clients[socket.id].time;
-		clients[socket.id].statusQuestion = 
-				(elapsed > data.answerTime) ? StatusQuestion.TIMEOUT : StatusQuestion.CHECK;
+		console.log("ANSWER SERVER");
+		clients[socket.id].statusQuestion = getStatusQuestion(clients[socket.id], data.answerTime);
+		console.log(clients[socket.id].statusQuestion);
+		//test question time ? a un autre endroit
 
-		//test question time
+		if (clients[socket.id].statusQuestion === StatusQuestion.CHECK) {
+			socket.emit('ANSWER_CONFIRM', {
+				idQuestion: "0",
+				idAnswer: "1",
+				status : StatusQuestion.CHECK, 
+				score : (clients[socket.id].score++)
+				// coefficient,
 
-		socket.emit('ANSWER_CONFIRM', {
-		    idQuestion: "0",
-		    idAnswer: "1",
-		    status : clients[socket.id].statusQuestion 
-		    // score,
-		    // coefficient,
-
-		    // /* verifier si necessaire */
-		    // idUser,
-		    // idQuiz
-		});
+				// /* verifier si necessaire */
+				// idUser,
+				// idQuiz
+			});
+		}
 	});
 
 	socket.on('disconnect', function () { 

@@ -35,6 +35,10 @@ $('#nextQuestion').click(function () {
     nextQuestion();
 });
 
+$('#answerQuestion').click(function () {
+    answerQuestion("p0","yes");
+});
+
 function join() {
     var myJoin = {
         idUser : "EL BAGNADOR",
@@ -52,11 +56,10 @@ function nextQuestion() {
     socket.emit('NEXT_QUESTION', '');
 }
 
-function answerQuestion(pIdQuestion, pIdAnswer, ) {
+function answerQuestion(pIdQuestion, pIdAnswer) {
     var myAnswer = {
         idQuestion : pIdQuestion ,
         idAnswer : pIdAnswer
     };
-
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }
