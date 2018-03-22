@@ -28,16 +28,16 @@ and open the template in the editor.
       <div class="w3-container w3-padding-large">
         <form id="createQuiz" class="w3-container" action="." method="post">
           <fieldset class="w3-round-large">
-            <legend class="w3-text-teal w3-xxlarge w3-center">Nom du quiz</legend>
-            
+            <legend id="quiz" class="w3-text-teal w3-xxlarge w3-center">Nom du quiz</legend>
+
             <label class="w3-text-teal w3-large w3-left w3-margin-right" for="quest">Question : </label>
             <p id="quest" class="w3-text-teal w3-large">x/x</p><br>
-            
+
             <label class="w3-text-teal w3-large w3-left w3-margin-right" for="mult">Multiplicateur : </label>
             <p id="mult" class="w3-text-teal w3-large">test</p>
-            
+
             <div class="w3-row w3-center">
-              <p class="w3-text-teal w3-xxlarge w3-center w3-input">contenu de la question</p><br>
+              <p id="question" class="w3-text-teal w3-xxlarge w3-center w3-input">contenu de la question</p><br>
             </div>
 
             <div class="w3-row-padding w3-center">
@@ -62,8 +62,17 @@ and open the template in the editor.
           </fieldset>
         </form>
       </div>
-
+      <p><input type="button" value="TEST" id="test" /></p>
+      <p><input type="button" value="2" id="btn2" /></p>
+      <p><input type="button" value="3" id="btn3" /></p>
+      <p><input type="button" value="4" id="btn4" /></p>
       <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/participationQuiz.js"></script>
   </body>
 </html>
