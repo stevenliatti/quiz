@@ -2,9 +2,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const authConfig = require('../../config/config');
 
+const tokenDuration = 8 * 3600;
+
 function generateToken(user) {
     return jwt.sign(user, authConfig.secret, {
-        expiresIn: 8 * 3600
+        expiresIn: tokenDuration
     });
 }
 
@@ -18,10 +20,9 @@ function setUserInfo(request) {
 
 exports.login = function(req, res) {
     const userInfo = setUserInfo(req.user);
-    res.status(200).json({
-        token: 'JWT ' + generateToken(userInfo),
-        user: userInfo
-    });
+    userInfo.token = 'JWT ' + generateToken(userInfo);
+    userInfo.tokenExpire = Math.floor(Date.now() / 1000) + tokenDuration;
+    res.status(200).json(userInfo);
 }
 
 exports.register = function(req, res, next) {
