@@ -15,5 +15,5 @@ exports.createQuiz = function(req, res) {
             message: 'Quiz saved !'
         });        
     })
-    .catch(error => { use.send_error(error, res, 500, error); });
+    .catch(error => { use.sendError(error, res, 500, error); });
 }

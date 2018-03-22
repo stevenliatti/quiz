@@ -25,7 +25,7 @@ and open the template in the editor.
                 <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
                     <i class="fa fa-remove"></i>
                 </a>
-                <img src="http://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
+                <img src="https://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
                 <h4><b>MENU</b></h4>
             </div>
             <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar()"></div>
@@ -39,7 +39,7 @@ and open the template in the editor.
 
             <!-- Header -->
             <header id="portfolio">
-                <a href="#"><img src="http://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+                <a href="#"><img src="https://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
                 <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
                 <div class="w3-container">
                     <h1><b>YouQuiz</b></h1>
@@ -120,6 +120,7 @@ and open the template in the editor.
                 document.getElementById("myOverlay").style.display = "none";
             }
         </script>
+        <script src="js/config.js"></script>
         <script>
             let manager = new ManagerFormCreationQuiz();
             $("#btnAddQuestion").on("click", function () {
@@ -132,7 +133,7 @@ and open the template in the editor.
                 quiz.addQuestions(allQuestions);
                 console.log(quiz);
 
-                $.ajax("http://172.20.15.35:8080/createquiz", {
+                $.ajax("https://" + SERVER_IP + "/createquiz", {
                     data: JSON.stringify(quiz),
                     contentType: 'application/json',
                     type: 'POST'

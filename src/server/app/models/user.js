@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 UserSchema.pre('save', function(next) {
-    const SALT_FACTOR = 42;
+    const SALT_FACTOR = require('../../pass').SALT_FACTOR;
     let user = this;
 
     if (!user.isModified('password')) return next();

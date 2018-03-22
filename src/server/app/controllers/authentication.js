@@ -4,7 +4,7 @@ const authConfig = require('../../config/config');
 
 function generateToken(user) {
     return jwt.sign(user, authConfig.secret, {
-        expiresIn: 10080
+        expiresIn: 8 * 3600
     });
 }
 
@@ -16,7 +16,7 @@ function setUserInfo(request) {
     };
 }
 
-exports.login = function(req, res, next) {
+exports.login = function(req, res) {
     const userInfo = setUserInfo(req.user);
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
