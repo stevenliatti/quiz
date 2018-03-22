@@ -61,11 +61,11 @@ const answerTimeout = (socket, client) =>
 	console.log(question);
 
 	let answerConfirm = {
-		idQuestion: idCurrentQuestion,
-		rightAnswer: question.rightAnswer,
-		status : StatusQuestion.TIMEOUT, 
-		score : (++clients[socket.id].score),
-		coefficient : clients[socket.id].coeff
+		'idQuestion'  : question.id,
+		'rightAnswer' : question.rightAnswer,
+		'status'      : StatusQuestion.TIMEOUT, 
+		'score'       : (++clients[socket.id].score),
+		'coefficient' : clients[socket.id].coeff
 		// /* verifier si necessaire */
 		// idUser,
 		// idQuiz
@@ -111,8 +111,8 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('NEXT_QUESTION', function (data) {
+
 		let status = getStatusGame(clients[socket.id]);
-		
 		clearTimeout(timeoutController);
 		
 		if(getStatusGame(clients[socket.id]) === StatusGame.IN_PROGRESS) {
@@ -120,15 +120,25 @@ io.on('connection', function (socket) {
 			let idx = getCurrentQuestionId(clients[socket.id]);
 			let question = getQuestion(clients[socket.id],idx);
 
-			question.questionIndex = idx;
-			question.questionCount = clients[socket.id].quiz.nbQuestions;
-			socket.emit('NEW_QUESTION', question);
+			let newQuestion = 
+			{
+				'idQuestion'    : question.id,
+				'nameQuestion'  : question.name,
+				'answers'       : question.answers,
+				'time'          : question.answersTime,
+				'questionIndex' : idx,
+				'questionCount' : clients[socket.id].quiz.nbQuestions
+			}
+
+			socket.emit('NEW_QUESTION', newQuestion);
+
 
 			timeoutController = setTimeout(function(){
 				answerTimeout(socket, clients[socket.id]);
 			},question.answerTime*MS);
 
 			clients[socket.id].questionIndex++;
+
 			//TODO: Remove when answer timeout is fixe 
 			clients[socket.id].time = currentTime();
 
@@ -146,15 +156,17 @@ io.on('connection', function (socket) {
 		
 		//Check if player has select the correct answer
 		if (data.selectedAnswer === question.rightAnswer) {
-			
-		}
+			// clients[socket.id].results = {
+			// };
 
+		}
+		//TODO
 		let answerConfirm = {
-			idQuestion: idCurrentQuestion,
-			rightAnswer: question.rightAnswer,
-			status : StatusQuestion.CHECK, 
-			score : (++clients[socket.id].score),
-			coefficient : clients[socket.id].coeff
+			'idQuestion'  : idCurrentQuestion,
+			'rightAnswer' : question.rightAnswer,
+			'status'      : StatusQuestion.CHECK, 
+			'score'       : (++clients[socket.id].score),
+			'coefficient' : clients[socket.id].coeff
 			// /* verifier si necessaire */
 			// idUser,
 			// idQuiz

@@ -9,7 +9,7 @@ MESSAGE : JOIN
 MESSAGE : NEW_QUESTION
 {
     idQuestion,
-    question,
+    nameQuestion,
     answers [ {id, content} ],
 	time,
 	status {START, IN_PROGRESS, END},
@@ -25,7 +25,7 @@ MESSAGE : NEW_QUESTION
 MESSAGE : ANSWER / ANSWER_CONFIRM
 {
     idQuestion,
-    idAnswer,
+    rightAnswer,
     status { TIMEOUT, CHECK }
     score,
 	coefficient,
@@ -42,7 +42,7 @@ MESSAGE : NEXT_QUESTION
 
 MESSAGE : QUIZ_FINISH
 {
-    
+    status : END
 }
 ```
 
