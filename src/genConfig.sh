@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [[ $# != 4 ]]; then
-    echo "Usage: ./genConfig.sh <secret> <dbName> <serverPort> <user>"
-    echo "ex: ./genConfig.sh secret yourquiz 3000 steven"
+if [[ $# != 3 ]]; then
+    echo "Usage: ./genConfig.sh <secret> <user> <serverPort>"
+    echo "ex: ./genConfig.sh secret steven 3000"
     exit 1
 fi
 
@@ -15,4 +15,4 @@ echo "    'dbUrl': 'mongodb://localhost/$2'," >> $SERVER_FILE
 echo "    'serverPort': $3" >> $SERVER_FILE
 echo "}" >> $SERVER_FILE
 
-echo "const SERVER_IP = '$4.eracnos.ch';" > $CLIENT_FILE
+echo "const SERVER_IP = '$2.eracnos.ch';" > $CLIENT_FILE

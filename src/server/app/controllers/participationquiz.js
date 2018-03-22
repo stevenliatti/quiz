@@ -15,7 +15,7 @@ exports.createParticipation = function(req, res) {
             message: 'Quiz ended !'
         });        
     })
-    .catch(error => { use.send_error(error, res, 500, error); });
+    .catch(error => { use.sendError(error, res, 500, error); });
 }
 
 exports.start = function(req, res) {
@@ -32,7 +32,7 @@ exports.start = function(req, res) {
     //         message: 'Quiz ended !'
     //     });        
     // })
-    // .catch(error => { use.send_error(error, res, 500, error); });
+    // .catch(error => { use.sendError(error, res, 500, error); });
     // io.on('connection', function (socket) {
     //     // socket.emit('news', { hello: 'world' });
     //     // socket.on('my other event', function (data) {
