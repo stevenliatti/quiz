@@ -16,7 +16,8 @@ socket.on('NEW_QUESTION', function(message) {
 });
 
 socket.on('ANSWER_CONFIRM', function(message) {
-    console.log('ANSWER_CONFIRM : ' + message);
+    console.log('ANSWER_CONFIRM : ');
+    console.log(message);
 });
 
 socket.on('news', function(message) {
@@ -24,7 +25,8 @@ socket.on('news', function(message) {
 });
 
 socket.on('ANSWER', function(message) {
-    console.log('ANSWER : ' + message);
+    console.log('ANSWER : ');
+    console.log(message);
 });
 
 $('#join').click(function () {

@@ -33,14 +33,14 @@ log.info('server listen on port', config.serverPort)
 const clients = [];
 
 const StatusGame = Object.freeze({
-    START:        Symbol("start"),
-    IN_PROGRESS:  Symbol("in_progress"),
-    END:          Symbol("end")
+    START:        "start",
+    IN_PROGRESS:  "in_progress",
+    END:          "end"
 });
 
 const StatusQuestion = Object.freeze({
-    TIMEOUT:      Symbol("timeout"),
-    CHECK:        Symbol("check")
+    TIMEOUT:      "timeout",
+    CHECK:        "check"
 });
 
 const currentTime = () => Math.round(new Date().getTime() / 1000);
@@ -60,7 +60,6 @@ function getStatusGame(client) {
 
 // const getChain = (correctAw) => 
 
-// status {START, IN_PROGRESS, END}
 
 const Quiz = require("./app/models/quiz");
 
@@ -113,17 +112,18 @@ io.on('connection', function (socket) {
 		//test question time ? a un autre endroit
 
 		if (clients[socket.id].statusQuestion === StatusQuestion.CHECK) {
-			socket.emit('ANSWER_CONFIRM', {
-				idQuestion: "0",
-				idAnswer: "1",
+			let answerConfirm = {
+				idQuestion: 0,
+				idAnswer: 1,
 				status : StatusQuestion.CHECK, 
-				score : (clients[socket.id].score++)
-				// coefficient,
-
+				score : (++clients[socket.id].score),
+				coefficient : clients[socket.id].coeff
 				// /* verifier si necessaire */
 				// idUser,
 				// idQuiz
-			});
+			};
+			console.log(answerConfirm);
+			socket.emit('ANSWER_CONFIRM', answerConfirm);
 		}
 	});
 
