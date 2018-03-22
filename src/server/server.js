@@ -133,7 +133,7 @@ io.on('connection', function (socket) {
 			clients[socket.id].time = currentTime();
 
 		}else if(status === StatusGame.END){
-			socket.emit('NEW_QUESTION', {"status" : StatusGame.END});
+			socket.emit('QUIZ_FINISH', {"status" : StatusGame.END});
 		}
 	});
 
@@ -146,7 +146,7 @@ io.on('connection', function (socket) {
 		
 		//Check if player has select the correct answer
 		if (data.selectedAnswer === question.rightAnswer) {
-
+			
 		}
 
 		let answerConfirm = {
