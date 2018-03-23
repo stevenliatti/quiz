@@ -95,7 +95,7 @@ io.on('connection', function (socket) {
 	socket.on('JOIN', function (data) {
 
 		console.log("JOIN id " + socket.id);
-		clients[socket.id] = data; //idUser, idQuiz, token
+		clients[socket.id] = JSON.parse(data); //idUser, idQuiz, token
 		clients[socket.id].score = 0;
 		clients[socket.id].coeff = 0;
 		clients[socket.id].questionIndex = 0;
@@ -103,9 +103,9 @@ io.on('connection', function (socket) {
 
 		Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
 			//Check if quiz exist
-			// if (quiz === null) { 
-			// 	io.sockets.sockets[socket.id].disconnect();
-			// }
+			if (quiz === null) { 
+				io.sockets.sockets[socket.id].disconnect();
+			}
 			clients[socket.id].quiz = quiz;
 		});
 	});
