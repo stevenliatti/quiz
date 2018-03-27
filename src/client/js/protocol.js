@@ -38,7 +38,7 @@ $('#nextQuestion').click(function () {
 });
 
 $('#answerQuestion').click(function () {
-    answerQuestion("p0","yes");
+    answerQuestion("p0", {"content" : "Yes"} );
 });
 
 function join() {
@@ -58,10 +58,10 @@ function nextQuestion() {
     socket.emit('NEXT_QUESTION', '');
 }
 
-function answerQuestion(pIdQuestion, pIdAnswer) {
+function answerQuestion(idQuestion, answer) {
     var myAnswer = {
-        idQuestion : pIdQuestion ,
-        selectedAnswer : pIdAnswer
+        "idQuestion" : idQuestion,
+        "rightAnswer" : answer
     };
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }
