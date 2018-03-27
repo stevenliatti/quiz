@@ -167,9 +167,9 @@ io.on('connection', function (socket) {
 		console.log(clients[socket.id].allowed);
 		console.log(checkFormatAnswer(data));
 		if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
+
 			let idCurrentQuestion = getCurrentQuestionId(clients[socket.id]);
-			console.log("data : " + data.idQuestion);
-			console.log("idCurrentQuestion : " + idCurrentQuestion);
+			
 			if (idCurrentQuestion == extractId(data.idQuestion)) 
 			{
 				clearTimeout(timeoutController);
