@@ -46,19 +46,31 @@ const StatusQuestion = Object.freeze({
 
 const currentTime = () => Math.round(new Date().getTime() / 1000);
 const getQuestion = (client,idx) => client.quiz.questions[idx];
-// const createQuestionId = (client) => "q" + client.questionIndex;
 const getCurrentQuestionId = (client) => client.questionIndex;
-// const getStatusQuestion = (client,answerTime) => ((currentTime() - client.time) > answerTime) ? StatusQuestion.TIMEOUT : StatusQuestion.CHECK;
 const getCurrentQuestion = (client) => getQuestion(client,getCurrentQuestionId(client));
+const extractId = (idQuestion) => {
+	if(idQuestion.charAt(0) === 'p') { 
+		return idQuestion.slice(1); 
+	}
+	return "";
+}
+
+const checkFormatJoin = (msg) => (msg !== null
+	&& msg.hasOwnProperty("idUser")
+	&& msg.hasOwnProperty("idQuiz")
+	&& msg.hasOwnProperty("token"));
+
+const checkFormatAnswer = (msg) => (msg !== null 
+	&& msg.hasOwnProperty("idQuestion")
+	&& msg.hasOwnProperty("rightAnswer")
+	&& msg.rightAnswer.hasOwnProperty("content"));
+
+const checkUserAllowed = (client) => (client !== null && client.hasOwnProperty("allowed") && client.allowed);
 
 const answerTimeout = (socket, client) =>
 {
 	let idCurrentQuestion = getCurrentQuestionId(client);
-	let question = getQuestion(client,idCurrentQuestion-1);
-
-	console.log("answerTimeout");
-	console.log(idCurrentQuestion);
-	console.log(question);
+	let question = getQuestion(client,idCurrentQuestion);
 
 	let answerConfirm = {
 		'idQuestion'  : question.id,
@@ -82,7 +94,6 @@ function getStatusGame(client) {
 	return client.statusGame;
 }
 
-
 const Quiz = require("./app/models/quiz");
 
 io.on('connection', function (socket) {
@@ -90,32 +101,34 @@ io.on('connection', function (socket) {
 	let timeoutController;
 
 	socket.on('JOIN', function (data) {
+		if (checkFormatJoin(data)) 
+		{
+			clients[socket.id] = data; //idUser, idQuiz, token
+			clients[socket.id].score = 0;
+			clients[socket.id].coeff = 0;
+			clients[socket.id].questionIndex = 0;
+			clients[socket.id].statusGame = StatusGame.START;
+			clients[socket.id].allowed = false;
+			clients[socket.id].results = {
+				"rightAnswers" : [],
+				"wrongAnswers" : [],
+				"correctAnswers" : 0
+			};
 
-		clients[socket.id] = data; //idUser, idQuiz, token
-		clients[socket.id].score = 0;
-		clients[socket.id].coeff = 0;
-		clients[socket.id].questionIndex = 0;
-		clients[socket.id].statusGame = StatusGame.START;
-		clients[socket.id].allowed = false;
-		clients[socket.id].results = {
-			"rightAnswers" : [],
-			"wrongAnswers" : [],
-			"correctAnswers" : 0
-		};
-
-		Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
-			//Check if quiz exist
-			if (quiz === null) {
-				//TODO: test
-				io.sockets.sockets[socket.id].disconnect();
-			}
-			clients[socket.id].allowed = true;
-			clients[socket.id].quiz = quiz;
-		});
+			Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
+				//Check if quiz exist
+				if (quiz === null) {
+					//TODO: test with wrong idQuiz
+					io.sockets.sockets[socket.id].disconnect();
+				}
+				clients[socket.id].allowed = true;
+				clients[socket.id].quiz = quiz;
+			});
+		}
 	});
 
 	socket.on('NEXT_QUESTION', function (data) {
-		if (clients[socket.id].allowed) {
+		if (checkUserAllowed(clients[socket.id])) {
 
 			let status = getStatusGame(clients[socket.id]);
 			clearTimeout(timeoutController);
@@ -151,34 +164,39 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('ANSWER', function (data) {
-		if (clients[socket.id].allowed) {
-
-			clearTimeout(timeoutController);
-
+		console.log(clients[socket.id].allowed);
+		console.log(checkFormatAnswer(data));
+		if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
 			let idCurrentQuestion = getCurrentQuestionId(clients[socket.id]);
-			let question = getQuestion(clients[socket.id], idCurrentQuestion);
-		
-			if (data.rightAnswer.content === question.rightAnswer.content) {
-				console.log("Reponse correcte");
-				 clients[socket.id].results.rightAnswers.push(data.rightAnswer.content);
-				 clients[socket.id].results.correctAnswers++;
-			}else{
-				console.log("Reponse incorrecte");
-				clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
-			}
+			console.log("data : " + data.idQuestion);
+			console.log("idCurrentQuestion : " + idCurrentQuestion);
+			if (idCurrentQuestion == extractId(data.idQuestion)) 
+			{
+				clearTimeout(timeoutController);
+				let question = getQuestion(clients[socket.id], idCurrentQuestion);
 			
-			let answerConfirm = {
-				'idQuestion'  : idCurrentQuestion,
-				'rightAnswer' : question.rightAnswer,
-				'status'      : StatusQuestion.CHECK, 
-				'score'       : (++clients[socket.id].score),
-				'coefficient' : clients[socket.id].coeff
-				// /* verifier si necessaire */
-				// idUser,
-				// idQuiz
-			};
-			socket.emit('ANSWER_CONFIRM', answerConfirm);
-			clients[socket.id].questionIndex++;
+				if (data.rightAnswer.content === question.rightAnswer.content) {
+					console.log("Reponse correcte");
+					clients[socket.id].results.rightAnswers.push(data.rightAnswer.content);
+					clients[socket.id].results.correctAnswers++;
+				}else{
+					console.log("Reponse incorrecte");
+					clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
+				}
+				
+				let answerConfirm = {
+					'idQuestion'  : idCurrentQuestion,
+					'rightAnswer' : question.rightAnswer,
+					'status'      : StatusQuestion.CHECK, 
+					'score'       : (++clients[socket.id].score),
+					'coefficient' : clients[socket.id].coeff
+					// /* verifier si necessaire */
+					// idUser,
+					// idQuiz
+				};
+				socket.emit('ANSWER_CONFIRM', answerConfirm);
+				clients[socket.id].questionIndex++;
+			}
 		}
 	});
 
