@@ -25,7 +25,7 @@ MESSAGE : NEW_QUESTION
 MESSAGE : ANSWER / ANSWER_CONFIRM
 {
     idQuestion,
-    rightAnswer,
+    rightAnswer : {content: "text_question"},
     status { TIMEOUT, CHECK }
     score,
 	coefficient,
