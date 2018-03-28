@@ -10,7 +10,7 @@ MESSAGE : NEW_QUESTION
 {
     idQuestion,
     nameQuestion,
-    answers [ {id, content} ],
+    answers [ {_id, content} ],
 	time,
 	status {START, IN_PROGRESS, END},
 	questionCount,
@@ -37,7 +37,7 @@ MESSAGE : ANSWER / ANSWER_CONFIRM
 
 MESSAGE : NEXT_QUESTION
 {
-    
+
 }
 
 MESSAGE : QUIZ_FINISH
@@ -62,4 +62,3 @@ Client->Server: NEXT_QUESTION
 Server->Client: QUIZ_FINISH
 
 ```
-

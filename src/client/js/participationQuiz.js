@@ -10,6 +10,8 @@ const PROTOCOL_ANSER_STATUS_CHECK = 'CHECK';
 
 var socket;
 
+var current_question;
+
 initParticipation("EL BAGNADOR", "5ab3cc080f6b306b124db61e", "LA CHANCLA");
 
 function initParticipation(idUser, idQuiz, token) {
@@ -20,7 +22,6 @@ function initParticipation(idUser, idQuiz, token) {
 
     // SEND NEXT_QUESTION
     nextQuestion();
-
 }
 
 // ############################################################################
@@ -45,7 +46,7 @@ function nextQuestion() {
 
 function answerQuestion(pIdQuestion, pIdAnswer) {
     var myAnswer = {
-        idQuestion : pIdQuestion ,
+        idQuestion : pIdQuestion,
         idAnswer : pIdAnswer
     };
     socket.emit(PROTOCOL_ANSWER, myAnswer);
@@ -57,6 +58,29 @@ function answerQuestion(pIdQuestion, pIdAnswer) {
 socket.on('NEW_QUESTION', function(message) {
     console.log('NEW_QUESTION : ');
     console.log(message);
+
+    current_question = message;
+
+    setNumeroQuestion(message.questionIndex, message.questionCount);
+    setQuestion(message.nameQuestion);
+    setNombreReponses(message.answers.length);
+
+    if (message.answers.length >= 1) {
+        setReponse1(message.answers[0].content);
+    }
+
+    if (message.answers.length >= 2) {
+        setReponse2(message.answers[1].content);
+    }
+
+    if (message.answers.length >= 3) {
+        setReponse3(message.answers[2].content);
+    }
+
+    if (message.answers.length >= 4) {
+        setReponse4(message.answers[3].content);
+    }
+
 });
 
 socket.on('ANSWER_CONFIRM', function(message) {
@@ -123,28 +147,34 @@ function setReponse4(reponse) {
     $('#rep4').val(reponse);
 }
 
+$('#rep1').click(function () {
+    answerQuestion(current_question.idQuestion, current_question.answers[0]._id)
+});
 
+$('#rep2').click(function () {
+    answerQuestion(current_question.idQuestion, current_question.answers[1]._id)
+});
 
+$('#rep3').click(function () {
+    answerQuestion(current_question.idQuestion, current_question.answers[2]._id)
+});
+
+$('#rep4').click(function () {
+    answerQuestion(current_question.idQuestion, current_question.answers[3]._id)
+});
 
 $('#test').click(function () {
-    setNumeroQuestion(2, 10);
-    setMultiplicateur(5.25);
-    setNomQuiz("AYAAA");
-    setQuestion("LA CHANCLA");
-    setReponse1("A")
-    setReponse2("B")
-    setReponse3("C")
-    setReponse4("D")
+
 });
 
 $('#btn2').click(function () {
-    setNombreReponses(2)
+
 });
 
 $('#btn3').click(function () {
-    setNombreReponses(3)
+
 });
 
 $('#btn4').click(function () {
-    setNombreReponses(4)
+
 });
