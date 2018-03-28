@@ -48,8 +48,13 @@ const getQuestion = (client,idx) => client.quiz.questions[idx];
 const getCurrentQuestionId = (client) => client.questionIndex;
 const getCurrentQuestion = (client) => getQuestion(client,getCurrentQuestionId(client));
 const extractId = (idQuestion) => {
+<<<<<<< HEAD
 	if(idQuestion.charAt(0) === 'q') {
 		return idQuestion.slice(1);
+=======
+	if(idQuestion.charAt(0) === 'q') { 
+		return idQuestion.slice(1); 
+>>>>>>> b430e93e502a6d584c1e70f5275f2e2c4701af9e
 	}
 	return "";
 }
