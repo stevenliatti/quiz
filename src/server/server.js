@@ -48,8 +48,8 @@ const getQuestion = (client,idx) => client.quiz.questions[idx];
 const getCurrentQuestionId = (client) => client.questionIndex;
 const getCurrentQuestion = (client) => getQuestion(client,getCurrentQuestionId(client));
 const extractId = (idQuestion) => {
-	if(idQuestion.charAt(0) === 'p') { 
-		return idQuestion.slice(1); 
+	if(idQuestion.charAt(0) === 'q') {
+		return idQuestion.slice(1);
 	}
 	return "";
 }
@@ -59,7 +59,7 @@ const checkFormatJoin = (msg) => (msg !== null
 	&& msg.hasOwnProperty("idQuiz")
 	&& msg.hasOwnProperty("token"));
 
-const checkFormatAnswer = (msg) => (msg !== null 
+const checkFormatAnswer = (msg) => (msg !== null
 	&& msg.hasOwnProperty("idQuestion")
 	&& msg.hasOwnProperty("rightAnswer")
 	&& msg.rightAnswer.hasOwnProperty("content"));
@@ -74,7 +74,7 @@ const answerTimeout = (socket, client) =>
 	let answerConfirm = {
 		'idQuestion'  : question.id,
 		'rightAnswer' : question.rightAnswer,
-		'status'      : StatusQuestion.TIMEOUT, 
+		'status'      : StatusQuestion.TIMEOUT,
 		'score'       : (++clients[socket.id].score),
 		'coefficient' : clients[socket.id].coeff
 		// /* verifier si necessaire */
@@ -100,7 +100,7 @@ io.on('connection', function (socket) {
 	let timeoutController;
 
 	socket.on('JOIN', function (data) {
-		if (checkFormatJoin(data)) 
+		if (checkFormatJoin(data))
 		{
 			clients[socket.id] = data; //idUser, idQuiz, token
 			clients[socket.id].score = 0;
@@ -131,13 +131,13 @@ io.on('connection', function (socket) {
 
 			let status = getStatusGame(clients[socket.id]);
 			clearTimeout(timeoutController);
-			
+
 			if(status === StatusGame.IN_PROGRESS) {
 
 				let idx = getCurrentQuestionId(clients[socket.id]);
 				let question = getQuestion(clients[socket.id],idx);
 
-				let newQuestion = 
+				let newQuestion =
 				{
 					'idQuestion'    : question.id,
 					'nameQuestion'  : question.name,
@@ -153,7 +153,7 @@ io.on('connection', function (socket) {
 					answerTimeout(socket, clients[socket.id]);
 				},question.answerTime*MS);
 
-				//TODO: Remove when answer timeout is fixe 
+				//TODO: Remove when answer timeout is fixe
 				clients[socket.id].time = currentTime();
 
 			}else if(status === StatusGame.END){
@@ -163,32 +163,27 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('ANSWER', function (data) {
-		console.log(clients[socket.id].allowed);
-		console.log(checkFormatAnswer(data));
-
 		//TODO: fix multipes requests answers
 		if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
 
 			let idCurrentQuestion = getCurrentQuestionId(clients[socket.id]);
-			
-			if (idCurrentQuestion == extractId(data.idQuestion)) 
+
+			if (idCurrentQuestion == extractId(data.idQuestion))
 			{
 				clearTimeout(timeoutController);
 				let question = getQuestion(clients[socket.id], idCurrentQuestion);
-			
+
 				if (data.rightAnswer.content === question.rightAnswer.content) {
-					console.log("Reponse correcte");
 					clients[socket.id].results.rightAnswers.push(data.rightAnswer.content);
 					clients[socket.id].results.correctAnswers++;
-				}else{
-					console.log("Reponse incorrecte");
+				} else {
 					clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
 				}
-				
+
 				let answerConfirm = {
 					'idQuestion'  : question.id,
 					'rightAnswer' : question.rightAnswer,
-					'status'      : StatusQuestion.CHECK, 
+					'status'      : StatusQuestion.CHECK,
 					'score'       : (++clients[socket.id].score),
 					'coefficient' : clients[socket.id].coeff
 					// /* verifier si necessaire */
@@ -201,7 +196,7 @@ io.on('connection', function (socket) {
 		}
 	});
 
-	socket.on('disconnect', function () { 
+	socket.on('disconnect', function () {
 		//Clear client
 		clients[socket.id] = {};
 	});

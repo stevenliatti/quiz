@@ -38,7 +38,7 @@ $('#nextQuestion').click(function () {
 });
 
 $('#answerQuestion').click(function () {
-    answerQuestion("p0", {"content" : "Yes"} );
+    answerQuestion("q0", {"content" : "Yes"} );
 });
 
 function join() {

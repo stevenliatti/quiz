@@ -44,11 +44,13 @@ function nextQuestion() {
     socket.emit('NEXT_QUESTION', '');
 }
 
-function answerQuestion(pIdQuestion, pIdAnswer) {
+function answerQuestion(pIdQuestion, pRightAnswer) {
     var myAnswer = {
         idQuestion : pIdQuestion,
-        idAnswer : pIdAnswer
+        rightAnswer : pRightAnswer
     };
+
+    console.log(myAnswer);
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }
 
@@ -148,19 +150,19 @@ function setReponse4(reponse) {
 }
 
 $('#rep1').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[0]._id)
+    answerQuestion(current_question.idQuestion, current_question.answers[0].content)
 });
 
 $('#rep2').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[1]._id)
+    answerQuestion(current_question.idQuestion, current_question.answers[1].content)
 });
 
 $('#rep3').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[2]._id)
+    answerQuestion(current_question.idQuestion, current_question.answers[2].content)
 });
 
 $('#rep4').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[3]._id)
+    answerQuestion(current_question.idQuestion, current_question.answers[3].content)
 });
 
 $('#test').click(function () {
