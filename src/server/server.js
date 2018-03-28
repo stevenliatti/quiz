@@ -140,7 +140,7 @@ io.on('connection', function (socket) {
 
 				let newQuestion = 
 				{
-					'idQuestion'    : question._id,
+					'idQuestion'    : question.id,
 					'nameQuestion'  : question.name,
 					'answers'       : question.answers,
 					'time'          : question.answersTime,
