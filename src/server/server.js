@@ -6,7 +6,6 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-// const shortid = require('shortid');
 
 const mongoose = require('mongoose');
 const morgan = require('morgan');                   // log requests to the console (express4)
@@ -166,6 +165,8 @@ io.on('connection', function (socket) {
 	socket.on('ANSWER', function (data) {
 		console.log(clients[socket.id].allowed);
 		console.log(checkFormatAnswer(data));
+
+		//TODO: fix multipes requests answers
 		if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
 
 			let idCurrentQuestion = getCurrentQuestionId(clients[socket.id]);
@@ -185,7 +186,7 @@ io.on('connection', function (socket) {
 				}
 				
 				let answerConfirm = {
-					'idQuestion'  : idCurrentQuestion,
+					'idQuestion'  : question.id,
 					'rightAnswer' : question.rightAnswer,
 					'status'      : StatusQuestion.CHECK, 
 					'score'       : (++clients[socket.id].score),
