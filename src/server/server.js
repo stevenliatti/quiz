@@ -48,7 +48,7 @@ const getQuestion = (client,idx) => client.quiz.questions[idx];
 const getCurrentQuestionId = (client) => client.questionIndex;
 const getCurrentQuestion = (client) => getQuestion(client,getCurrentQuestionId(client));
 const extractId = (idQuestion) => {
-	if(idQuestion.charAt(0) === 'p') { 
+	if(idQuestion.charAt(0) === 'q') { 
 		return idQuestion.slice(1); 
 	}
 	return "";
@@ -163,9 +163,6 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('ANSWER', function (data) {
-		console.log(clients[socket.id].allowed);
-		console.log(checkFormatAnswer(data));
-
 		//TODO: fix multipes requests answers
 		if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
 
@@ -177,11 +174,9 @@ io.on('connection', function (socket) {
 				let question = getQuestion(clients[socket.id], idCurrentQuestion);
 			
 				if (data.rightAnswer.content === question.rightAnswer.content) {
-					console.log("Reponse correcte");
 					clients[socket.id].results.rightAnswers.push(data.rightAnswer.content);
 					clients[socket.id].results.correctAnswers++;
-				}else{
-					console.log("Reponse incorrecte");
+				} else {
 					clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
 				}
 				
