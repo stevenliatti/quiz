@@ -7,50 +7,50 @@
     tools:context="hepia.ch.yourquiz.ParticipateQuizActivity"
     android:background="@color/colorBackground">
 
-    <Button
-        android:id="@+id/buttonAnswerA"
-        android:layout_width="361dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
-        android:text="Proposition A"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswerB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonAnswerA"-->
+        <!--android:layout_width="361dp"-->
+        <!--android:layout_height="43dp"-->
+        <!--android:layout_marginEnd="12dp"-->
+        <!--android:layout_marginStart="12dp"-->
+        <!--android:text="Proposition A"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/buttonAnswerB"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
-    <Button
-        android:id="@+id/buttonAnswerB"
-        android:layout_width="361dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
-        android:text="Proposition B"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswerC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonAnswerB"-->
+        <!--android:layout_width="361dp"-->
+        <!--android:layout_height="43dp"-->
+        <!--android:layout_marginEnd="12dp"-->
+        <!--android:layout_marginStart="12dp"-->
+        <!--android:text="Proposition B"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/buttonAnswerC"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
-    <Button
-        android:id="@+id/buttonAnswerC"
-        android:layout_width="361dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
-        android:text="Proposition C"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswerD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonAnswerC"-->
+        <!--android:layout_width="361dp"-->
+        <!--android:layout_height="43dp"-->
+        <!--android:layout_marginEnd="12dp"-->
+        <!--android:layout_marginStart="12dp"-->
+        <!--android:text="Proposition C"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/buttonAnswerD"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
-    <Button
-        android:id="@+id/buttonAnswerD"
-        android:layout_width="361dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
-        android:text="Proposition D"
-        app:layout_constraintBottom_toTopOf="@+id/textViewTimeLeft"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonAnswerD"-->
+        <!--android:layout_width="361dp"-->
+        <!--android:layout_height="43dp"-->
+        <!--android:layout_marginBottom="3dp"-->
+        <!--android:layout_marginEnd="12dp"-->
+        <!--android:layout_marginStart="12dp"-->
+        <!--android:text="Proposition D"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/textViewTimeLeft"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
     <ProgressBar
         android:id="@+id/progressBarTimeLeft"
@@ -125,5 +125,19 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layoutAnswers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTimeLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtQuestion"/>
 
 </android.support.constraint.ConstraintLayout>

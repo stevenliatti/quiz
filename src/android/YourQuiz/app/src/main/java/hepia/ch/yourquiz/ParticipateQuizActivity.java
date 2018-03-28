@@ -32,10 +32,10 @@ public class ParticipateQuizActivity extends AppCompatActivity {
         txtQuestion = findViewById(R.id.txtQuestion);
         txtViewTimeLeft =  findViewById(R.id.textViewTimeLeft);
 
-        btnAnswerA = findViewById(R.id.buttonAnswerA);
-        btnAnswerB = findViewById(R.id.buttonAnswerB);
-        btnAnswerC = findViewById(R.id.buttonAnswerC);
-        btnAnswerD = findViewById(R.id.buttonAnswerD);
+//        btnAnswerA = findViewById(R.id.buttonAnswerA);
+//        btnAnswerB = findViewById(R.id.buttonAnswerB);
+//        btnAnswerC = findViewById(R.id.buttonAnswerC);
+//        btnAnswerD = findViewById(R.id.buttonAnswerD);
 
         progressBarTimeLeft = findViewById(R.id.progressBarTimeLeft);
     }

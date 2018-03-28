@@ -1,5 +1,10 @@
 package hepia.ch.yourquiz.models;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 /**
  * Created by raed on 23.03.18.
  */
@@ -7,7 +12,7 @@ package hepia.ch.yourquiz.models;
 public class QuestionModel {
     private String idQuestion;
     private String nameQuestion;
-    private String answers;
+    private ArrayList<String> answers = new ArrayList<>();
     private String time;
     private String questionIndex;
     private String questionCount;
@@ -16,7 +21,7 @@ public class QuestionModel {
 
     }
 
-    public QuestionModel(String idQuestion, String nameQuestion, String answers, String time, String questionIndex, String questionCount) {
+    public QuestionModel(String idQuestion, String nameQuestion, ArrayList answers, String time, String questionIndex, String questionCount) {
 
         this.idQuestion = idQuestion;
         this.nameQuestion = nameQuestion;
@@ -34,7 +39,7 @@ public class QuestionModel {
         return nameQuestion;
     }
 
-    public String getAnswers() {
+    public ArrayList<String> getAnswers() {
         return answers;
     }
 
@@ -58,10 +63,6 @@ public class QuestionModel {
         this.nameQuestion = nameQuestion;
     }
 
-    public void setAnswers(String answers) {
-        this.answers = answers;
-    }
-
     public void setTime(String time) {
         this.time = time;
     }
@@ -72,5 +73,11 @@ public class QuestionModel {
 
     public void setQuestionCount(String questionCount) {
         this.questionCount = questionCount;
+    }
+
+    public void setAnswers(JSONArray JSONanswers) throws JSONException {
+        for (int i = 0; i < JSONanswers.length(); i++) {
+            answers.add(JSONanswers.getJSONObject(i).getString("content"));
+        }
     }
 }

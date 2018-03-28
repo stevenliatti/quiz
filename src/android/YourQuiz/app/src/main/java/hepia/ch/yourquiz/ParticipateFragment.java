@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -75,12 +77,29 @@ public class ParticipateFragment extends Fragment {
 
                     try {
                         newQuestion.setNameQuestion(data.getString("nameQuestion"));
+                        newQuestion.setAnswers(data.getJSONArray("answers"));
+                        Log.e("answers", String.valueOf(data.getJSONArray("answers")));
                     } catch (JSONException e) {
                         return;
                     }
 
                     TextView tv = view.findViewById(R.id.txtQuestion);
                     tv.setText(newQuestion.getNameQuestion());
+
+                    LinearLayout answersLayout = view.findViewById(R.id.layoutAnswers);
+
+                    for (String s : newQuestion.getAnswers()) {
+                        Button b1 = new Button(view.getContext());
+                        b1.setText(s);
+                        answersLayout.addView(b1);
+                    }
+
+//                    TextView answerA = view.findViewById(R.id.buttonAnswerA);
+//                    TextView answerB = view.findViewById(R.id.buttonAnswerB);
+//                    TextView answerC = view.findViewById(R.id.buttonAnswerC);
+//                    TextView answerD = view.findViewById(R.id.buttonAnswerD);
+//                    answerA.setText(newQuestion.getAnswers().get(0));
+//                    answerB.setText(newQuestion.getAnswers().get(1));
                 }
             });
         }
