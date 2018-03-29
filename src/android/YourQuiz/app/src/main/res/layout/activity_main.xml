@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context="hepia.ch.yourquiz.MainActivity"
     android:background="@color/colorBackground">
-    <Button
-        android:id="@+id/btnCreateQuiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="267dp"
-        android:layout_marginStart="16dp"
-        android:text="CREER QUIZ"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnParticipateQuiz" />
 
     <Button
         android:id="@+id/btnParticipateQuiz"

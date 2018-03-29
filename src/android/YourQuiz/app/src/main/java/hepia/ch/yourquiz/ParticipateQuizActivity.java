@@ -8,23 +8,26 @@ import android.widget.TextView;
 
 public class ParticipateQuizActivity extends AppCompatActivity {
 
-    TextView txtQuestionNumber = (TextView)findViewById(R.id.txtQuestionNumber);
-    TextView txtScore = (TextView)findViewById(R.id.txtScore);
-    TextView txtCoeff = (TextView)findViewById(R.id.txtCoeff);
-    TextView txtQuestion = (TextView)findViewById(R.id.txtQuestion);
-    TextView txtViewTimeLeft = findViewById(R.id.textViewTimeLeft);
+    TextView txtQuestionNumber;
+    TextView txtScore;
+    TextView txtCoeff;
+    TextView txtQuestion;
+    TextView txtViewTimeLeft;
 
-    Button btnAnswerA = findViewById(R.id.buttonAnswerA);
-    Button btnAnswerB = findViewById(R.id.buttonAnswerB);
-    Button btnAnswerC = findViewById(R.id.buttonAnswerC);
-    Button btnAnswerD = findViewById(R.id.buttonAnswerD);
-
-    ProgressBar progressBarTimeLeft = findViewById(R.id.progressBarTimeLeft);
+    ProgressBar progressBarTimeLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_participate_quiz);
+
+        txtQuestionNumber = findViewById(R.id.txtQuestionNumber);
+        txtScore = findViewById(R.id.txtScore);
+        txtCoeff = findViewById(R.id.txtCoeff);
+        txtQuestion = findViewById(R.id.txtQuestion);
+        txtViewTimeLeft =  findViewById(R.id.textViewTimeLeft);
+
+        progressBarTimeLeft = findViewById(R.id.progressBarTimeLeft);
     }
 
     private void setQuestionNumber(int current, int total) {
@@ -41,22 +44,6 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
     private void setQuestion(String question) {
         txtQuestion.setText(question);
-    }
-
-    private void setAnswerA(String answer) {
-        btnAnswerA.setText(answer);
-    }
-
-    private void setAnswerB(String answer) {
-        btnAnswerB.setText(answer);
-    }
-
-    private void setAnswerC(String answer) {
-        btnAnswerC.setText(answer);
-    }
-
-    private void setAnswerD(String answer) {
-        btnAnswerD.setText(answer);
     }
 
     private void setTimeLeftMax(int max) {

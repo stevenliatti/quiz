@@ -24,15 +24,7 @@ public class MainActivity extends AppCompatActivity {
         final Button btnParticipateQuiz = findViewById(R.id.btnParticipateQuiz);
         btnParticipateQuiz.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ParticipateQuizActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        final Button btnCreateQuiz = findViewById(R.id.btnCreateQuiz);
-        btnCreateQuiz.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CreateQuizActivity.class);
+                Intent intent = new Intent(v.getContext(), ParticipateActivity.class);
                 startActivity(intent);
             }
         });

@@ -16,7 +16,8 @@ socket.on('NEW_QUESTION', function(message) {
 });
 
 socket.on('ANSWER_CONFIRM', function(message) {
-    console.log('ANSWER_CONFIRM : ' + message);
+    console.log('ANSWER_CONFIRM : ');
+    console.log(message);
 });
 
 socket.on('news', function(message) {
@@ -24,7 +25,8 @@ socket.on('news', function(message) {
 });
 
 socket.on('ANSWER', function(message) {
-    console.log('ANSWER : ' + message);
+    console.log('ANSWER : ');
+    console.log(message);
 });
 
 $('#join').click(function () {
@@ -34,11 +36,18 @@ $('#join').click(function () {
 $('#nextQuestion').click(function () {
     nextQuestion();
 });
+var id = 0;
+
+$('#answerQuestion').click(function () {
+
+    answerQuestion("q" + id, {"content" : "Yes"} );
+    id++;
+});
 
 function join() {
     var myJoin = {
         idUser : "EL BAGNADOR",
-        idQuiz : "ISSOU",
+        idQuiz : "5abcceb9cfcbc30e8fe2eae3",
         token : "LA CHANCLA"
     };
     console.log(myJoin);
@@ -52,11 +61,12 @@ function nextQuestion() {
     socket.emit('NEXT_QUESTION', '');
 }
 
-function answerQuestion(pIdQuestion, pIdAnswer, ) {
+function answerQuestion(idQuestion, answer) {
     var myAnswer = {
-        idQuestion : pIdQuestion ,
-        idAnswer : pIdAnswer
+        "idQuestion" : idQuestion,
+        "rightAnswer" : answer
     };
-
+    console.log('EMIT ANSWER');
+    console.log(myAnswer);
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }

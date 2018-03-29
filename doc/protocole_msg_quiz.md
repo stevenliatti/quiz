@@ -9,8 +9,8 @@ MESSAGE : JOIN
 MESSAGE : NEW_QUESTION
 {
     idQuestion,
-    question,
-    answers [ {id, content} ],
+    nameQuestion,
+    answers [ {_id, content} ],
 	time,
 	status {START, IN_PROGRESS, END},
 	questionCount,
@@ -25,7 +25,7 @@ MESSAGE : NEW_QUESTION
 MESSAGE : ANSWER / ANSWER_CONFIRM
 {
     idQuestion,
-    idAnswer,
+    rightAnswer : {content: "text_question"},
     status { TIMEOUT, CHECK }
     score,
 	coefficient,
@@ -37,12 +37,12 @@ MESSAGE : ANSWER / ANSWER_CONFIRM
 
 MESSAGE : NEXT_QUESTION
 {
-    
+
 }
 
 MESSAGE : QUIZ_FINISH
 {
-    
+    status : END
 }
 ```
 
@@ -61,7 +61,4 @@ Server->Client: ANSWER_CONFIRM
 Client->Server: NEXT_QUESTION
 Server->Client: QUIZ_FINISH
 
-
-
 ```
-

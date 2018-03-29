@@ -2,26 +2,27 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const authConfig = require('../../config/config');
 
+const tokenDuration = 8 * 3600;
+
 function generateToken(user) {
-    return jwt.sign(user, authConfig.secret, {
-        expiresIn: 10080
+    return 'JWT ' + jwt.sign(user, authConfig.secret, {
+        expiresIn: tokenDuration
     });
 }
 
 function setUserInfo(request) {
-    return {
+    const userInfo = {
         _id: request._id,
         email: request.email,
         role: request.role
     };
+    userInfo.token = generateToken(userInfo);
+    userInfo.tokenExpire = Math.floor(Date.now() / 1000) + tokenDuration;
+    return userInfo;
 }
 
-exports.login = function(req, res, next) {
-    const userInfo = setUserInfo(req.user);
-    res.status(200).json({
-        token: 'JWT ' + generateToken(userInfo),
-        user: userInfo
-    });
+exports.login = function(req, res) {
+    res.status(200).json(setUserInfo(req.user));
 }
 
 exports.register = function(req, res, next) {
@@ -44,12 +45,7 @@ exports.register = function(req, res, next) {
 
         user.save(function(err, user) {
             if (err) return next(err);
-
-            const userInfo = setUserInfo(user);
-            res.status(201).json({
-                token: 'JWT ' + generateToken(userInfo),
-                user: userInfo
-            });
+            res.status(200).json(setUserInfo(user));
         });
     });
 }

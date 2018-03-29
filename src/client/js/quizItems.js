@@ -6,9 +6,11 @@ function Quiz(owner, name, startDateTime, endDateTime)
     this.endDateTime = endDateTime;
     this.owner = owner;
     this.questions = [];
+    this.nbQuestions = 0;
     this.addQuestions = function(questions)
     {
       this.questions = questions;  
+      this.nbQuestions = questions.length();
     };
 }
 

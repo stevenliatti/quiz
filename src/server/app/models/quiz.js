@@ -8,7 +8,8 @@ const QuizSchema = new mongoose.Schema({
             message: 'Question name length must be between 2 and 50'
         },
         required: true
-    },
+    }
+    ,
     startDateTime: {
         type: Date,
         validate: {
@@ -30,6 +31,10 @@ const QuizSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    nbQuestions : {
+        type: Number,
+        required: true
+    },
     questions: [{
         name: {
             type: String,
@@ -38,6 +43,10 @@ const QuizSchema = new mongoose.Schema({
                 message: 'Question name length must be between 2 and 50'
             },
             required: true
+        },
+        id: {
+            type : String,
+            required : true
         },
         answerTime: {
             type: Number,
@@ -75,7 +84,7 @@ QuizSchema.path('questions').validate(function(questions) {
 }, 'Questions can\'t be empty');
 
 QuizSchema.path('questions').schema.path('answers').validate(function(answers) {
-    return answers && answers.length >= 2;
+    return answers && answers.length >= 2 && answers.length <= 4;
 }, 'Question needs to have at least two answers');
 
 module.exports = mongoose.model('Quiz', QuizSchema);
