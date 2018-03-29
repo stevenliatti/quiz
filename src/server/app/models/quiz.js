@@ -84,7 +84,7 @@ QuizSchema.path('questions').validate(function(questions) {
 }, 'Questions can\'t be empty');
 
 QuizSchema.path('questions').schema.path('answers').validate(function(answers) {
-    return answers && answers.length >= 2;
+    return answers && answers.length >= 2 && answers.length <= 4;
 }, 'Question needs to have at least two answers');
 
 module.exports = mongoose.model('Quiz', QuizSchema);
