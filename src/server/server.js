@@ -219,6 +219,7 @@ io.on('connection', function (socket) {
 
 	socket.on('disconnect', function () {
 		//Clear client
+		clearTimeout(timeoutController);
 		clients[socket.id] = {};
 	});
 });
