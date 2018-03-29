@@ -44,7 +44,7 @@ $('#answerQuestion').click(function () {
 function join() {
     var myJoin = {
         idUser : "EL BAGNADOR",
-        idQuiz : "5ab3bcbbe0b5556757545f8e",
+        idQuiz : "5abcceb9cfcbc30e8fe2eae3",
         token : "LA CHANCLA"
     };
     console.log(myJoin);
@@ -64,5 +64,6 @@ function answerQuestion(idQuestion, answer) {
         "rightAnswer" : answer
     };
     console.log(myAnswer);
+    console.log('EMIT ANSWER');
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }

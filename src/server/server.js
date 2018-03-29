@@ -115,18 +115,15 @@ io.on('connection', function (socket) {
 			};
 
 			Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
-				//Check if quiz exist
-				if (quiz === null) {
-					//TODO: test with wrong idQuiz
-					io.sockets.sockets[socket.id].disconnect();
-				}
+
+				if (quiz === undefined) { return; }
 				clients[socket.id].allowed = true;
 				clients[socket.id].quiz = quiz;
 			});
 		}
 	});
 
-	socket.on('NEXT_QUESTION', function (data) {
+	socket.on('NEXT_QUESTION', function () {
 		if (checkUserAllowed(clients[socket.id])) {
 
 			let status = getStatusGame(clients[socket.id]);
@@ -142,7 +139,7 @@ io.on('connection', function (socket) {
 					'idQuestion'    : question.id,
 					'nameQuestion'  : question.name,
 					'answers'       : question.answers,
-					'time'          : question.answersTime,
+					'time'          : question.answerTime,
 					'questionIndex' : idx,
 					'questionCount' : clients[socket.id].quiz.nbQuestions
 				}
