@@ -8,12 +8,12 @@ var allQuestions = [];
  */
 function ManagerFormCreationQuiz()
 {
-    id = (function () {
-        this.i = 0;
-        return function () {
-            return this.i++;
-        };
-    })();
+    //id = (function () {
+    //    this.i = 0;
+    //    return function () {
+    //        return this.i++;
+    //    };
+    //})();
 
     this.selectorQuestions = "";
     /***
@@ -27,20 +27,9 @@ function ManagerFormCreationQuiz()
         let questionName = $("#questionName");
 
         if (questionName.val() !== "") {
-
-            /////////////////////
-            /// manage
-            /////////////////////
+            var questionId = allQuestions.length;
+            
             allQuestions.push(new Question(questionName.val()));
-            /////////////////////
-
-            let questionId = id();
-            responseId = (function () {
-                let i = 0;
-                return function () {
-                    return i++;
-                };
-            })();
 
             let questionTarget = "#q" + questionId;
             let responseTarget = "#rq" + questionId;
@@ -48,19 +37,18 @@ function ManagerFormCreationQuiz()
 
             /* QUESTION */
 
-            $(target).append("<hr><div class=\"w3-center w3-large w3-margin\" id=\"q" + questionId + "\"></div>");
-            $(questionTarget).append("<label class=\"w3-text-teal w3-xlarge w3-margin\" >Question " + questionId + " :" + "</label><br>");
-            $(questionTarget).append("<div>" + questionName.val() + "<button class=\"w3-button w3-round-large w3-red w3-margin fa fa-times-rectangle\" type=\"button\"  onclick=\"deleteQuestion('" + "#q" + questionId + "','" + target + "')\"></button></div>");
+            $(target).append("<div class=\"w3-center w3-large w3-margin\" id=\"q" + questionId + "\"><hr></div>");
+            $(questionTarget).append("<label class=\"w3-text-teal w3-xlarge w3-margin\" >Question " + questionId + "</label><br>");
+            $(questionTarget).append("<div id =\"q" + questionId + "\">" + questionName.val() + "<button class=\"w3-button w3-round-large w3-red w3-margin fa fa-close\" type=\"button\"  onclick=\"deleteQuestion('" + "#q" + questionId + "','" + target + "'," + questionId +")\"></button></div>");
 
             if (selectorQuestions !== null) {
                 $(selectorQuestions).append("<option class=\"w3-center w3-text-teal w3-xlarge w3-margin\" value=\"" + questionName.val() + "\">" + questionName.val() + "</option>");
             }
-            let rId = responseId();
 
             /* RESPONSES */
 
             $(questionTarget).append("<div class=\"w3-row-padding w3-center\" id=\"rq" + questionId + "\"> ");
-            $(questionTarget).append('<input id="rq' + questionId + 'Name" type="text">');
+            $(questionTarget).append('<input id="rq' + questionId + 'content" placeholder="Réponse" type="text">');
             $(questionTarget).append("<button class=\"w3-button w3-round-large w3-teal w3-margin-left\" type=\"button\" onclick=\"addResponse('" + target + "','" + responseTarget + "'," + questionId + ")\">Ajouter une réponse</button>");
             $(questionTarget).append("</div>");
 
@@ -83,13 +71,16 @@ function ManagerFormCreationQuiz()
  * @returns {undefined}
  */
 function addResponse(target, responseTarget, questionId) {
-    
+
     // Check for maximum four possible answers
-    //if (currentId <= 4 && currentId >= 1) {
-        let val = $("#rq" + questionId + "Name").val();
-        if (val !== "")
-        {
-            let currentId = responseId();
+    let name = $("#rq" + questionId + "content");
+    let val = name.val();
+    if (val !== "")
+    {
+        var currentId = $("#rq"+ questionId).children('div').length;
+
+        //$("#q" + questionId + "_r3").length === 0
+        if (currentId >=0 && currentId < 4) {
             let idBlock = "q" + questionId + "_r" + currentId;
             let responseBlock = "#" + idBlock;
 
@@ -102,60 +93,49 @@ function addResponse(target, responseTarget, questionId) {
             allQuestions[questionId].addAnswer(val);
             /////////////////////
 
-            $(responseBlock).append("<button class=\"w3-button w3-small w3-round-large w3-red w3-margin fa fa-times-rectangle\" type=\"button\" onclick=\"deleteResponse('" + responseBlock + "','" + responseTarget + "','" + questionId + "')\"></button>");
-            $("#rq" + questionId + "Name").val("");
+            $(responseBlock).append("<button class=\"w3-button w3-small w3-round-large w3-red w3-margin fa fa-close\" type=\"button\" onclick=\"deleteResponse('" + responseBlock + "','" + responseTarget + "','" + questionId + "')\"></button>");
+            $("#rq" + questionId + "content").val("");
         }
-    //}
+    }
 }
 
-/***
+/**
  * 
  * @param {type} target
  * @param {type} questionsTarget
+ * @param {type} deletedQuestionId
  * @returns {undefined}
  */
-function deleteQuestion(target, questionsTarget)
+function deleteQuestion(target, questionsTarget, deletedQuestionId)
 {
+    $(target).children('hr').first().remove();
     $(target).remove();
-
-    id = (function () {
-        this.i = 0;
-        return function () {
-            return this.i++;
-        };
-    })();
-
-    $(questionsTarget).children().each(function () {
-        let questionId = id();
+    allQuestions.splice(deletedQuestionId, 1);
+    let questionId = deletedQuestionId;
+    
+    $(questionsTarget).children().slice(deletedQuestionId).each(function () {
+        console.debug($(questionsTarget).children().slice(deletedQuestionId));
         let newId = "q" + questionId;
-        let newQuestionTarget = "#" + newId;
         let responseTarget = "#rq" + questionId;
 
         /* MODIFICATION QUESTION TOOLS*/
+        
         $(this).attr("id", newId);
-        $(this).children('label').text("Question " + questionId + ":");
-        $(this).find("button:eq(0)").attr("onclick", "addResponse('#" + newId + "','#rq" + questionId + "','" + questionId + "')");
-        $(this).find("button:eq(1)").attr("onclick", "deleteQuestion('" + "#q" + questionId + "','" + "#questions" + "')");
-        $(this).find("button:eq(2)").attr("onclick", "deleteResponses('" + responseTarget + "')");
-        $(this).find("input:eq(0)").attr("id", "rq" + questionId + "Name");
-        $(this).find("div:eq(0)").attr("id", "rq" + questionId);
-
-        /* MODIFICATION RESPONSES*/
-        responseId = (function () {
-            let i = 0;
-            return function () {
-                return i++;
-            };
-        })();
-
-        $(this).find("div:eq(0)").children().each(function () {
-            let idResponse = responseId();
-            let newId = "q" + questionId + "_r" + idResponse;
+        $(this).children('label').text("Question " + questionId); //label of the question
+        $(this).find("div:eq(0)").attr("id", "q" + questionId);
+        $(this).find("button:eq(0)").attr("onclick", "deleteQuestion('" + "#q" + questionId + "','" + "#questions" + "','" + questionId +"')");
+        $(this).find("div:eq(1)").attr("id", "rq" + questionId);
+        
+        $(this).find("div:eq(1)").children().each(function (index) {
+            let newId = "q" + questionId + "_r" + index;
             $(this).attr("id", newId);
-            $(this).children().each(function () {
-                $(this).attr("onclick", "deleteResponse('#" + newId + "','#rq" + questionId + "','" + questionId + "')");
-            });
+            $(this).find("input:eq(0)").attr("onclick", "updateRightAnwser('#" + newId + "','#rq" + questionId + "','" + questionId + "')");
+            $(this).find("button:eq(0)").attr("onclick", "deleteResponse('#" + newId + "','#rq" + questionId + "','" + questionId + "')");
         });
+        $(this).children().eq(5).attr("id", "rq" + questionId + "content");
+        $(this).children().eq(6).attr("onclick", "addResponse('#" + newId + "','#rq" + questionId + "','" + questionId + "')");
+        $(this).children().eq(8).attr("onclick", "deleteResponses('" + responseTarget + "')");
+        questionId++;
     });
 
     createQuizJSON();
@@ -169,7 +149,7 @@ function deleteQuestion(target, questionsTarget)
 function deleteResponses(target)
 {
     responseId = (function () {
-        let i = 0;
+        let i = -1;
         return function () {
             return i++;
         };
@@ -190,7 +170,7 @@ function deleteResponse(target, responseTarget, questionId)
 {
     $(target).remove();
     responseId = (function () {
-        let i = 0;
+        let i = -1;
         return function () {
             return i++;
         };
