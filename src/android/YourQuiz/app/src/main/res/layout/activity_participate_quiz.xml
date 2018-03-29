@@ -61,7 +61,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:max="20"
-        android:progress="8"
+        android:progress="20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -88,7 +88,7 @@
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:text="12 secondes restantes"
+        android:text="0 seconde restantes"
         app:layout_constraintBottom_toTopOf="@+id/progressBarTimeLeft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="34dp"
         android:layout_marginTop="9dp"
-        android:text="Coeff : 1.8"
+        android:text="Coeff : 0"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtScore" />
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginTop="16dp"
-        android:text="Score : 23.4"
+        android:text="Score : 0"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

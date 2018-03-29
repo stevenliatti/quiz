@@ -14,11 +14,6 @@ public class ParticipateQuizActivity extends AppCompatActivity {
     TextView txtQuestion;
     TextView txtViewTimeLeft;
 
-    Button btnAnswerA;
-    Button btnAnswerB;
-    Button btnAnswerC;
-    Button btnAnswerD;
-
     ProgressBar progressBarTimeLeft;
 
     @Override
@@ -31,11 +26,6 @@ public class ParticipateQuizActivity extends AppCompatActivity {
         txtCoeff = findViewById(R.id.txtCoeff);
         txtQuestion = findViewById(R.id.txtQuestion);
         txtViewTimeLeft =  findViewById(R.id.textViewTimeLeft);
-
-//        btnAnswerA = findViewById(R.id.buttonAnswerA);
-//        btnAnswerB = findViewById(R.id.buttonAnswerB);
-//        btnAnswerC = findViewById(R.id.buttonAnswerC);
-//        btnAnswerD = findViewById(R.id.buttonAnswerD);
 
         progressBarTimeLeft = findViewById(R.id.progressBarTimeLeft);
     }
@@ -54,22 +44,6 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
     private void setQuestion(String question) {
         txtQuestion.setText(question);
-    }
-
-    private void setAnswerA(String answer) {
-        btnAnswerA.setText(answer);
-    }
-
-    private void setAnswerB(String answer) {
-        btnAnswerB.setText(answer);
-    }
-
-    private void setAnswerC(String answer) {
-        btnAnswerC.setText(answer);
-    }
-
-    private void setAnswerD(String answer) {
-        btnAnswerD.setText(answer);
     }
 
     private void setTimeLeftMax(int max) {

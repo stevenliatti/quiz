@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -21,8 +23,10 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
+import hepia.ch.yourquiz.models.AnswerModel;
 import hepia.ch.yourquiz.models.JoinModel;
 import hepia.ch.yourquiz.models.QuestionModel;
+import hepia.ch.yourquiz.threads.UpdateTime;
 
 /**
  * Created by raed on 22.03.18.
@@ -30,17 +34,27 @@ import hepia.ch.yourquiz.models.QuestionModel;
 
 public class ParticipateFragment extends Fragment {
     View view;
+    TextView txtQuestionNumber;
+    TextView txtScore;
+    TextView txtCoeff;
+    TextView txtQuestion;
+    TextView txtViewTimeLeft;
 
-    private final String SERVER_IP = "raed.eracnos.ch";
-    private final String SERVER_PORT = "443";
+    ProgressBar progressBarTimeLeft;
+    LinearLayout answersLayout;
+
+    private UpdateTime updateTime;
+
+    private final static String SERVER_IP = "raed.eracnos.ch";
+    private final static String SERVER_PORT = "443";
 
     final Gson gson = new Gson();
 
-    private Socket mSocket;
+    private Socket socket;
     {
         try {
-            mSocket = IO.socket("https://" + SERVER_IP + ":" + SERVER_PORT);
-        } catch (URISyntaxException e) {}
+            socket = IO.socket("https://" + SERVER_IP + ":" + SERVER_PORT);
+        } catch (URISyntaxException ignored) {}
     }
 
     @Nullable
@@ -48,18 +62,27 @@ public class ParticipateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_participate_quiz, container, false);
 
-        mSocket.on("NEW_QUESTION", onNewQuestion);
+        txtQuestionNumber = view.findViewById(R.id.txtQuestionNumber);
+        txtScore = view.findViewById(R.id.txtScore);
+        txtCoeff = view.findViewById(R.id.txtCoeff);
+        txtQuestion = view.findViewById(R.id.txtQuestion);
+        txtViewTimeLeft = view.findViewById(R.id.textViewTimeLeft);
 
-        mSocket.connect();
+        progressBarTimeLeft = view.findViewById(R.id.progressBarTimeLeft);
+        answersLayout = view.findViewById(R.id.layoutAnswers);
+
+        socket.on("NEW_QUESTION", onNewQuestion);
+
+        socket.connect();
 
         JoinModel joinModel = new JoinModel(
                 "android client",
-                "5ab27190d0e54f10ecf3fa14",
+                "5abcb8af18c9b407baf340d4",
                 "LA CHANCLA"
         );
-        mSocket.emit("JOIN", gson.toJson(joinModel));
+        socket.emit("JOIN", gson.toJson(joinModel));
 
-        mSocket.emit("NEXT_QUESTION");
+        socket.emit("NEXT_QUESTION");
 
         return view;
     }
@@ -68,40 +91,91 @@ public class ParticipateFragment extends Fragment {
 
         @Override
         public void call(final Object... args) {
+            Log.e("listener", "ho");
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
                     Log.println(Log.ASSERT , "MSG :", data.toString());
-                    QuestionModel newQuestion = new QuestionModel();
+                    final QuestionModel newQuestion;
 
                     try {
-                        newQuestion.setNameQuestion(data.getString("nameQuestion"));
-                        newQuestion.setAnswers(data.getJSONArray("answers"));
+                        newQuestion = new QuestionModel(data);
                         Log.e("answers", String.valueOf(data.getJSONArray("answers")));
                     } catch (JSONException e) {
+                        Log.e("Error", String.valueOf(data.toString()));
+                        Toast.makeText(getActivity(), "Error in parsing JSON", Toast.LENGTH_LONG).show();
                         return;
                     }
 
-                    TextView tv = view.findViewById(R.id.txtQuestion);
-                    tv.setText(newQuestion.getNameQuestion());
+                    setQuestionNumber(newQuestion.getQuestionIndex(), newQuestion.getQuestionCount());
+                    setQuestion(newQuestion.getNameQuestion());
+                    setTimeLeftMax(newQuestion.getTime());
 
-                    LinearLayout answersLayout = view.findViewById(R.id.layoutAnswers);
-
+                    answersLayout.removeAllViews();
                     for (String s : newQuestion.getAnswers()) {
-                        Button b1 = new Button(view.getContext());
-                        b1.setText(s);
-                        answersLayout.addView(b1);
+                        Button button = new Button(view.getContext());
+                        button.setText(s);
+                        answersLayout.addView(button);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AnswerModel answerModel = new AnswerModel(
+                                        newQuestion.getIdQuestion(),
+                                        ((Button)v).getText().toString()
+                                );
+                                socket.emit("ANSWER", gson.toJson(answerModel));
+                                // TODO: listen on ANSWER_CONFIRM
+                            }
+                        });
                     }
 
-//                    TextView answerA = view.findViewById(R.id.buttonAnswerA);
-//                    TextView answerB = view.findViewById(R.id.buttonAnswerB);
-//                    TextView answerC = view.findViewById(R.id.buttonAnswerC);
-//                    TextView answerD = view.findViewById(R.id.buttonAnswerD);
-//                    answerA.setText(newQuestion.getAnswers().get(0));
-//                    answerB.setText(newQuestion.getAnswers().get(1));
+                    updateTime = new UpdateTime(newQuestion.getTime(), getActivity(), ParticipateFragment.this);
+                    updateTime.start();
                 }
             });
         }
     };
+
+    @Override
+    public void onDestroyView() {
+        socket.disconnect();
+        socket.off("NEW_QUESTION", onNewQuestion);
+        updateTime.setStop(true);
+        super.onDestroyView();
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    private void setQuestionNumber(int current, int total) {
+        txtQuestionNumber.setText("Question : "+current+"/"+total);
+    }
+
+    private void setScore(float score) {
+        txtScore.setText("Score : " + score);
+    }
+
+    private void setCoeff(float coeff) {
+        txtCoeff.setText("Coeff : " + coeff);
+    }
+
+    private void setQuestion(String question) {
+        txtQuestion.setText(question);
+    }
+
+    private void setTimeLeftMax(int max) {
+        progressBarTimeLeft.setMax(max);
+    }
+
+    public void setTimeLeft(int left) {
+        if (left == 1 || left == 0) {
+            txtViewTimeLeft.setText(left + " seconde restante");
+        } else {
+            txtViewTimeLeft.setText(left + " secondes restantes");
+        }
+
+        progressBarTimeLeft.setProgress(left);
+    }
 }
