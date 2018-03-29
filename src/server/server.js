@@ -54,18 +54,18 @@ const extractId = (idQuestion) => {
 	return "error extraction id";
 }
 
-/*
 const setScore = (client, answerTime) => {
-	
-	if (client.coeff > 0) {
-		let elapsed = client.start - client.end;
-		let normalize = elapsed / (answerTime * MS);
-		console.log(normalize);
-		client.score = (client.coeff * normalize);
-		const.log(client.score);
-	} else { client.score++; }
+
+	if (client.coeff > 1) {
+		client.timeEnd = currentTime();
+		let elapsed = client.timeEnd - client.timeStart;
+		let remainder = Math.abs(elapsed - answerTime);
+		let pourcent = remainder / answerTime * 100;
+		client.score += pourcent * client.coeff + 10;
+		console.log(client.score);
+	} else { client.score += 10; }
 }
-*/
+
 const checkFormatJoin = (msg) => (msg !== null
 	&& msg.hasOwnProperty("idUser")
 	&& msg.hasOwnProperty("idQuiz")
@@ -87,14 +87,15 @@ const answerTimeout = (socket, client) =>
 		'idQuestion'  : question.id,
 		'rightAnswer' : question.rightAnswer,
 		'status'      : StatusQuestion.TIMEOUT,
-		'score'       : (++client.score),
-		'coefficient' : clients[socket.id].coeff
+		'score'       : client.score,
+		'coefficient' : client.coeff
 		// /* verifier si necessaire */
 		// idUser,
 		// idQuiz
 		};
+
 	socket.emit('ANSWER_CONFIRM', answerConfirm);
-	clients[socket.id].questionIndex++;
+	client.questionIndex++;
 }
 
 function getStatusGame(client) {
@@ -123,7 +124,7 @@ io.on('connection', function (socket) {
 			//clients[socket.id].joined = true;
 
 			clients[socket.id].score = 0;
-			clients[socket.id].coeff = 0;
+			clients[socket.id].coeff = 1;
 			clients[socket.id].questionIndex = 0;
 			clients[socket.id].statusGame = StatusGame.START;
 			clients[socket.id].allowed = false;
@@ -170,7 +171,7 @@ io.on('connection', function (socket) {
 
 				//Use to bonus time
 				clients[socket.id].timeStart = currentTime();
-				clients[socket.id].timeEnd = currentTime() + clients[socket.id].timeStart;
+				
 
 			}else if(status === StatusGame.END){
 				socket.emit('QUIZ_FINISH', {"status" : StatusGame.END});
@@ -193,22 +194,23 @@ io.on('connection', function (socket) {
 					clients[socket.id].results.rightAnswers.push(data.rightAnswer.content);
 					clients[socket.id].results.correctAnswers++;
 					clients[socket.id].coeff++;
-					//clients[socket.id].score = setScore(clients[socket.id]);
+					setScore(clients[socket.id], question.answerTime);
 				} else {
 					clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
-					clients[socket.id].coeff = 0;
+					clients[socket.id].coeff = 1;
 				}
-
+				console.log(clients[socket.id]);
 				let answerConfirm = {
 					'idQuestion'  : question.id,
 					'rightAnswer' : question.rightAnswer,
 					'status'      : StatusQuestion.CHECK,
-					'score'       : (++clients[socket.id].score),
+					'score'       : clients[socket.id].score,
 					'coefficient' : clients[socket.id].coeff
 					// /* verifier si necessaire */
 					// idUser,
 					// idQuiz
 				};
+				console.log(answerConfirm);
 				socket.emit('ANSWER_CONFIRM', answerConfirm);
 				clients[socket.id].questionIndex++;
 			}

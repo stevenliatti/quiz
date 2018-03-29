@@ -63,7 +63,7 @@ function answerQuestion(idQuestion, answer) {
         "idQuestion" : idQuestion,
         "rightAnswer" : answer
     };
-    console.log(myAnswer);
     console.log('EMIT ANSWER');
+    console.log(myAnswer);
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }
