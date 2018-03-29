@@ -51,9 +51,21 @@ const extractId = (idQuestion) => {
 	if(idQuestion.charAt(0) === 'q') {
 		return idQuestion.slice(1);
 	}
-	return "";
+	return "error extraction id";
 }
 
+/*
+const setScore = (client, answerTime) => {
+	
+	if (client.coeff > 0) {
+		let elapsed = client.start - client.end;
+		let normalize = elapsed / (answerTime * MS);
+		console.log(normalize);
+		client.score = (client.coeff * normalize);
+		const.log(client.score);
+	} else { client.score++; }
+}
+*/
 const checkFormatJoin = (msg) => (msg !== null
 	&& msg.hasOwnProperty("idUser")
 	&& msg.hasOwnProperty("idQuiz")
@@ -75,13 +87,14 @@ const answerTimeout = (socket, client) =>
 		'idQuestion'  : question.id,
 		'rightAnswer' : question.rightAnswer,
 		'status'      : StatusQuestion.TIMEOUT,
-		'score'       : (++clients[socket.id].score),
+		'score'       : (++client.score),
 		'coefficient' : clients[socket.id].coeff
 		// /* verifier si necessaire */
 		// idUser,
 		// idQuiz
 		};
 	socket.emit('ANSWER_CONFIRM', answerConfirm);
+	clients[socket.id].questionIndex++;
 }
 
 function getStatusGame(client) {
@@ -98,11 +111,17 @@ const Quiz = require("./app/models/quiz");
 io.on('connection', function (socket) {
 	// get socket id
 	let timeoutController;
+	console.log("connection");
 
 	socket.on('JOIN', function (data) {
+
+		
 		if (checkFormatJoin(data))
 		{
 			clients[socket.id] = data; //idUser, idQuiz, token
+
+			//clients[socket.id].joined = true;
+
 			clients[socket.id].score = 0;
 			clients[socket.id].coeff = 0;
 			clients[socket.id].questionIndex = 0;
@@ -113,14 +132,13 @@ io.on('connection', function (socket) {
 				"wrongAnswers" : [],
 				"correctAnswers" : 0
 			};
-
 			Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
-
 				if (quiz === undefined) { return; }
-				clients[socket.id].allowed = true;
-				clients[socket.id].quiz = quiz;
+					clients[socket.id].allowed = true;
+					clients[socket.id].quiz = quiz;
 			});
 		}
+
 	});
 
 	socket.on('NEXT_QUESTION', function () {
@@ -150,8 +168,9 @@ io.on('connection', function (socket) {
 					answerTimeout(socket, clients[socket.id]);
 				},question.answerTime*MS);
 
-				//TODO: Remove when answer timeout is fixe
-				clients[socket.id].time = currentTime();
+				//Use to bonus time
+				clients[socket.id].timeStart = currentTime();
+				clients[socket.id].timeEnd = currentTime() + clients[socket.id].timeStart;
 
 			}else if(status === StatusGame.END){
 				socket.emit('QUIZ_FINISH', {"status" : StatusGame.END});
@@ -173,8 +192,11 @@ io.on('connection', function (socket) {
 				if (data.rightAnswer.content === question.rightAnswer.content) {
 					clients[socket.id].results.rightAnswers.push(data.rightAnswer.content);
 					clients[socket.id].results.correctAnswers++;
+					clients[socket.id].coeff++;
+					//clients[socket.id].score = setScore(clients[socket.id]);
 				} else {
 					clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
+					clients[socket.id].coeff = 0;
 				}
 
 				let answerConfirm = {
