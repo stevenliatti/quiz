@@ -56,14 +56,11 @@ const extractId = (idQuestion) => {
 
 const setScore = (client, answerTime) => {
 
-	if (client.coeff > 1) {
 		client.timeEnd = currentTime();
 		let elapsed = client.timeEnd - client.timeStart;
 		let remainder = Math.abs(elapsed - answerTime);
 		let pourcent = remainder / answerTime * 100;
 		client.score += pourcent * client.coeff + 10;
-		console.log(client.score);
-	} else { client.score += 10; }
 }
 
 const checkFormatJoin = (msg) => (msg !== null
@@ -80,6 +77,7 @@ const checkUserAllowed = (client) => (client !== null && client.hasOwnProperty("
 
 const answerTimeout = (socket, client) =>
 {
+	client.coeff = 0;
 	let idCurrentQuestion = getCurrentQuestionId(client);
 	let question = getQuestion(client,idCurrentQuestion);
 
@@ -124,7 +122,7 @@ io.on('connection', function (socket) {
 			//clients[socket.id].joined = true;
 
 			clients[socket.id].score = 0;
-			clients[socket.id].coeff = 1;
+			clients[socket.id].coeff = 0;
 			clients[socket.id].questionIndex = 0;
 			clients[socket.id].statusGame = StatusGame.START;
 			clients[socket.id].allowed = false;
@@ -197,7 +195,7 @@ io.on('connection', function (socket) {
 					setScore(clients[socket.id], question.answerTime);
 				} else {
 					clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
-					clients[socket.id].coeff = 1;
+					clients[socket.id].coeff = 0;
 				}
 				console.log(clients[socket.id]);
 				let answerConfirm = {

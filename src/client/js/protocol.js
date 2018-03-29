@@ -36,9 +36,12 @@ $('#join').click(function () {
 $('#nextQuestion').click(function () {
     nextQuestion();
 });
+var id = 0;
 
 $('#answerQuestion').click(function () {
-    answerQuestion("q0", {"content" : "Yes"} );
+
+    answerQuestion("q" + id, {"content" : "Yes"} );
+    id++;
 });
 
 function join() {
