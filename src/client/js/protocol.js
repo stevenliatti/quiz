@@ -40,14 +40,14 @@ var id = 0;
 
 $('#answerQuestion').click(function () {
 
-    answerQuestion("q" + id, {"content" : "Yes"} );
+    answerQuestion("q" + id, "Yes");
     id++;
 });
 
 function join() {
     var myJoin = {
         idUser : "EL BAGNADOR",
-        idQuiz : "5abcceb9cfcbc30e8fe2eae3",
+        idQuiz : "5abcb8af18c9b407baf340d4",
         token : "LA CHANCLA"
     };
     console.log(myJoin);

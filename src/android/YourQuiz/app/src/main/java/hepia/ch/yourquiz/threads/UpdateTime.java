@@ -1,9 +1,6 @@
 package hepia.ch.yourquiz.threads;
 
-import android.app.Activity;
-import android.util.Log;
-
-import hepia.ch.yourquiz.ParticipateFragment;
+import hepia.ch.yourquiz.ParticipateQuizActivity;
 
 /**
  * Created by raed on 29.03.18.
@@ -11,44 +8,35 @@ import hepia.ch.yourquiz.ParticipateFragment;
 
 public class UpdateTime extends Thread{
     private int questionTime;
-    private Activity context;
-    private ParticipateFragment participateFragment;
-    private boolean stop = false;
+    private ParticipateQuizActivity participateQuizActivity;
 
-    public UpdateTime(int questionTime, Activity context, ParticipateFragment participateFragment) {
+    public UpdateTime(int questionTime, ParticipateQuizActivity participateQuizActivity) {
         this.questionTime = questionTime;
-        this.context = context;
-        this.participateFragment = participateFragment;
+        this.participateQuizActivity = participateQuizActivity;
     }
 
     @Override
     public void run() {
         try {
-            context.runOnUiThread(new Runnable() {
+            participateQuizActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    participateFragment.setTimeLeft(questionTime);
+                    participateQuizActivity.setTimeLeft(questionTime);
                 }
             });
-            while (questionTime > 0 && !stop) {
-                Thread.sleep(1000);
-                context.runOnUiThread(new Runnable() {
+            while (questionTime > 0) {
+                participateQuizActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         // update TextView here!
-                        participateFragment.setTimeLeft(questionTime);
-                        questionTime--;
+                        participateQuizActivity.setTimeLeft(questionTime);
                     }
                 });
+                questionTime--;
+                Thread.sleep(1000);
             }
-            if (!stop) {
-                participateFragment.getSocket().emit("NEXT_QUESTION");
-            }
+            participateQuizActivity.getSocket().emit("NEXT_QUESTION");
         } catch (InterruptedException ignored) {
         }
-    }
-
-    public void setStop(boolean stop) {
-        this.stop = stop;
     }
 }

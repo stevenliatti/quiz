@@ -35,7 +35,7 @@ public class QuestionModel {
     public QuestionModel(JSONObject data) throws JSONException {
         setNameQuestion(data.getString("nameQuestion"));
         setAnswers(data.getJSONArray("answers"));
-        setTime(data.getInt("time")); // TODO: time not received!!!
+        setTime(data.getInt("time"));
         setQuestionIndex(data.getInt("questionIndex"));
         setQuestionCount(data.getInt("questionCount"));
     }

@@ -70,8 +70,7 @@ const checkFormatJoin = (msg) => (msg !== null
 
 const checkFormatAnswer = (msg) => (msg !== null
 	&& msg.hasOwnProperty("idQuestion")
-	&& msg.hasOwnProperty("rightAnswer")
-	&& msg.rightAnswer.hasOwnProperty("content"));
+	&& msg.hasOwnProperty("rightAnswer"));
 
 const checkUserAllowed = (client) => (client !== null && client.hasOwnProperty("allowed") && client.allowed);
 
@@ -92,6 +91,8 @@ const answerTimeout = (socket, client) =>
 		// idQuiz
 		};
 
+	console.log("==> emit ANSWER_CONFIRM");
+	console.log(answerConfirm);
 	socket.emit('ANSWER_CONFIRM', answerConfirm);
 	client.questionIndex++;
 }
@@ -108,12 +109,13 @@ function getStatusGame(client) {
 const Quiz = require("./app/models/quiz");
 
 io.on('connection', function (socket) {
+	console.log("==> connection : " + socket.id);
+
 	// get socket id
 	let timeoutController;
-	console.log("connection");
 
 	socket.on('JOIN', function (data) {
-
+		console.log("==> receive JOIN");
 		
 		if (checkFormatJoin(data))
 		{
@@ -132,15 +134,19 @@ io.on('connection', function (socket) {
 				"correctAnswers" : 0
 			};
 			Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
-				if (quiz === undefined) { return; }
-					clients[socket.id].allowed = true;
-					clients[socket.id].quiz = quiz;
+				if (quiz === undefined || quiz === null) { 
+					console.log("==> quiz not found!");
+					return; 
+				}
+				clients[socket.id].allowed = true;
+				clients[socket.id].quiz = quiz;
 			});
 		}
 
 	});
 
 	socket.on('NEXT_QUESTION', function () {
+		console.log("==> receive NEXT_QUESTION");
 		if (checkUserAllowed(clients[socket.id])) {
 
 			let status = getStatusGame(clients[socket.id]);
@@ -151,7 +157,7 @@ io.on('connection', function (socket) {
 				let idx = getCurrentQuestionId(clients[socket.id]);
 				let question = getQuestion(clients[socket.id],idx);
 
-				let newQuestion =
+				var newQuestion =
 				{
 					'idQuestion'    : question.id,
 					'nameQuestion'  : question.name,
@@ -161,6 +167,8 @@ io.on('connection', function (socket) {
 					'questionCount' : clients[socket.id].quiz.nbQuestions
 				}
 
+				console.log("==> emit NEW_QUESTION");
+				console.log(newQuestion.idQuestion);
 				socket.emit('NEW_QUESTION', newQuestion);
 
 				timeoutController = setTimeout(function(){
@@ -172,12 +180,15 @@ io.on('connection', function (socket) {
 				
 
 			}else if(status === StatusGame.END){
+				console.log("==> emit QUIZ_FINISH");
 				socket.emit('QUIZ_FINISH', {"status" : StatusGame.END});
 			}
 		}
 	});
 
 	socket.on('ANSWER', function (data) {
+		console.log("==> receive ANSWER");
+
 		//TODO: fix multipes requests answers
 		if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
 
@@ -188,16 +199,15 @@ io.on('connection', function (socket) {
 				clearTimeout(timeoutController);
 				let question = getQuestion(clients[socket.id], idCurrentQuestion);
 
-				if (data.rightAnswer.content === question.rightAnswer.content) {
-					clients[socket.id].results.rightAnswers.push(data.rightAnswer.content);
+				if (data.rightAnswer === question.rightAnswer) {
+					clients[socket.id].results.rightAnswers.push(data.rightAnswer);
 					clients[socket.id].results.correctAnswers++;
 					clients[socket.id].coeff++;
 					setScore(clients[socket.id], question.answerTime);
 				} else {
-					clients[socket.id].results.wrongAnswers.push(data.rightAnswer.content);
+					clients[socket.id].results.wrongAnswers.push(data.rightAnswer);
 					clients[socket.id].coeff = 0;
 				}
-				console.log(clients[socket.id]);
 				let answerConfirm = {
 					'idQuestion'  : question.id,
 					'rightAnswer' : question.rightAnswer,
@@ -208,6 +218,7 @@ io.on('connection', function (socket) {
 					// idUser,
 					// idQuiz
 				};
+				console.log("==> emit ANSWER_CONFIRM");
 				console.log(answerConfirm);
 				socket.emit('ANSWER_CONFIRM', answerConfirm);
 				clients[socket.id].questionIndex++;
@@ -219,5 +230,6 @@ io.on('connection', function (socket) {
 		//Clear client
 		clearTimeout(timeoutController);
 		clients[socket.id] = {};
+		console.log("==> disconnect : " + socket.id)
 	});
 });

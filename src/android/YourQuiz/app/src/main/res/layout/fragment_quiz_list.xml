@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hepia.ch.yourquiz.fragments.QuizListFragment">
+
+
+        <org.apmem.tools.layouts.FlowLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:scrollbars="vertical">
+
+            <include
+                layout="@layout/quiz_element"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <include
+                layout="@layout/quiz_element"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <include
+                layout="@layout/quiz_element"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <include
+                layout="@layout/quiz_element"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <include
+                layout="@layout/quiz_element"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <include
+                layout="@layout/quiz_element"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+        </org.apmem.tools.layouts.FlowLayout>
+
+</FrameLayout>
