@@ -3,3 +3,4 @@ vagrant_puphpet
 .vscode
 sftp-config.json
 nbproject
+.remote-sync.json
