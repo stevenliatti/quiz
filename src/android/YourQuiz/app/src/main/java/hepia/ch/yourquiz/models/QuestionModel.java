@@ -2,6 +2,7 @@ package hepia.ch.yourquiz.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -13,15 +14,15 @@ public class QuestionModel {
     private String idQuestion;
     private String nameQuestion;
     private ArrayList<String> answers = new ArrayList<>();
-    private String time;
-    private String questionIndex;
-    private String questionCount;
+    private int time;
+    private int questionIndex;
+    private int questionCount;
 
     public QuestionModel() {
 
     }
 
-    public QuestionModel(String idQuestion, String nameQuestion, ArrayList answers, String time, String questionIndex, String questionCount) {
+    public QuestionModel(String idQuestion, String nameQuestion, ArrayList<String> answers, int time, int questionIndex, int questionCount) {
 
         this.idQuestion = idQuestion;
         this.nameQuestion = nameQuestion;
@@ -29,6 +30,14 @@ public class QuestionModel {
         this.time = time;
         this.questionIndex = questionIndex;
         this.questionCount = questionCount;
+    }
+
+    public QuestionModel(JSONObject data) throws JSONException {
+        setNameQuestion(data.getString("nameQuestion"));
+        setAnswers(data.getJSONArray("answers"));
+        setTime(data.getInt("time"));
+        setQuestionIndex(data.getInt("questionIndex"));
+        setQuestionCount(data.getInt("questionCount"));
     }
 
     public String getIdQuestion() {
@@ -43,15 +52,15 @@ public class QuestionModel {
         return answers;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
-    public String getQuestionIndex() {
+    public int getQuestionIndex() {
         return questionIndex;
     }
 
-    public String getQuestionCount() {
+    public int getQuestionCount() {
         return questionCount;
     }
 
@@ -63,15 +72,15 @@ public class QuestionModel {
         this.nameQuestion = nameQuestion;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public void setQuestionIndex(String questionIndex) {
+    public void setQuestionIndex(int questionIndex) {
         this.questionIndex = questionIndex;
     }
 
-    public void setQuestionCount(String questionCount) {
+    public void setQuestionCount(int questionCount) {
         this.questionCount = questionCount;
     }
 

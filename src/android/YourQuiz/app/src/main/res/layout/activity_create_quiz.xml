@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context="hepia.ch.yourquiz.CreateQuizActivity"
+    tools:participateQuizActivity="hepia.ch.yourquiz.CreateQuizActivity"
     android:background="@color/colorBackground">
 
     <TextView

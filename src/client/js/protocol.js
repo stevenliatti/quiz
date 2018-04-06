@@ -36,15 +36,18 @@ $('#join').click(function () {
 $('#nextQuestion').click(function () {
     nextQuestion();
 });
+var id = 0;
 
 $('#answerQuestion').click(function () {
-    answerQuestion("q0", {"content" : "Yes"} );
+
+    answerQuestion("q" + id, "Yes");
+    id++;
 });
 
 function join() {
     var myJoin = {
         idUser : "EL BAGNADOR",
-        idQuiz : "5ab3bcbbe0b5556757545f8e",
+        idQuiz : "5abcb8af18c9b407baf340d4",
         token : "LA CHANCLA"
     };
     console.log(myJoin);
@@ -63,6 +66,7 @@ function answerQuestion(idQuestion, answer) {
         "idQuestion" : idQuestion,
         "rightAnswer" : answer
     };
+    console.log('EMIT ANSWER');
     console.log(myAnswer);
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }

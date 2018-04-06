@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hepia.ch.yourquiz.ParticipateQuizActivity"
+    tools:participateQuizActivity="hepia.ch.yourquiz.ParticipateQuizActivity"
     android:background="@color/colorBackground">
 
     <!--<Button-->
@@ -55,13 +55,13 @@
     <ProgressBar
         android:id="@+id/progressBarTimeLeft"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="353dp"
+        android:layout_width="0dp"
         android:layout_height="19dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:max="20"
-        android:progress="8"
+        android:progress="20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -88,7 +88,7 @@
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:text="12 secondes restantes"
+        android:text="0 seconde restantes"
         app:layout_constraintBottom_toTopOf="@+id/progressBarTimeLeft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="34dp"
         android:layout_marginTop="9dp"
-        android:text="Coeff : 1.8"
+        android:text="Coeff : 0"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtScore" />
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginTop="16dp"
-        android:text="Score : 23.4"
+        android:text="Score : 0"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -139,5 +139,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtQuestion"/>
+
+    <Button
+        android:id="@+id/next_question_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

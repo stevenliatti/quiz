@@ -9,10 +9,9 @@ const PROTOCOL_ANSER_STATUS_TIMEOUT = 'TIMEOUT';
 const PROTOCOL_ANSER_STATUS_CHECK = 'CHECK';
 
 var socket;
-
 var current_question;
 
-initParticipation("EL BAGNADOR", "5ab3cc080f6b306b124db61e", "LA CHANCLA");
+initParticipation("EL BAGNADOR", "5ab3cc080f6b306b124db61e_", "LA CHANCLA");
 
 function initParticipation(idUser, idQuiz, token) {
     socket = io.connect('https://'+SERVER_IP+':'+SERVER_PORT);
