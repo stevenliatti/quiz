@@ -2,19 +2,62 @@
 
 const SERVER_PORT = '443';
 
+const PROTOCOL_JOIN = 'JOIN';
 const PROTOCOL_NEXT_QUESTION = 'NEXT_QUESTION';
 const PROTOCOL_ANSWER = 'ANSWER';
+const PROTOCOL_NEW_QUESTION = 'NEW_QUESTION';
+const PROTOCOL_ANSWER_CONFIRM = 'ANSWER_CONFIRM';
+const PROTOCOL_QUIZ_FINISH = 'QUIZ_FINISH';
 
-const PROTOCOL_ANSER_STATUS_TIMEOUT = 'TIMEOUT';
-const PROTOCOL_ANSER_STATUS_CHECK = 'CHECK';
+const PROTOCOL_ANSER_STATUS_TIMEOUT = 'timeout';
+const PROTOCOL_ANSER_STATUS_CHECK = 'check';
+
+const YOURQUIZ_MAIN_PAGE_URL = "/static/";
+const DEFAULT_COEFFICIENT = 0;
+const DEFAULT_SCORE = 0;
 
 var socket;
 var current_question;
+var choosen_answer;
+var timer;
+var time_left;
 
-initParticipation("EL BAGNADOR", "5ab3cc080f6b306b124db61e_", "LA CHANCLA");
+$(document).ready(function() {
+    initParticipation("EL BAGNADOR", "5ab3cc080f6b306b124db61e", "LA CHANCLA");
+});
 
+// ############################################################################
+// Initialisation
+// ############################################################################
 function initParticipation(idUser, idQuiz, token) {
+    $('#rep1').click(function () {
+        choosen_answer = current_question.answers[0].content;
+        answerQuestion(current_question.idQuestion, current_question.answers[0].content);
+    });
+
+    $('#rep2').click(function () {
+        choosen_answer = current_question.answers[1].content;
+        answerQuestion(current_question.idQuestion, current_question.answers[1].content);
+    });
+
+    $('#rep3').click(function () {
+        choosen_answer = current_question.answers[2].content;
+        answerQuestion(current_question.idQuestion, current_question.answers[2].content);
+    });
+
+    $('#rep4').click(function () {
+        choosen_answer = current_question.answers[3].content;
+        answerQuestion(current_question.idQuestion, current_question.answers[3].content);
+    });
+
+    setMultiplicateur(DEFAULT_COEFFICIENT);
+    setScore(DEFAULT_SCORE);
+
+
     socket = io.connect('https://'+SERVER_IP+':'+SERVER_PORT);
+    socket.on(PROTOCOL_NEW_QUESTION, socket_io_receive_new_question);
+    socket.on(PROTOCOL_ANSWER_CONFIRM, socket_io_receive_answer_confirm);
+    socket.on(PROTOCOL_QUIZ_FINISH, socket_io_receive_quiz_finish);
 
     // SEND JOIN
     join(idUser, idQuiz, token)
@@ -27,42 +70,39 @@ function initParticipation(idUser, idQuiz, token) {
 // SOCKET.IO SEND
 // ############################################################################
 
+// SEND JOIN MESSAGE
 function join(idUser, idQuiz, token) {
-    // SEND JOIN MESSAGE
     var dataJoin = {
         idUser : idUser,
         idQuiz : idQuiz,
         token : token
     };
 
-    console.log(dataJoin);
-    socket.emit('JOIN', dataJoin);
+    socket.emit(PROTOCOL_JOIN, dataJoin);
 };
+
 function nextQuestion() {
-    console.log('EMIT NEXT_QUESTION');
-    socket.emit('NEXT_QUESTION', '');
+    socket.emit(PROTOCOL_NEXT_QUESTION, '');
 }
 
 function answerQuestion(pIdQuestion, pRightAnswer) {
     var myAnswer = {
         idQuestion : pIdQuestion,
-        rightAnswer : pRightAnswer
+        rightAnswer : {content:pRightAnswer}
     };
 
-    console.log(myAnswer);
     socket.emit(PROTOCOL_ANSWER, myAnswer);
 }
 
 // ############################################################################
-// SOCKET.IO LISTEN
+// SOCKET.IO RECEIVE
 // ############################################################################
-socket.on('NEW_QUESTION', function(message) {
-    console.log('NEW_QUESTION : ');
+function socket_io_receive_new_question(message) {
     console.log(message);
 
     current_question = message;
 
-    setNumeroQuestion(message.questionIndex, message.questionCount);
+    setNumeroQuestion(message.questionIndex+1, message.questionCount);
     setQuestion(message.nameQuestion);
     setNombreReponses(message.answers.length);
 
@@ -82,17 +122,63 @@ socket.on('NEW_QUESTION', function(message) {
         setReponse4(message.answers[3].content);
     }
 
-});
+    clearTimeout(timer);
+    time_left = message.time;
+    setTime(time_left);
+    updateTime();
+}
 
-socket.on('ANSWER_CONFIRM', function(message) {
-    console.log('ANSWER_CONFIRM : ');
-    console.log(message);
-});
+function socket_io_receive_answer_confirm(message) {
 
-socket.on('QUIZ_FINISH', function(message) {
-    console.log('QUIZ_FINISH : ');
     console.log(message);
-});
+
+    setMultiplicateur(message.coefficient);
+    setScore(message.score);
+
+    if (message.status == PROTOCOL_ANSER_STATUS_CHECK) {
+        if (choosen_answer == message.rightAnswer.content) {
+            var title = 'Bonne réponse !';
+            var text = '';
+            var icon = 'success';
+        } else {
+            var title = 'Mauvaise réponse !';
+            var text = 'La bonne réponse était : '+message.rightAnswer.content+' et vous avez répondu : '+choosen_answer;
+            var icon = 'error';
+        }
+
+        swal({
+            title: title,
+            text: text,
+            icon: icon,
+            button: "Question suivante",
+        }).then((value) => {
+            nextQuestion();
+        });
+    }
+
+    if (message.status == PROTOCOL_ANSER_STATUS_TIMEOUT) {
+        swal({
+            title: "Timeout !",
+            text: "Vous n'avez pas répondu à la question dans le délai imparti",
+            icon: "warning",
+            button: "Question suivante",
+        }).then((value) => {
+            nextQuestion();
+        });
+    }
+}
+
+function socket_io_receive_quiz_finish(message) {
+    console.log(message);
+    swal({
+        title: "Fin du quiz !",
+        text: "Le quiz est maintenant terminé",
+        icon: "info",
+        button: "Retour à la liste des quiz",
+    }).then((value) => {
+        window.location.replace(YOURQUIZ_MAIN_PAGE_URL);
+    });
+}
 
 // ############################################################################
 // AFFICHAGE
@@ -112,6 +198,26 @@ function setMultiplicateur(multiplicateur) {
 
 function setQuestion(question) {
     $('#question').text(question);
+}
+
+function setScore(score) {
+    $('#score').text(score);
+}
+
+function setTime(time) {
+    $('#time').text(time + ' s');
+}
+
+function setQuestion(question) {
+    $('#question').text(question);
+}
+
+function updateTime() {
+    if(time_left > 0) {
+        time_left--;
+        setTime(time_left);
+        timer = setTimeout(updateTime, 1000);
+    }
 }
 
 function setNombreReponses(nombre) {
@@ -147,35 +253,3 @@ function setReponse3(reponse) {
 function setReponse4(reponse) {
     $('#rep4').val(reponse);
 }
-
-$('#rep1').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[0].content)
-});
-
-$('#rep2').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[1].content)
-});
-
-$('#rep3').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[2].content)
-});
-
-$('#rep4').click(function () {
-    answerQuestion(current_question.idQuestion, current_question.answers[3].content)
-});
-
-$('#test').click(function () {
-
-});
-
-$('#btn2').click(function () {
-
-});
-
-$('#btn3').click(function () {
-
-});
-
-$('#btn4').click(function () {
-
-});
