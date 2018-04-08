@@ -22,8 +22,15 @@ var choosen_answer;
 var timer;
 var time_left;
 
+function getUrlParams(field, url) {
+    let href = url ? url : window.location.href;
+    let reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+    let string = reg.exec(href);
+    return string ? string[1].replace('%20', ' ') : null;
+}
+
 $(document).ready(function() {
-    initParticipation("EL BAGNADOR", "5ab3cc080f6b306b124db61e", "LA CHANCLA");
+    initParticipation("EL BAGNADOR", getUrlParams('id'), "LA CHANCLA");
 });
 
 // ############################################################################

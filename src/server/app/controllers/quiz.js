@@ -6,12 +6,13 @@ const Quiz = require('../models/quiz');
 const Participation = require('../models/participation');
 
 exports.getAll = function(req, res) {
+    // TODO: filter quizzes by date available
     Quiz.find()
     .then(quizzes => {
         let data = [];
         quizzes.forEach(quiz => {
-            data.push({ name: quiz.name, description: quiz.description, owner: quiz.owner });
-        })
+            data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner });
+        });
         res.status(200).json(data);
     })
     .catch(error => { use.sendError(error, res, 500, error); });
