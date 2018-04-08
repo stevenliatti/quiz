@@ -1,6 +1,5 @@
 const authController = require('./controllers/authentication');
-const createQuizController = require('./controllers/createquiz');
-const participationQuizController = require('./controllers/participationquiz');
+const quizController = require('./controllers/quiz');
 
 const express = require('express');
 const passportService = require('../config/passport');
@@ -12,8 +11,7 @@ const requireLogin = passport.authenticate('local', {session: false});
 module.exports = function(app) {
     const router = express.Router();
     const authRoutes = express.Router();
-    const createQuizRoutes = express.Router();
-	const participateQuizRoutes = express.Router();
+    const quizRoutes = express.Router();
 
     // Auth Routes
     router.use('/auth', authRoutes);
@@ -23,15 +21,12 @@ module.exports = function(app) {
         res.json({ content: 'Success' });
     });
 
-    // Create Quiz Routes
-    router.use('/createquiz', createQuizRoutes);
-    createQuizRoutes.post('/', createQuizController.createQuiz);
+    // Quiz routes
+    router.use('/quiz', quizRoutes);
+    quizRoutes.get('/getAll', quizController.getAll);
+    quizRoutes.post('/create', quizController.createQuiz);
+    quizRoutes.post('/commit', quizController.createParticipation);
     
-	// Participate quiz Routes
-    router.use('/participation', participateQuizRoutes);
-    participateQuizRoutes.get('/startquiz', participationQuizController.start);
-    participateQuizRoutes.post('/commitquiz', participationQuizController.createParticipation);
-	
     // Set up routes
     app.use('/', router);
     app.all('*', function(req, res) {
