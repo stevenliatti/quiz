@@ -133,7 +133,7 @@ and open the template in the editor.
              quiz.addQuestions(allQuestions);
              console.log(quiz);
 
-             $.ajax("https://" + SERVER_IP + "/createquiz", {
+             $.ajax("https://" + SERVER_IP + "/quiz/create", {
                  data: JSON.stringify(quiz),
                  contentType: 'application/json',
                  type: 'POST'

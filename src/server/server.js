@@ -157,8 +157,7 @@ io.on('connection', function (socket) {
 				let idx = getCurrentQuestionId(clients[socket.id]);
 				let question = getQuestion(clients[socket.id],idx);
 
-				var newQuestion =
-				{
+				let newQuestion = {
 					'idQuestion'    : question.id,
 					'nameQuestion'  : question.name,
 					'answers'       : question.answers,
