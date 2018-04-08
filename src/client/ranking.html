@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Classement du joueur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css" type="text/css"/>
+
+    <style>
+      body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif;}
+    </style>
+    
+  </head>
+  <body class="w3-content w3-sand" style="max-width:1600px;">
+    <nav class="w3-sidebar w3-collapse w3-animate-left w3-teal" style="z-index:3;width:300px; height: 100%;" id="mySidebar"><br>
+      <div class="w3-container">
+        <a href="#" onclick="w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
+          <i class="fa fa-remove"></i>
+        </a>
+        <img src="https://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
+        <h4><b>MENU</b></h4>
+      </div>
+      <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar();"></div>
+    </nav>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close();" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px">
+
+      <!-- Header -->
+      <header id="portfolio">
+        <a href="#"><img src="http://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i></span>
+        <div class="w3-container">
+          <h1><b>Yourquiz</b></h1>
+        </div>
+      </header>
+
+      <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h4><b>A propos de Yourquiz</b></h4>
+        <p>Yourquiz est un site multi-plateforme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
+      </div>
+
+
+      <!-- First Photo Grid-->
+      <div class="w3-row-padding">
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 1</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
+          </div>
+        </div>
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="https://via.placeholder.com/300x100" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 2</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
+          </div>
+        </div>
+        <div class="w3-third w3-container">
+          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 3</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Photo Grid-->
+      <div class="w3-row-padding">
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 4</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
+          </div>
+        </div>
+        <div class="w3-third w3-container w3-margin-bottom">
+          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 5</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
+          </div>
+        </div>
+        <div class="w3-third w3-container">
+          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
+          <div class="w3-container w3-teal">
+            <p><b>Nom du quiz 6</b></p>
+            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
+            <p>2 / 15 Inscrits.</p>
+            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="w3-center w3-padding-32">
+        <div class="w3-bar">
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">«</a>
+          <a href="#" class="w3-bar-item w3-teal w3-button">1</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">2</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">3</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">4</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-teal">»</a>
+        </div>
+      </div>
+
+      <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+
+      <!-- End page content -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      // Script to open and close sidebar
+      function w3_open() {
+          document.getElementById("mySidebar").style.display = "block";
+          document.getElementById("myOverlay").style.display = "block";
+      }
+
+      function w3_close() {
+          document.getElementById("mySidebar").style.display = "none";
+          document.getElementById("myOverlay").style.display = "none";
+      }
+// Script to open and close sidebar
+       let manager = new ManagerFormCreationQuiz();
+            $("#btnAddQuestion").on("click", function(){
+                manager.addQuestion('#questions', '#selectorQuestions');
+            });
+            
+            $("#btnSend").on("click", function(){
+                let quiz = new Quiz("Loic", $("#name").val(), $("#startDate").val(), $("#endDate").val());
+                console.log(allQuestions);
+                quiz.addQuestions(allQuestions);
+                console.log(quiz);
+            
+            $.ajax("https://172.20.15.35:8080/createquiz", {
+                    data : JSON.stringify(quiz),
+                    contentType : 'application/json',
+                    type : 'POST'
+                });
+                
+            });
+            
+            $("#maxParticipant").change(function(){
+                if($(this).is(":checked")) 
+                {
+                    $("#maxParticipantNumUpDown").prop('disabled', false);
+                }
+                else
+                {
+                    $("#maxParticipantNumUpDown").prop('disabled', true);
+                }
+            });
+    </script>
+    <script>
+        $("#menu_navbar").load("menu/menu_navbar.html");
+    </script>
+  </body>
+</html>

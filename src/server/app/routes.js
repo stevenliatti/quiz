@@ -27,11 +27,11 @@ module.exports = function(app) {
     router.use('/createquiz', createQuizRoutes);
     createQuizRoutes.post('/', createQuizController.createQuiz);
     
-	// Participate quiz Routes
+    // Participate quiz Routes
     router.use('/participation', participateQuizRoutes);
     participateQuizRoutes.get('/startquiz', participationQuizController.start);
     participateQuizRoutes.post('/commitquiz', participationQuizController.createParticipation);
-	
+
     // Set up routes
     app.use('/', router);
     app.all('*', function(req, res) {

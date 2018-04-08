@@ -114,7 +114,6 @@ function deleteQuestion(target, questionsTarget, deletedQuestionId)
     let questionId = deletedQuestionId;
     
     $(questionsTarget).children().slice(deletedQuestionId).each(function () {
-        console.debug($(questionsTarget).children().slice(deletedQuestionId));
         let newId = "q" + questionId;
         let responseTarget = "#rq" + questionId;
 

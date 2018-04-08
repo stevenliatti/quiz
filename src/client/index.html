@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Création d'un quiz</title>
+    <title>Accueil</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -17,7 +17,7 @@ and open the template in the editor.
     <style>
       body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif;}
     </style>
-    
+
   </head>
   <body class="w3-content w3-sand" style="max-width:1600px;">
     <nav class="w3-sidebar w3-collapse w3-animate-left w3-teal" style="z-index:3;width:300px; height: 100%;" id="mySidebar"><br>
@@ -52,79 +52,8 @@ and open the template in the editor.
       </div>
 
 
-      <!-- First Photo Grid-->
-      <div class="w3-row-padding">
-        <div class="w3-third w3-container w3-margin-bottom">
-          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-teal">
-            <p><b>Nom du quiz 1</b></p>
-            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-            <p>2 / 15 Inscrits.</p>
-            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
-          </div>
-        </div>
-        <div class="w3-third w3-container w3-margin-bottom">
-          <img src="https://via.placeholder.com/300x100" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-teal">
-            <p><b>Nom du quiz 2</b></p>
-            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-            <p>2 / 15 Inscrits.</p>
-            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
-          </div>
-        </div>
-        <div class="w3-third w3-container">
-          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-teal">
-            <p><b>Nom du quiz 3</b></p>
-            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-            <p>2 / 15 Inscrits.</p>
-            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Second Photo Grid-->
-      <div class="w3-row-padding">
-        <div class="w3-third w3-container w3-margin-bottom">
-          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-teal">
-            <p><b>Nom du quiz 4</b></p>
-            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-            <p>2 / 15 Inscrits.</p>
-            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
-          </div>
-        </div>
-        <div class="w3-third w3-container w3-margin-bottom">
-          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-teal">
-            <p><b>Nom du quiz 5</b></p>
-            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-            <p>2 / 15 Inscrits.</p>
-            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
-          </div>
-        </div>
-        <div class="w3-third w3-container">
-          <img src="https://via.placeholder.com/300x100" alt="Norway" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-teal">
-            <p><b>Nom du quiz 6</b></p>
-            <p>Brêve description de ce premier quiz accessible pour le premier sprint.</p>
-            <p>2 / 15 Inscrits.</p>
-            <a href="./participationQuiz.html"><button type="submit" class="w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey"><i class="fa fa-plus-square-o w3-margin-right"></i>Je participe</button></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pagination -->
-      <div class="w3-center w3-padding-32">
-        <div class="w3-bar">
-          <a href="#" class="w3-bar-item w3-button w3-hover-teal">«</a>
-          <a href="#" class="w3-bar-item w3-teal w3-button">1</a>
-          <a href="#" class="w3-bar-item w3-button w3-hover-teal">2</a>
-          <a href="#" class="w3-bar-item w3-button w3-hover-teal">3</a>
-          <a href="#" class="w3-bar-item w3-button w3-hover-teal">4</a>
-          <a href="#" class="w3-bar-item w3-button w3-hover-teal">»</a>
-        </div>
-      </div>
+      <!-- QUIZ GRID -->
+      <div class="w3-row-padding" id="QuizContainer"></div>
 
       <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
 
@@ -135,50 +64,35 @@ and open the template in the editor.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/config.js"></script>
     <script>
-      // Script to open and close sidebar
-      function w3_open() {
-          document.getElementById("mySidebar").style.display = "block";
-          document.getElementById("myOverlay").style.display = "block";
-      }
+          // Script to open and close sidebar
+          function w3_open() {
+              document.getElementById("mySidebar").style.display = "block";
+              document.getElementById("myOverlay").style.display = "block";
+          }
 
-      function w3_close() {
-          document.getElementById("mySidebar").style.display = "none";
-          document.getElementById("myOverlay").style.display = "none";
-      }
-// Script to open and close sidebar
-       let manager = new ManagerFormCreationQuiz();
-            $("#btnAddQuestion").on("click", function(){
-                manager.addQuestion('#questions', '#selectorQuestions');
-            });
-            
-            $("#btnSend").on("click", function(){
-                let quiz = new Quiz("Loic", $("#name").val(), $("#startDate").val(), $("#endDate").val());
-                console.log(allQuestions);
-                quiz.addQuestions(allQuestions);
-                console.log(quiz);
-            
-            $.ajax("https://172.20.15.35:8080/createquiz", {
-                    data : JSON.stringify(quiz),
-                    contentType : 'application/json',
-                    type : 'POST'
-                });
-                
-            });
-            
-            $("#maxParticipant").change(function(){
-                if($(this).is(":checked")) 
-                {
-                    $("#maxParticipantNumUpDown").prop('disabled', false);
-                }
-                else
-                {
-                    $("#maxParticipantNumUpDown").prop('disabled', true);
-                }
-            });
-    </script>
-    <script>
-        $("#menu_navbar").load("menu/menu_navbar.html");
+          function w3_close() {
+              document.getElementById("mySidebar").style.display = "none";
+              document.getElementById("myOverlay").style.display = "none";
+          }
+
+          $.getJSON("https://" + SERVER_IP + "/quiz/getAll", function (data) {
+              for (var i = 0; i < data.length; i++) {
+                  $("#QuizContainer").append("<div class=\"w3-third w3-container w3-margin-bottom QuizItem\"></div>");
+              }
+
+              $(".QuizItem").each(function (index) {
+                  var divQuizItem = this;
+                  $(divQuizItem).append("<div class=\"w3-container w3-teal w3-round-xlarge\"></div>");
+                  $(divQuizItem).find("div:eq(0)").append("<p><b>" + data[index].name + "</b></p>");
+                  $(divQuizItem).find("div:eq(0)").append("<p>" + data[index].description + "</p>");
+                  $(divQuizItem).find("div:eq(0)").append("<a href=\"./participationQuiz.html?id=" + data[index].id + "\"><button type=\"submit\" class=\"w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey\"><i class=\"fa fa-plus-square-o w3-margin-right\" style=\"font-size: 1.5em; vertical-align:middle;\"></i>Je participe</button></a>");
+              });
+          }, "json");
+
+
+          $("#menu_navbar").load("menu/menu_navbar.html");
     </script>
   </body>
 </html>
