@@ -1,7 +1,7 @@
 ```json
 MESSAGE : JOIN
 {
-	token,
+    token,
     idUser,
     idQuiz
 }
@@ -11,14 +11,14 @@ MESSAGE : NEW_QUESTION
     idQuestion,
     nameQuestion,
     answers [ {_id, content} ],
-	time,
-	status {START, IN_PROGRESS, END},
-	questionCount,
-	questionIndex
+    time,
+    status {START, IN_PROGRESS, END},
+    questionCount,
+    questionIndex
 
-	/* verifier si necessaire */
-	idUser,
-	idQuiz
+    /* verifier si necessaire */
+    idUser,
+    idQuiz
 }
 
 
@@ -28,11 +28,11 @@ MESSAGE : ANSWER / ANSWER_CONFIRM
     rightAnswer : {content: "text_question"},
     status { TIMEOUT, CHECK }
     score,
-	coefficient,
+    coefficient,
 
-	/* verifier si necessaire */
-	idUser,
-	idQuiz
+    /* verifier si necessaire */
+    idUser,
+    idQuiz
 }
 
 MESSAGE : NEXT_QUESTION
