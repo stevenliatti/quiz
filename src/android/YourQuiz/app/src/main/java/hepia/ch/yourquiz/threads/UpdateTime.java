@@ -9,6 +9,7 @@ import hepia.ch.yourquiz.ParticipateQuizActivity;
 public class UpdateTime extends Thread{
     private int questionTime;
     private ParticipateQuizActivity participateQuizActivity;
+    private boolean stopped = false;
 
     public UpdateTime(int questionTime, ParticipateQuizActivity participateQuizActivity) {
         this.questionTime = questionTime;
@@ -24,7 +25,9 @@ public class UpdateTime extends Thread{
                     participateQuizActivity.setTimeLeft(questionTime);
                 }
             });
-            while (questionTime > 0) {
+            while (questionTime > 0 && !stopped) {
+                Thread.sleep(1000);
+                questionTime--;
                 participateQuizActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -32,11 +35,12 @@ public class UpdateTime extends Thread{
                         participateQuizActivity.setTimeLeft(questionTime);
                     }
                 });
-                questionTime--;
-                Thread.sleep(1000);
             }
-            participateQuizActivity.getSocket().emit("NEXT_QUESTION");
         } catch (InterruptedException ignored) {
         }
+    }
+
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
     }
 }

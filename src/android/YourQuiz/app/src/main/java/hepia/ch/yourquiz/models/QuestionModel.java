@@ -22,17 +22,8 @@ public class QuestionModel {
 
     }
 
-    public QuestionModel(String idQuestion, String nameQuestion, ArrayList<String> answers, int time, int questionIndex, int questionCount) {
-
-        this.idQuestion = idQuestion;
-        this.nameQuestion = nameQuestion;
-        this.answers = answers;
-        this.time = time;
-        this.questionIndex = questionIndex;
-        this.questionCount = questionCount;
-    }
-
     public QuestionModel(JSONObject data) throws JSONException {
+        setIdQuestion(data.getString("idQuestion"));
         setNameQuestion(data.getString("nameQuestion"));
         setAnswers(data.getJSONArray("answers"));
         setTime(data.getInt("time"));

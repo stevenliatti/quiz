@@ -198,13 +198,19 @@ io.on('connection', function (socket) {
 			{
 				clearTimeout(timeoutController);
 				let question = getQuestion(clients[socket.id], idCurrentQuestion);
+				
+				console.log("Reponse user : " + data.rightAnswer);
+				console.log("Reponse correcte : " + question.rightAnswer);
 
-				if (data.rightAnswer === question.rightAnswer) {
+				if (data.rightAnswer['content'] === question.rightAnswer['content']) {
+					console.log("BONNE REPONSE");
+
 					clients[socket.id].results.rightAnswers.push(data.rightAnswer);
 					clients[socket.id].results.correctAnswers++;
 					clients[socket.id].coeff++;
 					setScore(clients[socket.id], question.answerTime);
 				} else {
+					console.log("MAUVAISE REPONSE");
 					clients[socket.id].results.wrongAnswers.push(data.rightAnswer);
 					clients[socket.id].coeff = 0;
 				}
