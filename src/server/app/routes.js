@@ -1,5 +1,6 @@
 const authController = require('./controllers/authentication');
 const quizController = require('./controllers/quiz');
+const rankingController = require('./controllers/ranking');
 
 const express = require('express');
 const passportService = require('../config/passport');
@@ -12,6 +13,7 @@ module.exports = function(app) {
     const router = express.Router();
     const authRoutes = express.Router();
     const quizRoutes = express.Router();
+    const rankingRoutes = express.Router();
 
     // Auth Routes
     router.use('/auth', authRoutes);
@@ -26,7 +28,13 @@ module.exports = function(app) {
     quizRoutes.get('/getAll', quizController.getAll);
     quizRoutes.post('/create', quizController.createQuiz);
     quizRoutes.post('/commit', quizController.createParticipation);
-
+    
+    // Ranking routes
+    router.use('/ranking', rankingRoutes);
+    rankingRoutes.get('/quiz/:id', rankingController.quiz);
+    rankingRoutes.get('/quizzes', rankingController.quizzes);
+    rankingRoutes.get('/players', rankingController.players);
+    
     // Set up routes
     app.use('/', router);
     app.all('*', function(req, res) {
