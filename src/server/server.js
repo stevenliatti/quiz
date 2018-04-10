@@ -59,7 +59,9 @@ const setScore = (client, answerTime) => {
 		client.timeEnd = currentTime();
 		let elapsed = client.timeEnd - client.timeStart;
 		let remainder = Math.abs(elapsed - answerTime);
+		console.log(remainder);
 		let pourcent = remainder / answerTime * 100;
+		console.log(pourcent);
 		client.score += pourcent * client.coeff + 10;
 }
 
