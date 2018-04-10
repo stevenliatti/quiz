@@ -1,26 +1,28 @@
 
-function Quiz(owner, name, startDateTime, endDateTime)
+function Quiz(owner, name, description , days)
 {
     this.name = name;
-    this.startDateTime = startDateTime;
-    this.endDateTime = endDateTime;
+    this.days = days;
     this.owner = owner;
+    this.description = description;
     this.questions = [];
     this.nbQuestions = 0;
     this.addQuestions = function(questions)
     {
       this.questions = questions;  
-      this.nbQuestions = questions.length();
+      this.nbQuestions = questions.length;
     };
 }
 
 /***
  * Constructor of question
+ * @param {type} id
  * @param {type} name
  * @returns {Question}
  */
-function Question(name) 
-{    
+function Question(id,name) 
+{   
+    this.id = id; 
     this.name = name;
     this.answers = [];
     this.rightAnswer = null;

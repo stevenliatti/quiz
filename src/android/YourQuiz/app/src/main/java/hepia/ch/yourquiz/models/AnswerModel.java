@@ -10,22 +10,36 @@ import org.json.JSONObject;
 public class AnswerModel {
     private String idQuestion;
     private String answer;
+    private String status;
+    private int coefficient;
+    private int score;
+    public static final String CHECK = "check";
+    public static final String TIMEOUT = "timeout";
 
     public AnswerModel(String idQuestion, String answer) {
         this.idQuestion = idQuestion;
         this.answer = answer;
     }
 
-    public JSONObject getJsonObject() {
+    public AnswerModel(JSONObject data) throws JSONException {
+        setIdQuestion(data.getString("idQuestion"));
+        setAnswer(data.getJSONObject("rightAnswer"));
+        setStatus(data.getString("status"));
+        setCoefficient(data.getInt("coefficient"));
+        setScore(data.getInt("score"));
+    }
+
+    public JSONObject getAnswerJsonObject() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("idQuestion", idQuestion);
-            jsonObject.put("rightAnswer", answer);
+            jsonObject.put("rightAnswer", new JSONObject().put("content", answer));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return jsonObject;
     }
+
 
     public String getIdQuestion() {
         return idQuestion;
@@ -39,7 +53,35 @@ public class AnswerModel {
         return answer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswer(JSONObject answer) {
+        try {
+            this.answer = answer.getString("content");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getCoefficient() {
+        return coefficient;
+    }
+
+    public void setCoefficient(int coefficient) {
+        this.coefficient = coefficient;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

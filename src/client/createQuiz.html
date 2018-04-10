@@ -66,13 +66,8 @@ and open the template in the editor.
             </div>
             <div class="w3-row-padding">
               <div class="w3-half">
-                <label for="startDate" class="w3-text-teal w3-xlarge">Date début</label>
-                <input id="startDate" type="datetime-local" class="w3-margin-bottom w3-input">
-              </div>
-
-              <div class="w3-half">
-                <label for="endDate" class="w3-text-teal w3-xlarge">Date fin</label>
-                <input id="endDate" type="datetime-local" class="w3-margin-bottom w3-input">
+                <label for="days" class="w3-text-teal w3-xlarge">Nombre de jours</label>
+                <input id="days" type="number" min="1" value="1" class="w3-margin-bottom w3-input">
               </div>
             </div>
 
@@ -80,9 +75,6 @@ and open the template in the editor.
               <select id="selectorQuestions" class="w3-select w3-margin-bottom w3-round-large" name="questions"></select>
             </div>
 
-            <label for="maxParticipant" class="w3-text-teal w3-xlarge">Fixer un maximum de participant ?</label>
-            <input id="maxParticipant" class="w3-check w3-margin" type="checkbox">
-            <input id="maxParticipantNumUpDown" class="w3-input w3-margin-bottom" type="number" min="1" value="1" disabled >
             <div id="questions"></div>
             <hr>
             <div class="w3-container w3-row-padding">
@@ -117,7 +109,7 @@ and open the template in the editor.
          });
 
          $("#btnSend").on("click", function () {
-             let quiz = new Quiz("Loic", $("#name").val(), $("#startDate").val(), $("#endDate").val());
+             let quiz = new Quiz("Loic", $("#name").val(), $("#description").val() , $("#days").val());
              console.log(allQuestions);
              quiz.addQuestions(allQuestions);
              console.log(quiz);
