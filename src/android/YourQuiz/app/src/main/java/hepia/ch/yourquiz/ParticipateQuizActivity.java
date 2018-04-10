@@ -20,12 +20,15 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import hepia.ch.yourquiz.fragments.QuizElementFragment;
 import hepia.ch.yourquiz.models.AnswerModel;
 import hepia.ch.yourquiz.models.JoinModel;
 import hepia.ch.yourquiz.models.QuestionModel;
 import hepia.ch.yourquiz.threads.UpdateTime;
 
 public class ParticipateQuizActivity extends AppCompatActivity {
+    public static final String QUIZ_EXTRA = "quiz_extra";
+
     private TextView txtQuestionNumber;
     private TextView txtScore;
     private TextView txtCoeff;
@@ -38,8 +41,8 @@ public class ParticipateQuizActivity extends AppCompatActivity {
     ProgressBar progressBarTimeLeft;
     LinearLayout answersLayout;
 
-    private final static String SERVER_IP = "nathanael.eracnos.ch";
-    private final static String SERVER_PORT = "443";
+    public final static String SERVER_IP = "raed.eracnos.ch";
+    public final static String SERVER_PORT = "443";
 
     private Socket socket;
 
@@ -69,14 +72,13 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
         socket.connect();
 
-        JoinModel joinModel = new JoinModel(
-                "android client",
-                "5aca09c556a60f4937cb2ee0",
-                "LA CHANCLA"
-        );
-        socket.emit("JOIN", joinModel.getJsonObject());
+        Bundle extras = getIntent().getBundleExtra(QUIZ_EXTRA);
+        if (extras != null) {
+            JoinModel joinModel = new JoinModel("android client", extras.getString(QuizElementFragment.ID), "LA CHANCLA");
+            socket.emit("JOIN", joinModel.getJsonObject());
 
-        socket.emit("NEXT_QUESTION");
+            socket.emit("NEXT_QUESTION");
+        }
     }
 
     private Emitter.Listener onNewQuestion = new Emitter.Listener() {
@@ -193,8 +195,9 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        socket.disconnect();
         socket.off("NEW_QUESTION", onNewQuestion);
+        socket.off("ANSWER_CONFIRM", onAnswerConfirm);
+        socket.disconnect();
         super.onDestroy();
     }
 
