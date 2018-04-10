@@ -120,7 +120,7 @@ and open the template in the editor.
          });
 
          $("#btnSend").on("click", function () {
-             let quiz = new Quiz("Loic", $("#name").val(), $("#startDate").val(), $("#endDate").val());
+             let quiz = new Quiz("Loic", $("#name").val(), $("#description").val() , $("#days").val());
              console.log(allQuestions);
              quiz.addQuestions(allQuestions);
              console.log(quiz);

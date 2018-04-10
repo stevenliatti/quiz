@@ -19,11 +19,6 @@ const QuizSchema = new mongoose.Schema({
     },
     startDateTime: {
         type: Date,
-        validate: {
-            validator: function(v) { return v.getTime() >= Date.now() },
-            message: 'Start date must be after now'
-        },
-        required: true,
         default: Date.now()
     },
     days: {
@@ -69,8 +64,8 @@ const QuizSchema = new mongoose.Schema({
             content: {
                 type: String,
                 validate: {
-                    validator: function(v) { return v.length > 1 && v.length < 51; },
-                    message: 'Answer content length must be between 2 and 50'
+                    validator: function(v) { return v.length >= 1 && v.length < 51; },
+                    message: 'Answer content length must be between 1 and 50'
                 },
                 required: true
             }

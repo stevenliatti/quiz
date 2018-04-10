@@ -29,11 +29,13 @@ function ManagerFormCreationQuiz()
         if (questionName.val() !== "") {
             var questionId = allQuestions.length;
             
-            allQuestions.push(new Question(questionName.val()));
+            
 
             let questionTarget = "#q" + questionId;
             let responseTarget = "#rq" + questionId;
             let modifyTarget = "#m" + questionId;
+
+            allQuestions.push(new Question("q" + questionId, questionName.val()));
 
             /* QUESTION */
 
@@ -85,8 +87,17 @@ function addResponse(target, responseTarget, questionId) {
             let responseBlock = "#" + idBlock;
 
             $(responseTarget).append("<div class=\"w3-left\" id=\"q" + questionId + "_r" + currentId + "\"></div>");
-            $(responseBlock).append("<input class=\"w3-radio\" onclick=\"updateRightAnwser('" + responseBlock + "','" + questionId + "')\" type=\"radio\" value=\"" + val + "\" name=\"" + questionId + "\">" + val + "</div>");
+            if (currentId == 0) 
+            {
 
+              $(responseBlock).append("<input class=\"w3-radio\" onclick=\"updateRightAnwser('" + responseBlock + "','" + questionId + "')\" type=\"radio\" value=\"" + val + "\" checked=\"checked\" name=\"" + questionId + "\">" + val + "</div>");
+              updateRightAnwser(responseBlock,questionId);
+            }
+            else
+            {
+              $(responseBlock).append("<input class=\"w3-radio\" onclick=\"updateRightAnwser('" + responseBlock + "','" + questionId + "')\" type=\"radio\" value=\"" + val + "\" name=\"" + questionId + "\">" + val + "</div>");
+            }
+            
             /////////////////////
             /// manage
             /////////////////////
