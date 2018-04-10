@@ -39,7 +39,6 @@ $('#nextQuestion').click(function () {
 var id = 0;
 
 $('#answerQuestion').click(function () {
-
     answerQuestion("q" + id, "Yes");
     id++;
 });
@@ -54,7 +53,6 @@ function join() {
 
     socket.emit('JOIN', myJoin);
 }
-
 
 function nextQuestion() {
     console.log('EMIT NEXT_QUESTION');

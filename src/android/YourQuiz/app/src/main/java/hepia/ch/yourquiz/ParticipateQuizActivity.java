@@ -163,7 +163,7 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
                         if (answerModel.getStatus().equals(AnswerModel.CHECK)) {
 
-
+                        synchronized (buttonsAnswerList){
                             for (Button answer : buttonsAnswerList) {
                                 Log.e("selectedAnswer",selectedAnswer);
                                 Log.e("answerServer",answerModel.getAnswer());
@@ -178,6 +178,7 @@ public class ParticipateQuizActivity extends AppCompatActivity {
                                     answer.setBackgroundColor(Color.RED);
                                 }
 
+                               }
                             }
                         }
                     }
