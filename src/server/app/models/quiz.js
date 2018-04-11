@@ -80,7 +80,11 @@ const QuizSchema = new mongoose.Schema({
                 required: true
             }
         }
-    }]
+    }],
+    participations: {
+        type: Number,
+        default: 0
+    }
 }, { timestamps: true });
 
 QuizSchema.path('questions').validate(function(questions) {
