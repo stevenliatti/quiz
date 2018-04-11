@@ -38,7 +38,7 @@
 }
 
 .color-menu {
-    background-color: red;
+    background-color: #e74c3c;
     color: white;
 }
 
@@ -67,6 +67,7 @@ body,h1,h2,h3,h4,h5,h6 {
     width: 90%;
     margin-top: 15px;
     margin-bottom: 15px;
+    white-space: normal;
 }
 
 p {
@@ -75,8 +76,4 @@ p {
 
 #error {
     color: red;
-}
-
-.btnAnswer {
-    white-space: normal;
 }

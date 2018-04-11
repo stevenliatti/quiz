@@ -74,8 +74,8 @@ const QuizSchema = new mongoose.Schema({
             content: {
                 type: String,
                 validate: {
-                    validator: function(v) { return v.length > 1 && v.length < 251; },
-                    message: 'Right answer length must be between 2 and 250'
+                    validator: function(v) { return v.length >= 1 && v.length < 251; },
+                    message: 'Right answer length must be between 1 and 250'
                 },
                 required: true
             }
