@@ -29,7 +29,6 @@ module.exports = function(app) {
     router.use('/quiz', quizRoutes);
     quizRoutes.get('/getAll', quizController.getAll);
     quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
-    quizRoutes.post('/commit', requireAuth, authController.roleAuthorization(allRoles), quizController.createParticipation);
     
     // Ranking routes
     router.use('/ranking', rankingRoutes);

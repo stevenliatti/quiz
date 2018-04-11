@@ -31,17 +31,3 @@ exports.createQuiz = function(req, res) {
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
-
-exports.createParticipation = function(req, res) {
-    const commit = req.body;
-    log.debug(commit);
-    Participation.create(commit)
-    .then(commit => {
-        res.status(200).json({
-            error: false,
-            date: new Date(),
-            message: 'Quiz ended !'
-        });        
-    })
-    .catch(error => { use.sendError(error, res, 500, error); });
-}
