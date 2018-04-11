@@ -1,4 +1,4 @@
-/* 
+/*
     Created on : 21 févr. 2018, 18:31:44
     Author     : Mayron
 */
@@ -59,4 +59,8 @@ p {
 
 #error {
     color: red;
+}
+
+.btnAnswer {
+    overflow-wrap: break-word;
 }
