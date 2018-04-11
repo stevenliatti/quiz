@@ -5,7 +5,7 @@ const QuizSchema = new mongoose.Schema({
         type: String,
         validate: {
             validator: function(v) { return v.length > 1 && v.length < 100; },
-            message: 'Question name length must be between 2 and 50'
+            message: 'Question name length must be between 2 and 100'
         },
         required: true
     },
@@ -13,7 +13,7 @@ const QuizSchema = new mongoose.Schema({
         type: String,
         validate: {
             validator: function(v) { return v.length > 1 && v.length < 250; },
-            message: 'Description length must be between 2 and 50'
+            message: 'Description length must be between 2 and 250'
         },
         required: true
     },
@@ -44,7 +44,7 @@ const QuizSchema = new mongoose.Schema({
             type: String,
             validate: {
                 validator: function(v) { return v.length > 1 && v.length < 250; },
-                message: 'Question name length must be between 2 and 50'
+                message: 'Question name length must be between 2 and 250'
             },
             required: true
         },
@@ -64,8 +64,8 @@ const QuizSchema = new mongoose.Schema({
             content: {
                 type: String,
                 validate: {
-                    validator: function(v) { return v.length >= 1 && v.length < 51; },
-                    message: 'Answer content length must be between 1 and 50'
+                    validator: function(v) { return v.length >= 1 && v.length < 251; },
+                    message: 'Answer content length must be between 1 and 250'
                 },
                 required: true
             }
@@ -74,8 +74,8 @@ const QuizSchema = new mongoose.Schema({
             content: {
                 type: String,
                 validate: {
-                    validator: function(v) { return v.length > 1 && v.length < 51; },
-                    message: 'Right answer length must be between 2 and 50'
+                    validator: function(v) { return v.length > 1 && v.length < 251; },
+                    message: 'Right answer length must be between 2 and 250'
                 },
                 required: true
             }
