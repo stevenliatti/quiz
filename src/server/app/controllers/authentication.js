@@ -14,6 +14,7 @@ function setUserInfo(request) {
     const userInfo = {
         _id: request._id,
         email: request.email,
+        pseudo: request.pseudo,
         role: request.role
     };
     userInfo.token = generateToken(userInfo);
@@ -51,8 +52,9 @@ exports.register = function(req, res, next) {
 }
 
 exports.edit = function(req, res) {
-    console.log("Editing")
-    console.log(req.body);
+    console.log('Authentification.js : edit function');
+    let user = req.body;
+    console.log(user);
 
     // User.findOne({email: email}, function(err, existingUser) {
     //     if (err) return next(err);
