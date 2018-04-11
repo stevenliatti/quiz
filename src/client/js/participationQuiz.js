@@ -33,8 +33,12 @@ $(document).ready(function() {
     const startQuiz = authorized('createQuiz');
     if (startQuiz) {
         var idUser = localStorage.getItem('user')._id;
+        var idQuiz = getUrlParams('id');
         var token = localStorage.getItem('user').token;
-        initParticipation(idUser, getUrlParams('id'), token);
+        console.log(idUser);
+        console.log(idQuiz);
+        console.log(token);
+        initParticipation(idUser, idQuiz, token);
     }
 });
 
