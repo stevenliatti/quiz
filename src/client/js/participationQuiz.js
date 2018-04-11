@@ -32,7 +32,9 @@ function getUrlParams(field, url) {
 $(document).ready(function() {
     const startQuiz = authorized('createQuiz');
     if (startQuiz) {
-        initParticipation("EL BAGNADOR", getUrlParams('id'), "LA CHANCLA");
+        var idUser = localStorage.getItem('user')._id;
+        var token = localStorage.getItem('user').token;
+        initParticipation(idUser, getUrlParams('id'), token);
     }
 });
 
