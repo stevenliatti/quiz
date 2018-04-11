@@ -150,7 +150,7 @@ function socket_io_receive_answer_confirm(message) {
     console.log(message);
 
     setMultiplicateur(message.coefficient);
-    setScore(message.score);
+    setScore(Math.round(message.score));
 
     if (message.status == PROTOCOL_ANSER_STATUS_CHECK) {
         if (choosen_answer == message.rightAnswer.content) {
