@@ -52,9 +52,15 @@ and open the template in the editor.
       <!-- Classement général -->
       <div class="w3-half w3-center w3-padding-small w3-teal" style="border: 1px solid white;">
         <h2>Classement Général</h2>
-        <table class="w3-table w3-bordered" id="BestPlayersTable"></table>
+        <table class="w3-table w3-bordered" id="BestPlayersTable">
+          <tr>
+            <th>Rang</th>
+            <th>Nom du joueur</th>
+            <th>Points</th>
+          </tr>
+        </table>
       </div>
-      
+
       <div class="w3-half w3-center w3-padding-small w3-teal" style="border: 1px solid white">
         <h2>Quiz les plus populaires</h2>
         <table class="w3-table w3-bordered" id="BestQuizTable">
@@ -65,10 +71,6 @@ and open the template in the editor.
           </tr>
         </table>
       </div>
-
-<!--      <div class="w3-center w3-padding-24 w3-teal footer">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>-->
-
-      <!-- End page content -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
@@ -81,25 +83,47 @@ and open the template in the editor.
           $.getJSON("https://" + SERVER_IP + "/ranking/players", function (data) {
               let bestPlayerCounter = 1;
               for (var i = 0; i < data.length; i++) {
-                
-                switch(bestPlayerCounter){
-                  case "":
-                    break;
-                }
-                
-            }
+
+                  switch (bestPlayerCounter) {
+                      case 1:
+                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "</td>\n\
+                      <td><a href=\"./account.html\"><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+                      <td>" + data[i].points + "</td></tr>");
+                          bestPlayerCounter++;
+                          break;
+
+                      case 2:
+                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "</td>\n\
+                      <td><a href=\"./account.html\"><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+                      <td>" + data[i].points + "</td></tr>");
+                          bestPlayerCounter++;
+                          break;
+
+                      case 3:
+                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "</td>\n\
+                      <td><a href=\"./account.html\"><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+                      <td>" + data[i].points + "</td></tr>");
+                          bestPlayerCounter++;
+                          break;
+
+                      default:
+                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "</td>\n\
+                      <td><a href=\"./account.html\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+                      <td>" + data[i].points + "</td></tr>");
+                          bestPlayerCounter++;
+                  }
+              }
           }, "json");
-//          <i class="w3-margin-left fa fa-trophy" style="font-size: 2em;"></i>
 
           $.getJSON("https://" + SERVER_IP + "/ranking/quizzes", function (data) {
-            var bestQuizCounter = 1;
+              var bestQuizCounter = 1;
               for (var i = 0; i < data.length; i++) {
-                
+
                   $("#BestQuizTable").append("<tr><td>" + bestQuizCounter + "</td>\n\
             <td><a href=\"./participationQuiz.html?id=" + data[i].id + "\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
-            <td>" + data[i].participations +"</td></tr>");
-              bestQuizCounter++;
-            }
+            <td>" + data[i].participations + "</td></tr>");
+                  bestQuizCounter++;
+              }
           }, "json");
 
           $("#menu_navbar").load("menu/menu_navbar.html");
