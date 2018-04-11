@@ -30,7 +30,16 @@ function getUrlParams(field, url) {
 }
 
 $(document).ready(function() {
-    initParticipation("EL BAGNADOR", getUrlParams('id'), "LA CHANCLA");
+    const startQuiz = authorized('createQuiz');
+    if (startQuiz) {
+        var idUser = localStorage.getItem('user')._id;
+        var idQuiz = getUrlParams('id');
+        var token = localStorage.getItem('user').token;
+        console.log(idUser);
+        console.log(idQuiz);
+        console.log(token);
+        initParticipation(idUser, idQuiz, token);
+    }
 });
 
 // ############################################################################

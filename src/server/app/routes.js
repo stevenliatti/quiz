@@ -9,6 +9,8 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', {session: false});
 const requireLogin = passport.authenticate('local', {session: false});
 
+const allRoles = ['user', 'admin'];
+
 module.exports = function(app) {
     const router = express.Router();
     const authRoutes = express.Router();
@@ -27,8 +29,8 @@ module.exports = function(app) {
     // Quiz routes
     router.use('/quiz', quizRoutes);
     quizRoutes.get('/getAll', quizController.getAll);
-    quizRoutes.post('/create', quizController.createQuiz);
-    quizRoutes.post('/commit', quizController.createParticipation);
+    quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
+    quizRoutes.post('/commit', requireAuth, authController.roleAuthorization(allRoles), quizController.createParticipation);
     
     // Ranking routes
     router.use('/ranking', rankingRoutes);

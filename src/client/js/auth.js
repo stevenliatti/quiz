@@ -1,11 +1,30 @@
-const user = JSON.parse(localStorage.getItem('user'));
-if (user !== null && user.tokenExpire > Math.floor(Date.now() / 1000) + 60) {
-    document.getElementById('form').remove();
-    const newP = document.createElement('p');
-    newP.style = 'color: green';
-    const newContent = document.createTextNode('Already connected !');
-    newP.appendChild(newContent);
-    document.getElementById('content').appendChild(newP);
+
+function authorized(id) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user === null || (user !== null && user.tokenExpire < Math.floor(Date.now() / 1000))) {
+        document.getElementById(id).remove();
+        const newP = document.createElement('p');
+        const newContent = document.createTextNode('You must be connected');
+        const newA = document.createElement('a');
+        newA.href = '/static/login.html';
+        newA.appendChild(newContent);
+        newP.appendChild(newA);
+        document.getElementById('content').appendChild(newP);
+        return false;
+    }
+    return true;
+}
+
+function alreadyConnected(id) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user !== null && user.tokenExpire > Math.floor(Date.now() / 1000) + 60) {
+        document.getElementById(id).remove();
+        const newP = document.createElement('p');
+        newP.style = 'color: green';
+        const newContent = document.createTextNode('Already connected !');
+        newP.appendChild(newContent);
+        document.getElementById('content').appendChild(newP);
+    }
 }
 
 function login() {
