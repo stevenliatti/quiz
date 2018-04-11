@@ -30,9 +30,17 @@ function getUrlParams(field, url) {
 }
 
 $(document).ready(function() {
-    var idUser = localStorage.getItem('user')._id;
-    var token = localStorage.getItem('user').token;
-    initParticipation(idUser, getUrlParams('id'), token);
+    const startQuiz = authorized('createQuiz');
+    if (startQuiz) {
+        var localStorageObject = JSON.parse(localStorage.getItem('user'));
+        var idUser = localStorageObject._id;
+        var idQuiz = getUrlParams('id');
+        var token = localStorageObject.token;
+        console.log(idUser);
+        console.log(idQuiz);
+        console.log(token);
+        initParticipation(idUser, idQuiz, token);
+    }
 });
 
 // ############################################################################
