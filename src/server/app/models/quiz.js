@@ -4,7 +4,7 @@ const QuizSchema = new mongoose.Schema({
     name: {
         type: String,
         validate: {
-            validator: function(v) { return v.length > 1 && v.length < 51; },
+            validator: function(v) { return v.length > 1 && v.length < 100; },
             message: 'Question name length must be between 2 and 50'
         },
         required: true
@@ -12,7 +12,7 @@ const QuizSchema = new mongoose.Schema({
     description: {
         type: String,
         validate: {
-            validator: function(v) { return v.length > 1 && v.length < 51; },
+            validator: function(v) { return v.length > 1 && v.length < 250; },
             message: 'Description length must be between 2 and 50'
         },
         required: true
@@ -43,7 +43,7 @@ const QuizSchema = new mongoose.Schema({
         name: {
             type: String,
             validate: {
-                validator: function(v) { return v.length > 1 && v.length < 51; },
+                validator: function(v) { return v.length > 1 && v.length < 250; },
                 message: 'Question name length must be between 2 and 50'
             },
             required: true
