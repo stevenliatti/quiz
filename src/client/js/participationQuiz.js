@@ -32,9 +32,10 @@ function getUrlParams(field, url) {
 $(document).ready(function() {
     const startQuiz = authorized('createQuiz');
     if (startQuiz) {
-        var idUser = localStorage.getItem('user')._id;
+        var localStorageObject = JSON.parse(localStorage.getItem('user'));
+        var idUser = localStorageObject._id;
         var idQuiz = getUrlParams('id');
-        var token = localStorage.getItem('user').token;
+        var token = localStorageObject.token;
         console.log(idUser);
         console.log(idQuiz);
         console.log(token);

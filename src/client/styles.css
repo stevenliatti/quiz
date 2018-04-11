@@ -16,6 +16,25 @@ and open the template in the editor.
     margin-left: auto;
 }
 
+.menu-nav-bar {
+    z-index:3;
+    width:240px;
+    height: 100%;
+}
+
+.nav-size {
+    margin-left: 240px;
+}
+
+.color-background {
+    background-color: white;
+}
+
+.color-menu {
+    background-color: teal;
+    color: white;
+}
+
 div {
     display:block;
 }
