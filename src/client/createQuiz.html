@@ -24,7 +24,7 @@ and open the template in the editor.
         <a href="#" onclick="w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
           <i class="fa fa-remove"></i>
         </a>
-        <img src="http://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
+        <img src="https://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
         <h4><b>MENU</b></h4>
       </div>
       <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar();"></div>
@@ -38,20 +38,20 @@ and open the template in the editor.
 
       <!-- Header -->
       <header id="portfolio">
-        <a href="#"><img src="http://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        <a href="#"><img src="https://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
         <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i></span>
         <div class="w3-container">
-          <h1><b>YouQuiz</b></h1>
+          <h1><b>YourQuiz</b></h1>
         </div>
       </header>
 
       <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-        <h4><b>A propos de YouQuiz</b></h4>
-        <p>YouQuiz est un site multi-plateforme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
+        <h4><b>A propos de YourQuiz</b></h4>
+        <p>YourQuiz est un site multi-plateforme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
       </div>
 
       <!--Formulaire-->
-      <div class="w3-container w3-padding-large">
+      <div id="content" class="w3-container w3-padding-large">
         <form id="createQuiz" class="w3-container" action="." method="post">
           <fieldset class="w3-round-large">
             <legend class="w3-text-teal w3-xxlarge w3-center">Création de Quiz</legend>
@@ -89,9 +89,8 @@ and open the template in the editor.
             <button id="btnSend" class="w3-round-large w3-large w3-button w3-margin-bottom w3-teal w3-margin-right" type="button">Envoyer le quiz</button>
           </fieldset>
         </form>
+        <p id="message"></p>
       </div>
-
-      <div class="w3-center w3-padding-24 w3-teal">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
@@ -102,6 +101,8 @@ and open the template in the editor.
     <script src="./js/quizItems.js"></script>
     <script src="js/menuSidebar.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>authorized('createQuiz');</script>
     <script>
          let manager = new ManagerFormCreationQuiz();
          $("#btnAddQuestion").on("click", function () {
@@ -113,13 +114,24 @@ and open the template in the editor.
              console.log(allQuestions);
              quiz.addQuestions(allQuestions);
              console.log(quiz);
-
+             
+             const user = JSON.parse(localStorage.getItem('user'));
+             console.log(user.token);
              $.ajax("https://" + SERVER_IP + "/quiz/create", {
                  data: JSON.stringify(quiz),
                  contentType: 'application/json',
-                 type: 'POST'
+                 type: 'POST',
+                 headers: { 'Authorization': user.token }
+             }).done(function(response) {
+               console.log(response);
+               if (response.error) {
+                document.getElementById('message').innerHTML = 'Error !';
+               }
+               else {
+                document.getElementById('createQuiz').remove();
+                document.getElementById('message').innerHTML = 'Success !';
+               }
              });
-
          });
 
          $("#maxParticipant").change(function () {

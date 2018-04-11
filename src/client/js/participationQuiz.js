@@ -30,7 +30,10 @@ function getUrlParams(field, url) {
 }
 
 $(document).ready(function() {
-    initParticipation("EL BAGNADOR", getUrlParams('id'), "LA CHANCLA");
+    const startQuiz = authorized('createQuiz');
+    if (startQuiz) {
+        initParticipation("EL BAGNADOR", getUrlParams('id'), "LA CHANCLA");
+    }
 });
 
 // ############################################################################
