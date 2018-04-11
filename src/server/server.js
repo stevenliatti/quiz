@@ -60,7 +60,7 @@ const setScore = (client, answerTime) => {
 		let elapsed = client.timeEnd - client.timeStart;
 		let remainder = Math.abs(elapsed - answerTime);
 		console.log(remainder);
-		let pourcent = remainder / answerTime * 100;
+		let pourcent = (Math.ceil(remainder / answerTime * 10)) * 10;
 		console.log(pourcent);
 		client.score += pourcent * client.coeff + 10;
 }
@@ -208,7 +208,11 @@ io.on('connection', function (socket) {
 
 					clients[socket.id].results.rightAnswers.push(data.rightAnswer);
 					clients[socket.id].results.correctAnswers++;
-					clients[socket.id].coeff++;
+					if (clients[socket.id].coeff < 3) 
+					{
+						clients[socket.id].coeff++;
+					}
+					
 					setScore(clients[socket.id], question.answerTime);
 				} else {
 					console.log("MAUVAISE REPONSE");

@@ -50,6 +50,17 @@ exports.register = function(req, res, next) {
     });
 }
 
+exports.edit = function(req, res) {
+    console.log("Editing")
+    console.log(req.body);
+
+    // User.findOne({email: email}, function(err, existingUser) {
+    //     if (err) return next(err);
+    //     console.log(existingUser);
+    // });
+    res.status(200).json({update: 'Test update'});   
+}
+
 exports.roleAuthorization = function(roles) {
     return function(req, res, next) {
         const user = req.user;

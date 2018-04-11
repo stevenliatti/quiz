@@ -77,3 +77,44 @@ function register() {
         xhr.send(JSON.stringify({ email: email, password: password}));
     }
 }
+
+
+function edit() {
+    let error = document.getElementById('error');
+    error.innerHTML = '';
+    const email = document.getElementById('email').value;
+    const pseudo = document.getElementById('pseudo').value;
+    const password = document.getElementById('password').value;
+    const repeatedPassword = document.getElementById('repeat_password').value;
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/auth/account', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    let token = '';
+    //xhr.setRequestHeader('Authorization', token);
+     if (pseudo !== '' && email !== '' && password !== '' && repeatedPassword !== '') {
+            if (password !== repeatedPassword) {
+                console.log('Passwords mismatch');
+                error.innerHTML = 'Passwords doesn\'t match';
+                return;
+            }
+    console.log("onload");
+    xhr.onload = function() {
+            if (this.status === 200) {
+                console.log('success editing', JSON.parse(this.response));
+                localStorage.setItem('edit', this.response);
+                document.getElementById('form').remove();
+                const newP = document.createElement('p');
+                newP.style = 'color: green';
+                const newContent = document.createTextNode('Editing success !');
+                newP.appendChild(newContent);
+                document.getElementById('content').appendChild(newP);
+            }
+            else {
+                const resp = JSON.parse(this.response);
+                console.log('error', this.response);
+                error.innerHTML = resp.error;
+            }
+        }
+        xhr.send(JSON.stringify({ email: email, pseudo: pseudo, password: password}));
+    }
+}

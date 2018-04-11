@@ -10,6 +10,8 @@ exports.quiz = function(req, res) {
     // Participation.findById()
     res.status(200).json({n:42});
 }
+//retourner nb_participations pour un quiz
+
 
 exports.quizzes = function(req, res) {
     let data = [];

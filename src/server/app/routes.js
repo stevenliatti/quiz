@@ -22,6 +22,7 @@ module.exports = function(app) {
     authRoutes.get('/protected', requireAuth, function(req, res) {
         res.json({ content: 'Success' });
     });
+    authRoutes.post('/account', authController.edit);
 
     // Quiz routes
     router.use('/quiz', quizRoutes);
