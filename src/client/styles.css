@@ -31,8 +31,12 @@ and open the template in the editor.
 }
 
 .color-menu {
-    background-color: teal;
+    background-color: red;
     color: white;
+}
+
+.text-color {
+    color: black;
 }
 
 div {

@@ -16,7 +16,7 @@ and open the template in the editor.
 
   </head>
   <body class="w3-content color-background" style="max-width:1600px;">
-    <nav class="w3-sidebar w3-collapse w3-animate-left w3-teal menu-nav-bar" id="mySidebar"><br>
+    <nav class="w3-sidebar w3-collapse w3-animate-left color-menu menu-nav-bar" id="mySidebar"><br>
       <div class="w3-container">
         <a href="#" onclick="w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
           <i class="fa fa-remove"></i>
@@ -65,7 +65,7 @@ and open the template in the editor.
 
               $(".QuizItem").each(function (index) {
                   var divQuizItem = this;
-                  $(divQuizItem).append("<div class=\"w3-container w3-teal w3-round-xlarge\"></div>");
+                  $(divQuizItem).append("<div class=\"w3-container color-menu w3-round-xlarge\"></div>");
                   $(divQuizItem).find("div:eq(0)").append("<p><b>" + data[index].name + "</b></p>");
                   $(divQuizItem).find("div:eq(0)").append("<p>" + data[index].description + "</p>");
                   $(divQuizItem).find("div:eq(0)").append("<a href=\"./participationQuiz.html?id=" + data[index].id + "\"><button type=\"submit\" class=\"w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey\"><i class=\"fa fa-plus-square w3-margin-right\" style=\"font-size: 1.5em; vertical-align:middle;\"></i>Je participe</button></a>");
