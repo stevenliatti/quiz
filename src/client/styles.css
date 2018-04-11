@@ -11,6 +11,18 @@
     margin-left: auto;
 }
 
+.page-width {
+    max-width:100%;
+}
+
+.img-width {
+    width: 45%;
+}
+
+.header-margin {
+    margin-bottom:32px;
+}
+
 .menu-nav-bar {
     z-index:3;
     width:240px;
