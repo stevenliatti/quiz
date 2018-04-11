@@ -16,10 +16,10 @@ and open the template in the editor.
     <link rel="stylesheet" href="./styles.css">
   </head>
   
-  <body class="w3-content w3-sand" style="max-width:1600px;">
+  <body class="w3-content color-background" style="max-width:1600px;">
 
     <!--Side menu-->
-    <nav class="w3-sidebar w3-collapse w3-animate-left  w3-teal" style="z-index:3;width:300px; height: 100%;" id="mySidebar"><br>
+    <nav class="w3-sidebar w3-collapse w3-animate-left color-menu menu-nav-bar" id="mySidebar"><br>
       <div class="w3-container">
         <a href="#" onclick="w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
           <i class="fa fa-remove"></i>
@@ -34,7 +34,7 @@ and open the template in the editor.
     <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close();" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
     <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left:300px">
+    <div class="w3-main nav-size">
 
       <!-- Header -->
       <header id="portfolio">
@@ -79,14 +79,14 @@ and open the template in the editor.
             <hr>
             <div class="w3-container w3-row-padding">
               <div class="w3-third">
-                <button id="btnAddQuestion" class="w3-round-large w3-large w3-button w3-margin-bottom w3-teal w3-margin-right" type="button"><i class="w3-padding-right fa fa-plus-square fa-fw"></i>Ajouter une question</button>
+                <button id="btnAddQuestion" class="w3-round-large w3-large w3-button w3-margin-bottom color-menu w3-margin-right" type="button"><i class="w3-padding-right fa fa-plus-square fa-fw"></i>Ajouter une question</button>
               </div>
               <div class="w3-third">
                 <input id="questionName" class="w3-input" type="text">
               </div>
             </div>
             <hr>
-            <button id="btnSend" class="w3-round-large w3-large w3-button w3-margin-bottom w3-teal w3-margin-right" type="button">Envoyer le quiz</button>
+            <button id="btnSend" class="w3-round-large w3-large w3-button w3-margin-bottom color-menu w3-margin-right" type="button">Envoyer le quiz</button>
           </fieldset>
         </form>
       </div>
