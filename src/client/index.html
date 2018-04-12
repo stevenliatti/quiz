@@ -74,7 +74,9 @@ and open the template in the editor.
                   $(divQuizItem).find("div:eq(0)").append("<p>" + data[index].description + "</p>");
                   $(divQuizItem).find("div:eq(0)").append("<a href=\"./participationQuiz.html?id=" + data[index].id + "\"><button type=\"submit\" class=\"w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey\"><i class=\"fa fa-plus-square w3-margin-right\" style=\"font-size: 1.5em; vertical-align:middle;\"></i>Je participe</button></a>");
                   $(divQuizItem).find("div:eq(0)").append("<p>Créateur : " + data[index].owner + "</p>");
-                  $(divQuizItem).find("div:eq(0)").append("<p>Questions : " + data[index].nbQuestions + "</p>");});
+                  console.log(data[index]);
+                  $(divQuizItem).find("div:eq(0)").append("<p>Nombre de questions : " + data[index].nbQuestions + "</p>");
+                });
           }, "json");
 
           $("#menu_navbar").load("menu/menu_navbar.html");

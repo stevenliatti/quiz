@@ -11,7 +11,7 @@ exports.getAll = function(req, res) {
     .then(quizzes => {
         let data = [];
         quizzes.forEach(quiz => {
-            data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner });
+            data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions });
         });
         res.status(200).json(data);
     })
@@ -34,7 +34,7 @@ exports.getNotParticipated = function(req, res ) {
             let data = [];
             quizzes.forEach(quiz => {
                 if (participedQuizzes_list.indexOf(quiz._id.toString()) < 0) {
-                    data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner });
+                    data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions });
                 }
             });
 
