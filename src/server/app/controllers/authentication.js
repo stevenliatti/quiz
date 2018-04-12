@@ -56,11 +56,12 @@ exports.edit = function(req, res) {
     let user = req.body;
     console.log(user);
 
-    // User.findOne({email: email}, function(err, existingUser) {
-    //     if (err) return next(err);
-    //     console.log(existingUser);
-    // });
-    res.status(200).json({update: 'Test update'});   
+    User.findOne({email: user.email}, function(err, existingUser) {
+         if (err) return next(err);
+         console.log("mongo : " + existingUser);
+
+    });
+    res.status(200).json({update: "success"});   
 }
 
 exports.roleAuthorization = function(roles) {
