@@ -3,7 +3,7 @@ const log = new Log('debug');
 const use = require('./use');
 
 const Quiz = require('../models/quiz');
-const Participation = require('../models/participation');
+//const Participation = require('../models/participation');
 
 exports.getAll = function(req, res) {
     // TODO: filter quizzes by date available
@@ -27,7 +27,7 @@ exports.createQuiz = function(req, res) {
             error: false,
             date: new Date(),
             message: 'Quiz saved !'
-        });        
+        });
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
