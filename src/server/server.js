@@ -58,8 +58,6 @@ const extractId = (idQuestion) => {
 }
 
 const setScore = (client, answerTime) => {
-
-<<<<<<< HEAD
 		client.timeEnd = currentTime();
 		let elapsed = client.timeEnd - client.timeStart;
 		let remainder = Math.abs(elapsed - answerTime);
@@ -67,15 +65,6 @@ const setScore = (client, answerTime) => {
 		let pourcent = (Math.ceil(remainder / answerTime * 10)) * 10;
 		console.log(pourcent);
 		client.score += pourcent * client.coeff + 10;
-=======
-        client.timeEnd = currentTime();
-        let elapsed = client.timeEnd - client.timeStart;
-        let remainder = Math.abs(elapsed - answerTime);
-        console.log(remainder);
-        let pourcent = remainder / answerTime * 100;
-        console.log(pourcent);
-        client.score += pourcent * client.coeff + 10;
->>>>>>> f100a376c2904ddc4a0442ff10e00c5fdfd40702
 }
 
 const checkFormatJoin = (msg) => (msg !== null
