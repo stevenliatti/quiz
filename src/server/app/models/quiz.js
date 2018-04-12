@@ -17,19 +17,6 @@ const QuizSchema = new mongoose.Schema({
         },
         required: true
     },
-    startDateTime: {
-        type: Date,
-        default: Date.now()
-    },
-    days: {
-        type: Number,
-        validate: {
-            validator: function(v) { return v >= 1 },
-            message: 'Minimum 1 day'
-        },
-        required: true,
-        default: 1
-    },
     // TODO: use UserSchema here instead of String
     owner: {
         type: String,
