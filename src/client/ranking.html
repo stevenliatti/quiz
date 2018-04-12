@@ -86,22 +86,22 @@ and open the template in the editor.
 
                   switch (bestPlayerCounter) {
                       case 1:
-                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "</td>\n\
-                      <td><a href=\"./account.html\"><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "<i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i></td>\n\
+                      <td><a href=\"./account.html\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
                       <td>" + data[i].points + "</td></tr>");
                           bestPlayerCounter++;
                           break;
 
                       case 2:
-                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "</td>\n\
-                      <td><a href=\"./account.html\"><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "<i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i></td>\n\
+                      <td><a href=\"./account.html\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
                       <td>" + data[i].points + "</td></tr>");
                           bestPlayerCounter++;
                           break;
 
                       case 3:
-                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "</td>\n\
-                      <td><a href=\"./account.html\"><i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+                          $("#BestPlayersTable").append("<tr><td>" + bestPlayerCounter + "<i class=\"w3-margin-left fa fa-trophy\" style=\"font-size: 2em;\"></i></td>\n\
+                      <td><a href=\"./account.html\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
                       <td>" + data[i].points + "</td></tr>");
                           bestPlayerCounter++;
                           break;

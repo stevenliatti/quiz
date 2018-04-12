@@ -121,7 +121,6 @@ p {
     margin: 4px;
     font-size: 1.2em;
     font-family: 'Raleway', sans-serif;
-
     /*font-family: 'Lato', sans-serif;*/
 }
 
@@ -130,14 +129,9 @@ a {
       font-family: 'Raleway', sans-serif;
 }
 
-a:hover
-{
-    background-color: yellow;
-}
-
 .btnParticipate {
     background-color: white;
-    /*background-color: #008CBA; /* Blue */*/
+    /*background-color: #008CBA; Blue */
     font-size: 0.9em;
     vertical-align:middle;
     color: black;
