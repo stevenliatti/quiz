@@ -46,7 +46,7 @@ function login() {
                 newP.appendChild(newContent);
                 document.getElementById('content').appendChild(newP);
                 window.setTimeout(function () {
-                    window.location.href = "https://mayron.eracnos.ch/static/index.html";
+                    window.location.href = "index.html";
                 }, 1500);
             } else {
                 console.log('error', this.response);
