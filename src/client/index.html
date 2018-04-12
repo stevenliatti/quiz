@@ -10,10 +10,10 @@ and open the template in the editor.
     <title>Accueil</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Oswald:200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" type="text/css"/>
-
   </head>
   <body class="w3-content color-background page-width">
     <nav class="w3-sidebar w3-collapse w3-animate-left color-menu menu-nav-bar" id="mySidebar"><br>
@@ -21,8 +21,8 @@ and open the template in the editor.
         <a href="#" onclick="w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
           <i class="fa fa-remove"></i>
         </a>
-        <img src="https://via.placeholder.com/50x50" class="w3-round img-width"><br><br>
-        <h4><b>MENU</b></h4>
+        <img src="./images/litzicoin.png" style="width:100%;" ><br><br>
+        <h3>MENU</h3>
       </div>
       <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar();"></div>
     </nav>
@@ -37,12 +37,11 @@ and open the template in the editor.
       <header id="portfolio">
         <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i></span>
         <div class="w3-container">
-          <h1><b>Yourquiz</b></h1>
+          <h1>Yourquiz</h1>
         </div>
       </header>
-
-      <div class="w3-container w3-padding-large header-margin">
-        <h4><b>A propos de Yourquiz</b></h4>
+      <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h2>A propos de Yourquiz</h2>
         <p>Yourquiz est un site multi-plateforme de quiz en ligne. Il permet à des utilisateurs du monde entier de proposer et de créer des milliers de quiz différents sur une variété de thèmes. Il suffit de s'inscrire pour pouvoir participer à un quiz créé par un autre membre.</p>
       </div>
 
@@ -64,8 +63,8 @@ and open the template in the editor.
 
               $(".QuizItem").each(function (index) {
                   var divQuizItem = this;
-                  $(divQuizItem).append("<div class=\"w3-container color-menu w3-round-xlarge\"></div>");
-                  $(divQuizItem).find("div:eq(0)").append("<p><b>" + data[index].name + "</b></p>");
+                  $(divQuizItem).append("<div class=\"w3-container color-box w3-round-medium\"></div>");
+                  $(divQuizItem).find("div:eq(0)").append("<div class=\"blur\"><h4>" + data[index].name + "</h4></div>");
                   $(divQuizItem).find("div:eq(0)").append("<p>" + data[index].description + "</p>");
                   $(divQuizItem).find("div:eq(0)").append("<a href=\"./participationQuiz.html?id=" + data[index].id + "\"><button type=\"submit\" class=\"w3-round-xxlarge w3-button w3-hover-opacity w3-margin-bottom w3-light-grey\"><i class=\"fa fa-plus-square w3-margin-right\" style=\"font-size: 1.5em; vertical-align:middle;\"></i>Je participe</button></a>");
                   $(divQuizItem).find("div:eq(0)").append("<p>Créateur : " + data[index].owner + "</p>");

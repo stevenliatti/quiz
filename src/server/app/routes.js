@@ -24,12 +24,12 @@ module.exports = function(app) {
     authRoutes.get('/protected', requireAuth, function(req, res) {
         res.json({ content: 'Success' });
     });
+    authRoutes.post('/account', authController.edit);
 
     // Quiz routes
     router.use('/quiz', quizRoutes);
     quizRoutes.get('/getAll', quizController.getAll);
     quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
-    quizRoutes.post('/commit', requireAuth, authController.roleAuthorization(allRoles), quizController.createParticipation);
     
     // Ranking routes
     router.use('/ranking', rankingRoutes);

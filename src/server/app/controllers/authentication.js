@@ -14,6 +14,7 @@ function setUserInfo(request) {
     const userInfo = {
         _id: request._id,
         email: request.email,
+        pseudo: request.pseudo,
         role: request.role
     };
     userInfo.token = generateToken(userInfo);
@@ -48,6 +49,18 @@ exports.register = function(req, res, next) {
             res.status(200).json(setUserInfo(user));
         });
     });
+}
+
+exports.edit = function(req, res) {
+    console.log('Authentification.js : edit function');
+    let user = req.body;
+    console.log(user);
+
+    // User.findOne({email: email}, function(err, existingUser) {
+    //     if (err) return next(err);
+    //     console.log(existingUser);
+    // });
+    res.status(200).json({update: 'Test update'});   
 }
 
 exports.roleAuthorization = function(roles) {
