@@ -56,7 +56,13 @@ and open the template in the editor.
     <script src="js/config.js"></script>
     <script src="js/menuSidebar.js"></script>
     <script>
-          $.getJSON("https://" + SERVER_IP + "/quiz/getAll", function (data) {
+          var routeGetQuiz = "/quiz/getAll";
+          if (localStorage.getItem("user") !== null) {
+              var localStorageObject = JSON.parse(localStorage.getItem('user'));
+              var idUser = localStorageObject._id;
+              routeGetQuiz = "/quiz/getNotParticipated/"+idUser;
+          }
+          $.getJSON("https://" + SERVER_IP + routeGetQuiz, function (data) {
               for (var i = 0; i < data.length; i++) {
                   $("#QuizContainer").append("<div class=\"w3-third w3-container w3-margin-bottom QuizItem\"></div>");
               }
@@ -70,7 +76,7 @@ and open the template in the editor.
                   $(divQuizItem).find("div:eq(0)").append("<p>Créateur : " + data[index].owner + "</p>");
                   $(divQuizItem).find("div:eq(0)").append("<p>Questions : " + data[index].nbQuestions + "</p>");});
           }, "json");
-          
+
           $("#menu_navbar").load("menu/menu_navbar.html");
     </script>
   </body>
