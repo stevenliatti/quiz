@@ -114,140 +114,7 @@ const Quiz = require('./app/models/quiz');
 const User = require('./app/models/user');
 
 io.on('connection', function (socket) {
-<<<<<<< HEAD
-	console.log("==> connection : " + socket.id);
 
-	// get socket id
-	let timeoutController;
-
-	socket.on('JOIN', function (data) {
-		console.log("==> receive JOIN");
-		
-		if (checkFormatJoin(data))
-		{
-			clients[socket.id] = data; //idUser, idQuiz, token
-
-			//clients[socket.id].joined = true;
-
-			clients[socket.id].score = 0;
-			clients[socket.id].coeff = 0;
-			clients[socket.id].questionIndex = 0;
-			clients[socket.id].statusGame = StatusGame.START;
-			clients[socket.id].allowed = false;
-			clients[socket.id].results = {
-				"rightAnswers" : [],
-				"wrongAnswers" : [],
-				"correctAnswers" : 0
-			};
-			Quiz.findById(clients[socket.id].idQuiz, function(err, quiz){
-				if (quiz === undefined || quiz === null) { 
-					console.log("==> quiz not found!");
-					return; 
-				}
-				clients[socket.id].allowed = true;
-				clients[socket.id].quiz = quiz;
-			});
-		}
-
-	});
-
-	socket.on('NEXT_QUESTION', function () {
-		console.log("==> receive NEXT_QUESTION");
-		if (checkUserAllowed(clients[socket.id])) {
-
-			let status = getStatusGame(clients[socket.id]);
-			clearTimeout(timeoutController);
-
-			if(status === StatusGame.IN_PROGRESS) {
-
-				let idx = getCurrentQuestionId(clients[socket.id]);
-				let question = getQuestion(clients[socket.id],idx);
-
-				let newQuestion = {
-					'idQuestion'    : question.id,
-					'nameQuestion'  : question.name,
-					'answers'       : question.answers,
-					'time'          : question.answerTime,
-					'questionIndex' : idx,
-					'questionCount' : clients[socket.id].quiz.nbQuestions
-				}
-
-				console.log("==> emit NEW_QUESTION");
-				console.log(newQuestion.idQuestion);
-				socket.emit('NEW_QUESTION', newQuestion);
-
-				timeoutController = setTimeout(function(){
-					answerTimeout(socket, clients[socket.id]);
-				},question.answerTime*MS);
-
-				//Use to bonus time
-				clients[socket.id].timeStart = currentTime();
-				
-
-			}else if(status === StatusGame.END){
-				console.log("==> emit QUIZ_FINISH");
-				socket.emit('QUIZ_FINISH', {"status" : StatusGame.END});
-			}
-		}
-	});
-
-	socket.on('ANSWER', function (data) {
-		console.log("==> receive ANSWER");
-
-		//TODO: fix multipes requests answers
-		if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
-
-			let idCurrentQuestion = getCurrentQuestionId(clients[socket.id]);
-
-			if (idCurrentQuestion == extractId(data.idQuestion))
-			{
-				clearTimeout(timeoutController);
-				let question = getQuestion(clients[socket.id], idCurrentQuestion);
-				
-				console.log("Reponse user : " + data.rightAnswer);
-				console.log("Reponse correcte : " + question.rightAnswer);
-
-				if (data.rightAnswer['content'] === question.rightAnswer['content']) {
-					console.log("BONNE REPONSE");
-
-					clients[socket.id].results.rightAnswers.push(data.rightAnswer);
-					clients[socket.id].results.correctAnswers++;
-					if (clients[socket.id].coeff < 3) 
-					{
-						clients[socket.id].coeff++;
-					}
-					
-					setScore(clients[socket.id], question.answerTime);
-				} else {
-					console.log("MAUVAISE REPONSE");
-					clients[socket.id].results.wrongAnswers.push(data.rightAnswer);
-					clients[socket.id].coeff = 0;
-				}
-				let answerConfirm = {
-					'idQuestion'  : question.id,
-					'rightAnswer' : question.rightAnswer,
-					'status'      : StatusQuestion.CHECK,
-					'score'       : clients[socket.id].score,
-					'coefficient' : clients[socket.id].coeff
-					// /* verifier si necessaire */
-					// idUser,
-					// idQuiz
-				};
-				console.log("==> emit ANSWER_CONFIRM");
-				console.log(answerConfirm);
-				socket.emit('ANSWER_CONFIRM', answerConfirm);
-				clients[socket.id].questionIndex++;
-			}
-		}
-	});
-
-	socket.on('disconnect', function () {
-		//Clear client
-		clearTimeout(timeoutController);
-		clients[socket.id] = {};
-		console.log("==> disconnect : " + socket.id)
-	});
-=======
     console.log("==> connection : " + socket.id);
 
     // get socket id
@@ -370,7 +237,10 @@ io.on('connection', function (socket) {
 
                     clients[socket.id].results.rightAnswers.push(data.rightAnswer);
                     clients[socket.id].results.correctAnswers++;
-                    clients[socket.id].coeff++;
+                    if (clients[socket.id].coeff < 3) 
+                    {
+                        clients[socket.id].coeff++;
+                    }
                     setScore(clients[socket.id], question.answerTime);
                 } else {
                     console.log("MAUVAISE REPONSE");
@@ -401,5 +271,4 @@ io.on('connection', function (socket) {
         clients[socket.id] = {};
         console.log("==> disconnect : " + socket.id)
     });
->>>>>>> f100a376c2904ddc4a0442ff10e00c5fdfd40702
 });
