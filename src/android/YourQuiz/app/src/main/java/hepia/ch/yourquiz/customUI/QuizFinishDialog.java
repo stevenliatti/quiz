@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 
 import hepia.ch.yourquiz.R;
 
-public class AnswerRightDialog extends DialogFragment {
+public class QuizFinishDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class AnswerRightDialog extends DialogFragment {
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.answer_right_dialog, null));
+        builder.setView(inflater.inflate(R.layout.dialog_quiz_finish, null));
         return builder.create();
     }
 }

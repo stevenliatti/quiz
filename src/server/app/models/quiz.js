@@ -4,34 +4,31 @@ const QuizSchema = new mongoose.Schema({
     name: {
         type: String,
         validate: {
-            validator: function(v) { return v.length > 1 && v.length < 51; },
-            message: 'Question name length must be between 2 and 50'
+            validator: function(v) { return v.length > 1 && v.length < 100; },
+            message: 'Question name length must be between 2 and 100'
         },
         required: true
     },
     description: {
         type: String,
         validate: {
-            validator: function(v) { return v.length > 1 && v.length < 51; },
-            message: 'Description length must be between 2 and 50'
+            validator: function(v) { return v.length > 1 && v.length < 250; },
+            message: 'Description length must be between 2 and 250'
         },
         required: true
     },
     startDateTime: {
         type: Date,
-        validate: {
-            validator: function(v) { return v.getTime() >= new Date().getTime() },
-            message: 'Start date must be after now'
-        },
-        required: false // TODO: not yet checked
+        default: Date.now()
     },
-    endDateTime: {
-        type: Date,
+    days: {
+        type: Number,
         validate: {
-            validator: function(v) { return v.getTime() > this.startDate.getTime() + 3600 * 1000 },
-            message: 'End date must be after start date'
+            validator: function(v) { return v >= 1 },
+            message: 'Minimum 1 day'
         },
-        required: false // TODO: not yet checked
+        required: true,
+        default: 1
     },
     // TODO: use UserSchema here instead of String
     owner: {
@@ -46,8 +43,8 @@ const QuizSchema = new mongoose.Schema({
         name: {
             type: String,
             validate: {
-                validator: function(v) { return v.length > 1 && v.length < 51; },
-                message: 'Question name length must be between 2 and 50'
+                validator: function(v) { return v.length > 1 && v.length < 250; },
+                message: 'Question name length must be between 2 and 250'
             },
             required: true
         },
@@ -67,8 +64,8 @@ const QuizSchema = new mongoose.Schema({
             content: {
                 type: String,
                 validate: {
-                    validator: function(v) { return v.length > 1 && v.length < 51; },
-                    message: 'Answer content length must be between 2 and 50'
+                    validator: function(v) { return v.length >= 1 && v.length < 251; },
+                    message: 'Answer content length must be between 1 and 250'
                 },
                 required: true
             }
@@ -77,13 +74,17 @@ const QuizSchema = new mongoose.Schema({
             content: {
                 type: String,
                 validate: {
-                    validator: function(v) { return v.length > 1 && v.length < 51; },
-                    message: 'Right answer length must be between 2 and 50'
+                    validator: function(v) { return v.length >= 1 && v.length < 251; },
+                    message: 'Right answer length must be between 1 and 250'
                 },
                 required: true
             }
         }
-    }]
+    }],
+    participations: {
+        type: Number,
+        default: 0
+    }
 }, { timestamps: true });
 
 QuizSchema.path('questions').validate(function(questions) {

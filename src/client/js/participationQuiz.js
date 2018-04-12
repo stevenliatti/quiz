@@ -30,7 +30,17 @@ function getUrlParams(field, url) {
 }
 
 $(document).ready(function() {
-    initParticipation("EL BAGNADOR", getUrlParams('id'), "LA CHANCLA");
+    const startQuiz = authorized('createQuiz');
+    if (startQuiz) {
+        var localStorageObject = JSON.parse(localStorage.getItem('user'));
+        var idUser = localStorageObject._id;
+        var idQuiz = getUrlParams('id');
+        var token = localStorageObject.token;
+        console.log(idUser);
+        console.log(idQuiz);
+        console.log(token);
+        initParticipation(idUser, idQuiz, token);
+    }
 });
 
 // ############################################################################
@@ -140,7 +150,7 @@ function socket_io_receive_answer_confirm(message) {
     console.log(message);
 
     setMultiplicateur(message.coefficient);
-    setScore(message.score);
+    setScore(Math.round(message.score));
 
     if (message.status == PROTOCOL_ANSER_STATUS_CHECK) {
         if (choosen_answer == message.rightAnswer.content) {
@@ -179,7 +189,7 @@ function socket_io_receive_quiz_finish(message) {
     console.log(message);
     swal({
         title: "Fin du quiz !",
-        text: "Le quiz est maintenant terminé",
+        text: "Le quiz est maintenant terminé. Score : " + message.score,
         icon: "info",
         button: "Retour à la liste des quiz",
     }).then((value) => {

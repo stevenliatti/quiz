@@ -1,9 +1,4 @@
 /*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
     Created on : 21 févr. 2018, 18:31:44
     Author     : Mayron
 */
@@ -14,6 +9,41 @@ and open the template in the editor.
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.page-width {
+    max-width:100%;
+}
+
+.img-width {
+    width: 45%;
+}
+
+.header-margin {
+    margin-bottom:32px;
+}
+
+.menu-nav-bar {
+    z-index:3;
+    width:240px;
+    height: 100%;
+}
+
+.nav-size {
+    margin-left: 240px;
+}
+
+.color-background {
+    background-color: white;
+}
+
+.color-menu {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.text-color {
+    color: black;
 }
 
 div {
@@ -37,6 +67,7 @@ body,h1,h2,h3,h4,h5,h6 {
     width: 90%;
     margin-top: 15px;
     margin-bottom: 15px;
+    white-space: normal;
 }
 
 p {

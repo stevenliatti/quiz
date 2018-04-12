@@ -22,9 +22,6 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import hepia.ch.yourquiz.customUI.AnswerRightDialog;
-import hepia.ch.yourquiz.customUI.AnswerTimeoutDialog;
-import hepia.ch.yourquiz.customUI.AnswerWrongDialog;
 import hepia.ch.yourquiz.fragments.QuizElementFragment;
 import hepia.ch.yourquiz.models.AnswerModel;
 import hepia.ch.yourquiz.models.JoinModel;
@@ -156,74 +153,41 @@ public class ParticipateQuizActivity extends AppCompatActivity {
             try {
                 final AnswerModel answerModel = new AnswerModel(data);
 
-                final boolean[] dialogDisplayed = {false};
-                final int[] dialogToDisplay = {-1};
-
                 ParticipateQuizActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         setCoeff(answerModel.getCoefficient());
                         setScore(answerModel.getScore());
 
-                        AnswerTimeoutDialog answerTimeoutDialog = new AnswerTimeoutDialog();
-                        AnswerRightDialog answerRightDialog = new AnswerRightDialog();
-                        AnswerWrongDialog answerWrongDialog = new AnswerWrongDialog();
-
                         if (answerModel.getStatus().equals(AnswerModel.TIMEOUT)) {
-                            for (Button answer : buttonsAnswerList) {
-                                if (answer.getText().toString().equals(answerModel.getAnswer())) {
-                                    answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
-
-                                    if (!dialogDisplayed[0]) {
-                                        dialogDisplayed[0] = true;
-                                        dialogToDisplay[0] = 0;
+                            synchronized (buttonsAnswerList) {
+                                for (Button answer : buttonsAnswerList) {
+                                    if (answer.getText().toString().equals(answerModel.getAnswer())) {
+                                        answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
                                     }
                                 }
                             }
                         }
 
                         if (answerModel.getStatus().equals(AnswerModel.CHECK)) {
-                            for (Button answer : buttonsAnswerList) {
-                                Log.e("selectedAnswer",selectedAnswer);
-                                Log.e("answerServer",answerModel.getAnswer());
+                            synchronized (buttonsAnswerList) {
+                                for (Button answer : buttonsAnswerList) {
+                                    Log.e("selectedAnswer", selectedAnswer);
+                                    Log.e("answerServer", answerModel.getAnswer());
 
-                                if (answer.getText().toString().equals(selectedAnswer) ||
-                                        answer.getText().toString().equals(answerModel.getAnswer())){
-                                    answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
-
-                                    if (!dialogDisplayed[0]) {
-                                        dialogDisplayed[0] = true;
-                                        dialogToDisplay[0] = 1;
+                                    if (answer.getText().toString().equals(selectedAnswer) || answer.getText().toString().equals(answerModel.getAnswer())) {
+                                        answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
                                     }
-                                }
 
-                                if (answer.getText().toString().equals(selectedAnswer) && !selectedAnswer.equals(answerModel.getAnswer()))
-                                {
-                                    answer.setBackgroundColor(Color.RED);
-
-                                    if (!dialogDisplayed[0]) {
-                                        dialogDisplayed[0] = true;
-                                        dialogToDisplay[0] = 2;
+                                    if (answer.getText().toString().equals(selectedAnswer) && !selectedAnswer.equals(answerModel.getAnswer())) {
+                                        answer.setBackgroundColor(Color.RED);
                                     }
                                 }
                             }
                         }
-//                        if (dialogDisplayed[0]) {
-//                            switch (dialogToDisplay[0]) {
-//                                case 0:
-//                                    answerTimeoutDialog.show(getFragmentManager(), "");
-//                                    break;
-//                                case 1:
-//                                    answerRightDialog.show(getFragmentManager(), "");
-//                                    break;
-//                                case 2:
-//                                    answerWrongDialog.show(getFragmentManager(), "");
-//                                    break;
-//                            }
-//                        }
                     }
                 });
-                Thread.sleep(2000);
+                Thread.sleep(1000);
                 socket.emit("NEXT_QUESTION");
             } catch (JSONException | InterruptedException e) {
                 e.printStackTrace();
@@ -237,10 +201,6 @@ public class ParticipateQuizActivity extends AppCompatActivity {
         socket.off("ANSWER_CONFIRM", onAnswerConfirm);
         socket.disconnect();
         super.onDestroy();
-    }
-
-    public Socket getSocket() {
-        return socket;
     }
 
     private void setQuestionNumber(int current, int total) {
