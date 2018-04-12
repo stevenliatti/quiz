@@ -1,10 +1,16 @@
-<div id="menu_navbar" class="w3-bar-block">
-  <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw w3-margin-right"></i>Accueil</a>
-  <a href="./login.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-book fa-fw w3-margin-right"></i>Se connecter</a>
-  <a href="./register.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i>S'inscrire</a>
-  <a href="./ranking.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-trophy fa-fw w3-margin-right"></i>Voir le classement</a>
-  <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-list fa-fw w3-margin-right"></i>Vos quiz</a>
-  <a href="#TODO" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-ticket fa-fw w3-margin-right"></i>Vos participations</a>
-  <a href="./createQuiz.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-plus-square fa-fw w3-margin-right"></i>Créer un nouveau quiz</a>
-  <a href="logout.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-minus-square fa-fw w3-margin-right"></i>Logout</a>
-</div>
+<script>
+  $("#menu_navbar").append("<a href=\"./index.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-home fa-fw w3-margin-right\"></i>Accueil</a>");
+  $("#menu_navbar").append("<a href=\"./ranking.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-trophy fa-fw w3-margin-right\"></i>Classement</a>");
+
+  if (JSON.parse(localStorage.getItem('user')) !== null){
+    $("#menu_navbar").append("<a href=\"./account.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-edit fa-fw w3-margin-right\"></i>Compte</a>");
+    $("#menu_navbar").append("<a href=\"#TODO\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-th-list fa-fw w3-margin-right\"></i>Vos quiz</a>");
+    $("#menu_navbar").append("<a href=\"#TODO\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-ticket fa-fw w3-margin-right\"></i>Vos participations</a>");
+    $("#menu_navbar").append("<a href=\"./createQuiz.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-plus-square fa-fw w3-margin-right\"></i>Créer un nouveau quiz</a>");
+    $("#menu_navbar").append("<a href=\"logout.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-minus-square fa-fw w3-margin-right\"></i>Logout</a>");
+}
+else {
+  $("#menu_navbar").append("<a href=\"./login.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-book fa-fw w3-margin-right\"></i>Se connecter</a>");
+  $("#menu_navbar").append("<a href=\"./register.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-handshake-o fa-fw w3-margin-right\"></i>S'inscrire</a>");
+}
+</script>

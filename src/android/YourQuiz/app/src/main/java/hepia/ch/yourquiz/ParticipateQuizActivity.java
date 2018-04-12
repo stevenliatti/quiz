@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -56,6 +58,8 @@ public class ParticipateQuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_participate_quiz);
 
         txtQuestionNumber = findViewById(R.id.txtQuestionNumber);
@@ -156,36 +160,34 @@ public class ParticipateQuizActivity extends AppCompatActivity {
                         setScore(answerModel.getScore());
 
                         if (answerModel.getStatus().equals(AnswerModel.TIMEOUT)) {
-                            for (Button answer : buttonsAnswerList) {
-                                if (answer.getText().toString().equals(answerModel.getAnswer())) {
-                                    answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
+                            synchronized (buttonsAnswerList) {
+                                for (Button answer : buttonsAnswerList) {
+                                    if (answer.getText().toString().equals(answerModel.getAnswer())) {
+                                        answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
+                                    }
                                 }
                             }
                         }
 
                         if (answerModel.getStatus().equals(AnswerModel.CHECK)) {
+                            synchronized (buttonsAnswerList) {
+                                for (Button answer : buttonsAnswerList) {
+                                    Log.e("selectedAnswer", selectedAnswer);
+                                    Log.e("answerServer", answerModel.getAnswer());
 
-                        synchronized (buttonsAnswerList){
-                            for (Button answer : buttonsAnswerList) {
-                                Log.e("selectedAnswer",selectedAnswer);
-                                Log.e("answerServer",answerModel.getAnswer());
+                                    if (answer.getText().toString().equals(selectedAnswer) || answer.getText().toString().equals(answerModel.getAnswer())) {
+                                        answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
+                                    }
 
-                                if (answer.getText().toString().equals(selectedAnswer) ||
-                                        answer.getText().toString().equals(answerModel.getAnswer())){
-                                    answer.setBackgroundColor(Color.argb(255, 6, 192, 64));
+                                    if (answer.getText().toString().equals(selectedAnswer) && !selectedAnswer.equals(answerModel.getAnswer())) {
+                                        answer.setBackgroundColor(Color.RED);
+                                    }
                                 }
-
-                                if (answer.getText().toString().equals(selectedAnswer) && !selectedAnswer.equals(answerModel.getAnswer()))
-                                {
-                                    answer.setBackgroundColor(Color.RED);
-                                }
-
-                               }
                             }
                         }
                     }
                 });
-                Thread.sleep(2000);
+                Thread.sleep(1000);
                 socket.emit("NEXT_QUESTION");
             } catch (JSONException | InterruptedException e) {
                 e.printStackTrace();
@@ -199,10 +201,6 @@ public class ParticipateQuizActivity extends AppCompatActivity {
         socket.off("ANSWER_CONFIRM", onAnswerConfirm);
         socket.disconnect();
         super.onDestroy();
-    }
-
-    public Socket getSocket() {
-        return socket;
     }
 
     private void setQuestionNumber(int current, int total) {

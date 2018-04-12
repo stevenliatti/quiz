@@ -58,14 +58,13 @@ const extractId = (idQuestion) => {
 }
 
 const setScore = (client, answerTime) => {
-
-        client.timeEnd = currentTime();
-        let elapsed = client.timeEnd - client.timeStart;
-        let remainder = Math.abs(elapsed - answerTime);
-        console.log(remainder);
-        let pourcent = remainder / answerTime * 100;
-        console.log(pourcent);
-        client.score += pourcent * client.coeff + 10;
+		client.timeEnd = currentTime();
+		let elapsed = client.timeEnd - client.timeStart;
+		let remainder = Math.abs(elapsed - answerTime);
+		console.log(remainder);
+		let pourcent = (Math.ceil(remainder / answerTime * 10)) * 10;
+		console.log(pourcent);
+		client.score += pourcent * client.coeff + 10;
 }
 
 const checkFormatJoin = (msg) => (msg !== null
@@ -115,6 +114,7 @@ const Quiz = require('./app/models/quiz');
 const User = require('./app/models/user');
 
 io.on('connection', function (socket) {
+
     console.log("==> connection : " + socket.id);
 
     // get socket id
@@ -237,7 +237,10 @@ io.on('connection', function (socket) {
 
                     clients[socket.id].results.rightAnswers.push(data.rightAnswer);
                     clients[socket.id].results.correctAnswers++;
-                    clients[socket.id].coeff++;
+                    if (clients[socket.id].coeff < 3) 
+                    {
+                        clients[socket.id].coeff++;
+                    }
                     setScore(clients[socket.id], question.answerTime);
                 } else {
                     console.log("MAUVAISE REPONSE");

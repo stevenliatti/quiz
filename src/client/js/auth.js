@@ -35,25 +35,27 @@ function login() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/auth/login', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (this.status === 200) {
                 console.log('success login', JSON.parse(this.response));
                 localStorage.setItem('user', this.response);
                 document.getElementById('form').remove();
                 const newP = document.createElement('p');
                 newP.style = 'color: green';
-                const newContent = document.createTextNode('Login success !');
+                const newContent = document.createTextNode('Authentification réussie, redirection sur la page d\'accueil !');
                 newP.appendChild(newContent);
                 document.getElementById('content').appendChild(newP);
-            }
-            else {
+                window.setTimeout(function () {
+                    window.location.href = "https://mayron.eracnos.ch/static/index.html";
+                }, 1500);
+            } else {
                 console.log('error', this.response);
                 if (this.response === 'Unauthorized') {
                     error.innerHTML = 'Email or password false';
                 }
             }
-        }
-        xhr.send(JSON.stringify({ email: email, password: password}));
+        };
+        xhr.send(JSON.stringify({email: email, password: password}));
     }
 }
 
@@ -61,7 +63,7 @@ function register() {
     let error = document.getElementById('error');
     // error.style = 'color: red';
     error.innerHTML = '';
-    
+
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const repeatedPassword = document.getElementById('repeat_password').value;
@@ -76,7 +78,7 @@ function register() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/auth/register', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (this.status === 200) {
                 console.log('success register', JSON.parse(this.response));
                 localStorage.setItem('user', this.response);
@@ -86,6 +88,46 @@ function register() {
                 const newContent = document.createTextNode('Register success !');
                 newP.appendChild(newContent);
                 document.getElementById('content').appendChild(newP);
+            } else {
+                const resp = JSON.parse(this.response);
+                console.log('error', this.response);
+                error.innerHTML = resp.error;
+            }
+        }
+        xhr.send(JSON.stringify({email: email, password: password}));
+    }
+}
+
+
+function edit() {
+    let error = document.getElementById('error');
+    error.innerHTML = '';
+    const email = document.getElementById('email').value;
+    const pseudo = document.getElementById('pseudo').value;
+    const password = document.getElementById('password').value;
+    const repeatedPassword = document.getElementById('repeat_password').value;
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/auth/account', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    let token = '';
+    //xhr.setRequestHeader('Authorization', token);
+     if (pseudo !== '' && email !== '' && password !== '' && repeatedPassword !== '') {
+            if (password !== repeatedPassword) {
+                console.log('Passwords mismatch');
+                error.innerHTML = 'Passwords doesn\'t match';
+                return;
+            }
+    console.log("onload");
+    xhr.onload = function() {
+            if (this.status === 200) {
+                console.log('success editing', JSON.parse(this.response));
+                localStorage.setItem('edit', this.response);
+                document.getElementById('form').remove();
+                const newP = document.createElement('p');
+                newP.style = 'color: green';
+                const newContent = document.createTextNode('Editing success !');
+                newP.appendChild(newContent);
+                document.getElementById('content').appendChild(newP);
             }
             else {
                 const resp = JSON.parse(this.response);
@@ -93,6 +135,6 @@ function register() {
                 error.innerHTML = resp.error;
             }
         }
-        xhr.send(JSON.stringify({ email: email, password: password}));
+        xhr.send(JSON.stringify({ email: email, pseudo: pseudo, password: password}));
     }
 }
