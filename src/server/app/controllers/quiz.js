@@ -3,7 +3,7 @@ const log = new Log('debug');
 const use = require('./use');
 
 const Quiz = require('../models/quiz');
-//const Participation = require('../models/participation');
+const Users = require('../models/user');
 
 exports.getAll = function(req, res) {
     // TODO: filter quizzes by date available
@@ -14,6 +14,34 @@ exports.getAll = function(req, res) {
             data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner });
         });
         res.status(200).json(data);
+    })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}
+
+exports.getNotParticipated = function(req, res ) {
+    var idUser = req.params.idUser;
+    var ObjectID = require('mongodb').ObjectID;
+
+    let participatedQuizes = Users.findById(idUser)
+    .then(user => {
+        var participedQuizzes_list = [];
+        user.participedQuizzes.forEach(participedQuiz => {
+            participedQuizzes_list.push(participedQuiz.id);
+        });
+
+        Quiz.find()
+        .then(quizzes => {
+            let data = [];
+            quizzes.forEach(quiz => {
+                if (participedQuizzes_list.indexOf(quiz._id.toString()) < 0) {
+                    data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner });
+                }
+            });
+
+            res.status(200).json(data);
+        })
+        .catch(error => { use.sendError(error, res, 500, error); });
+
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
