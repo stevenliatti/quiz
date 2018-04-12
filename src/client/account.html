@@ -15,18 +15,17 @@ and open the template in the editor.
   <link href="https://fonts.googleapis.com/css?family=Lato:300|Oswald:200" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" type="text/css"/>
-
 </head>
-<body class="w3-content w3-sand" style="max-width:1600px;">
+<body class="w3-content color-background page-width">
 
   <!--Side menu-->
-  <nav class="w3-sidebar w3-collapse w3-animate-left  w3-teal" style="z-index:3;width:300px;height: 100%;" id="mySidebar"><br>
+  <nav class="w3-sidebar w3-collapse w3-animate-left color-menu menu-nav-bar" id="mySidebar"><br>
     <div class="w3-container">
       <a href="#" onclick="w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
         <i class="fa fa-remove"></i>
       </a>
-      <img src="https://via.placeholder.com/50x50" style="width:45%;" class="w3-round"><br><br>
-      <h4><b>MENU</b></h4>
+      <img src="./images/litzicoin.png" style="width:100%;" ><br><br>
+      <h3>MENU</h3>
     </div>
     <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar();"></div>
   </nav>
@@ -42,33 +41,33 @@ and open the template in the editor.
       <a href="#"><img src="https://via.placeholder.com/50x50" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
       <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
       <div class="w3-container">
-        <h1><b>Éditer votre profil</b></h1>
+        <h2>Éditer votre profil</h2>
       </div>
     </header>
 
     <div id="content" class="w3-container w3-padding-large">
       <div id="form">
         <fieldset class="w3-round-large">
-          <legend class="w3-text-teal w3-xxlarge w3-center">Informations personnelles</legend>
+          <legend class="text-color w3-xxlarge w3-center">Informations personnelles</legend>
           <div class="w3-container w3-row-padding">
 
             <div class="w3-container w3-row-padding w3-half">
-              <label class="w3-text-teal" for="email"><b>Email</b></label>
+              <label class="text-color" for="email"><b>Email</b></label>
               <input class="w3-margin-bottom w3-input" type="email" value="nom@email.com" name="email" id="email" required>
             </div>
 
             <div class="w3-container w3-row-padding w3-half">
-              <label class="w3-text-teal" for="pseudo"><b>Pseudo</b></label>
+              <label class="text-color" for="pseudo"><b>Pseudo</b></label>
               <input class="w3-margin-bottom w3-input" type="pseudo" value="unamed" name="pseudo" id="pseudo" required>
             </div>
 
             <div class="w3-container w3-row-padding w3-half">
-              <label class="w3-text-teal" for="password"><b>Password</b></label>
+              <label class="text-color" for="password"><b>Password</b></label>
               <input class="w3-margin-bottom w3-input" type="password" placeholder="Enter Password" name="password" id="password" required>
             </div>
 
             <div class="w3-container w3-row-padding w3-half">
-              <label class="w3-text-teal" for="repeat_password"><b>Repeat Password</b></label>
+              <label class="text-color" for="repeat_password"><b>Repeat Password</b></label>
               <input class="w3-margin-bottom w3-input" type="password" placeholder="Repeat Password" name="repeat_password" id="repeat_password" required>
             </div>
 
@@ -77,7 +76,7 @@ and open the template in the editor.
             </div>
 
             <div class="w3-container w3-row">
-              <button class="w3-round-large w3-xlarge w3-button w3-hover-opacity w3-teal w3-twothird" 
+              <button class="w3-round-large w3-xlarge w3-button w3-hover-opacity color-menu w3-twothird" 
               onclick="edit()">Modifier
             </button>
           </div>
@@ -85,7 +84,6 @@ and open the template in the editor.
       </fieldset>
     </div>
   </div>
-  <div class="w3-center w3-margin-top w3-padding-24 w3-teal" style="position: fixed; left: 150px; width: 100%; bottom: 0px;">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>

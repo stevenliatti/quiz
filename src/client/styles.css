@@ -11,6 +11,18 @@
     margin-left: auto;
 }
 
+.page-width {
+    max-width:100%;
+}
+
+.img-width {
+    width: 45%;
+}
+
+.header-margin {
+    margin-bottom:32px;
+}
+
 .menu-nav-bar {
     z-index:3;
     width:240px;
@@ -102,6 +114,7 @@ h4{
     width: 90%;
     margin-top: 15px;
     margin-bottom: 15px;
+    white-space: normal;
 }
 
 p {
@@ -132,8 +145,4 @@ a:hover
 
 #error {
     color: red;
-}
-
-.btnAnswer {
-    white-space: normal;
 }

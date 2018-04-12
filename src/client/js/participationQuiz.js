@@ -189,7 +189,7 @@ function socket_io_receive_quiz_finish(message) {
     console.log(message);
     swal({
         title: "Fin du quiz !",
-        text: "Le quiz est maintenant terminé",
+        text: "Le quiz est maintenant terminé. Score : " + message.score,
         icon: "info",
         button: "Retour à la liste des quiz",
     }).then((value) => {
