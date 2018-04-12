@@ -47,7 +47,6 @@ public class ParticipateQuizActivity extends AppCompatActivity {
     public final static String SERVER_PORT = "443";
 
     private Socket socket;
-
     {
         try {
             socket = IO.socket("https://" + SERVER_IP + ":" + SERVER_PORT);
