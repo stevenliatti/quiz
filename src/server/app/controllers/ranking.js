@@ -10,27 +10,25 @@ exports.quiz = function(req, res) {
     Quiz.findById(req.params.id)
     .then(quiz => {
         quiz.questions = undefined;
+        quiz.__v = undefined;
         res.status(200).json(quiz);
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
+//retourner nb_participations pour un quiz
+
 
 exports.quizzes = function(req, res) {
     Quiz.find()
     .then(quizzes => {
-        let data = [];
         quizzes.forEach(quiz => {
-            let entry = {
-                id: quiz._id,
-                name: quiz.name,
-                participations: quiz.participations
-            };
-            data.push(entry);
+            quiz.questions = undefined;
+            quiz.__v = undefined;
         });
-        data.sort((a, b) => {
+        quizzes.sort((a, b) => {
             return b.participations - a.participations;
         });
-        res.status(200).json(data);
+        res.status(200).json(quizzes);
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
