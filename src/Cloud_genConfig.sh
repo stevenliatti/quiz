@@ -11,7 +11,7 @@ CLIENT_FILE=client/js/config.js
 
 echo "module.exports = {" > $SERVER_FILE
 echo "    'secret': '$1'," >> $SERVER_FILE
-echo "    'dbUrl': 'mongodb://admin:admin@$4:27017/$2'"
+echo "    'dbUrl': 'mongodb://admin:admin@$4:27017/$2'," >> $SERVER_FILE
 echo "    'serverPort': $3" >> $SERVER_FILE
 echo "}" >> $SERVER_FILE
 
