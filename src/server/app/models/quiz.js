@@ -17,8 +17,11 @@ const QuizSchema = new mongoose.Schema({
         },
         required: true
     },
-    // TODO: use UserSchema here instead of String
     owner: {
+        type: String,
+        required: true
+    },
+    idUser: {
         type: String,
         required: true
     },
