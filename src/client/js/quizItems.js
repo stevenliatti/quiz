@@ -1,8 +1,7 @@
 
-function Quiz(owner, name, description , days)
+function Quiz(owner, name, description)
 {
     this.name = name;
-    this.days = days;
     this.owner = owner;
     this.description = description;
     this.questions = [];

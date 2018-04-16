@@ -8,6 +8,7 @@ const PROTOCOL_ANSWER = 'ANSWER';
 const PROTOCOL_NEW_QUESTION = 'NEW_QUESTION';
 const PROTOCOL_ANSWER_CONFIRM = 'ANSWER_CONFIRM';
 const PROTOCOL_QUIZ_FINISH = 'QUIZ_FINISH';
+const PROTOCOL_UNAUTHORIZED = 'UNAUTHORIZED';
 
 const PROTOCOL_ANSER_STATUS_TIMEOUT = 'timeout';
 const PROTOCOL_ANSER_STATUS_CHECK = 'check';
@@ -36,9 +37,9 @@ $(document).ready(function() {
         var idUser = localStorageObject._id;
         var idQuiz = getUrlParams('id');
         var token = localStorageObject.token;
-        console.log(idUser);
-        console.log(idQuiz);
-        console.log(token);
+        console.log('idUser', idUser);
+        console.log('token', token);
+        console.log('idQuiz', idQuiz);
         initParticipation(idUser, idQuiz, token);
     }
 });
@@ -70,11 +71,22 @@ function initParticipation(idUser, idQuiz, token) {
     setMultiplicateur(DEFAULT_COEFFICIENT);
     setScore(DEFAULT_SCORE);
 
-
     socket = io.connect('https://'+SERVER_IP+':'+SERVER_PORT);
     socket.on(PROTOCOL_NEW_QUESTION, socket_io_receive_new_question);
     socket.on(PROTOCOL_ANSWER_CONFIRM, socket_io_receive_answer_confirm);
     socket.on(PROTOCOL_QUIZ_FINISH, socket_io_receive_quiz_finish);
+    socket.on(PROTOCOL_UNAUTHORIZED, () => {
+        document.getElementById('createQuiz').remove();
+        const newP = document.createElement('p');
+        newP.style = 'color: red';
+        const newContent = document.createTextNode('Vous ne pouvez pas jouer à vos propres quiz ou rejouer à des quiz déjà joués !');
+        newP.appendChild(newContent);
+        document.getElementById('content').appendChild(newP);
+        socket.emit('disconnect');
+        window.setTimeout(function () {
+            window.location.href = 'index.html';
+        }, 4000);
+    });
 
     // SEND JOIN
     join(idUser, idQuiz, token)

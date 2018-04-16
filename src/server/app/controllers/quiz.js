@@ -6,7 +6,6 @@ const Quiz = require('../models/quiz');
 const Users = require('../models/user');
 
 exports.getAll = function(req, res) {
-    // TODO: filter quizzes by date available
     Quiz.find()
     .then(quizzes => {
         let data = [];
@@ -19,12 +18,12 @@ exports.getAll = function(req, res) {
 }
 
 exports.getNotParticipated = function(req, res ) {
-    var idUser = req.params.idUser;
-    var ObjectID = require('mongodb').ObjectID;
+    let idUser = req.params.idUser;
+    let ObjectID = require('mongodb').ObjectID;
 
-    let participatedQuizes = Users.findById(idUser)
+    Users.findById(idUser)
     .then(user => {
-        var participedQuizzes_list = [];
+        let participedQuizzes_list = [];
         user.participedQuizzes.forEach(participedQuiz => {
             participedQuizzes_list.push(participedQuiz.id);
         });

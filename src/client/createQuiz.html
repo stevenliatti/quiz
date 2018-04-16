@@ -65,12 +65,6 @@ and open the template in the editor.
               <label for="description" class="text-color w3-xlarge">Description</label><br>
               <textarea name="description" id="description" class="w3-margin-bottom w3-input"></textarea><br>
             </div>
-            <div class="w3-row-padding">
-              <div class="w3-half">
-                <label for="days" class="text-color w3-xlarge">Nombre de jours</label>
-                <input id="days" type="number" min="1" value="1" class="w3-margin-bottom w3-input">
-              </div>
-            </div>
 
             <div class="w3-row-padding"> 
               <select id="selectorQuestions" class="w3-select w3-margin-bottom w3-round-large" name="questions"></select>
@@ -111,7 +105,7 @@ and open the template in the editor.
          });
 
          $("#btnSend").on("click", function () {
-             let quiz = new Quiz("Loic", $("#name").val(), $("#description").val() , $("#days").val());
+             let quiz = new Quiz("Loic", $("#name").val(), $("#description").val());
              console.log(allQuestions);
              quiz.addQuestions(allQuestions);
              console.log(quiz);

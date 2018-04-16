@@ -35,6 +35,7 @@ module.exports = function(app) {
     // Ranking routes
     router.use('/ranking', rankingRoutes);
     rankingRoutes.get('/quiz/:id', rankingController.quiz);
+    rankingRoutes.get('/player/:id', rankingController.player);
     rankingRoutes.get('/quizzes', rankingController.quizzes);
     rankingRoutes.get('/players', rankingController.players);
 
