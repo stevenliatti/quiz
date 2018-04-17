@@ -14,7 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import hepia.ch.yourquiz.fragments.OtherFragment;
+import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.QuizListFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
                     newFragment = new QuizListFragment();
                     break;
                 case R.id.nav_login:
-                    newFragment = new OtherFragment();
+                    newFragment = new LoginFragment();
                     break;
                 default:
                     return false;
