@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.QuizListFragment;
+import hepia.ch.yourquiz.manager.CurrentUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         drawer.openDrawer(Gravity.START);
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_account) {
             return true;
         }
 
@@ -103,21 +104,27 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
         Fragment newFragment;
-        if (currentNavigationItemSelected != id) {
+//        if (currentNavigationItemSelected != id) {
             switch (id) {
                 case R.id.nav_home:
                     newFragment = new QuizListFragment();
                     break;
                 case R.id.nav_login:
-                    newFragment = new LoginFragment();
+                    if (CurrentUser.isConnected()) {
+                        CurrentUser.setIsConnected(false);
+                        item.setTitle("Se connecter");
+                        newFragment = new QuizListFragment();
+                    } else {
+                        newFragment = new LoginFragment();
+                    }
                     break;
                 default:
                     return false;
             }
             fragmentManager.beginTransaction().replace(R.id.content_frame, newFragment).commit();
             currentNavigationItemSelected = id;
-        }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        }
+        DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

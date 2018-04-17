@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import hepia.ch.yourquiz.R;
+import hepia.ch.yourquiz.manager.CurrentUser;
 
 import static hepia.ch.yourquiz.ParticipateQuizActivity.SERVER_IP;
 import static hepia.ch.yourquiz.ParticipateQuizActivity.SERVER_PORT;
@@ -45,7 +46,12 @@ public class QuizListFragment extends Fragment {
     private void getAllQuizList() {
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
-        String url = "https://" + SERVER_IP + ":" + SERVER_PORT + "/quiz/getAll";
+        String url;
+        if (CurrentUser.isConnected()) {
+            url = "https://" + SERVER_IP + ":" + SERVER_PORT + "/quiz/getNotParticipated/" + CurrentUser.getUser().getId();
+        } else {
+            url = "https://" + SERVER_IP + ":" + SERVER_PORT + "/quiz/getAll";
+        }
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
