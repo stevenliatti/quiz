@@ -54,7 +54,6 @@ and open the template in the editor.
           <tr>
             <th>Nom du quiz</th>
             <th>Description</th>
-            <th>Date de création</th>
             <th>Nombre de participations</th>
           </tr>
         </table>
@@ -72,7 +71,7 @@ and open the template in the editor.
           $.getJSON("https://" + SERVER_IP + "/quiz/getMyQuizzes/" + userId._id, function (data) {
               for (var i = 0; i < data.length; i++) {
                           $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
-                            <td>" + data[i].description + "</td><td>" + data[i].startDateTime + "</td><td>" + data[i].participations + "</td></tr>");
+                            <td>" + data[i].description + "</td><td>" + data[i].participations + "</td></tr>");
                   }
               }, "json");
 
