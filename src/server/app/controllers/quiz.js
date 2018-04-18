@@ -6,7 +6,6 @@ const Quiz = require('../models/quiz');
 const Users = require('../models/user');
 
 exports.getAll = function(req, res) {
-    // TODO: filter quizzes by date available
     Quiz.find()
     .then(quizzes => {
         let data = [];
@@ -19,12 +18,12 @@ exports.getAll = function(req, res) {
 }
 
 exports.getNotParticipated = function(req, res ) {
-    var idUser = req.params.idUser;
-    var ObjectID = require('mongodb').ObjectID;
+    let idUser = req.params.idUser;
+    let ObjectID = require('mongodb').ObjectID;
 
-    let participatedQuizes = Users.findById(idUser)
+    Users.findById(idUser)
     .then(user => {
-        var participedQuizzes_list = [];
+        let participedQuizzes_list = [];
         user.participedQuizzes.forEach(participedQuiz => {
             participedQuizzes_list.push(participedQuiz.id);
         });
@@ -42,6 +41,25 @@ exports.getNotParticipated = function(req, res ) {
         })
         .catch(error => { use.sendError(error, res, 500, error); });
 
+    })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}
+
+exports.getParticipated = function(req, res ) {
+    let idUser = req.params.idUser;
+
+    Users.findById(idUser)
+    .then(user => {
+        let quizzesIds = user.participedQuizzes.map(quiz => quiz.id);
+        Quiz.find({'_id': { $in: quizzesIds }})
+        .then(quizz => {
+            return quizz.map(quiz => {
+                let score = user.participedQuizzes.filter(p => p.id == quiz.id).map(p => p.score)[0];
+                return {id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions, score : score};
+            });
+        })
+        .then(qq => res.status(200).json(qq))
+        .catch(error => { use.sendError(error, res, 500, error); });
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }

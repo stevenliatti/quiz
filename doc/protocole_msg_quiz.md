@@ -15,10 +15,6 @@ MESSAGE : NEW_QUESTION
     status {START, IN_PROGRESS, END},
     questionCount,
     questionIndex
-
-    /* verifier si necessaire */
-    idUser,
-    idQuiz
 }
 
 
@@ -29,10 +25,6 @@ MESSAGE : ANSWER / ANSWER_CONFIRM
     status { TIMEOUT, CHECK }
     score,
     coefficient,
-
-    /* verifier si necessaire */
-    idUser,
-    idQuiz
 }
 
 MESSAGE : NEXT_QUESTION
@@ -43,6 +35,11 @@ MESSAGE : NEXT_QUESTION
 MESSAGE : QUIZ_FINISH
 {
     status : END
+}
+
+MESSAGE : UNAUTHORIZED
+{
+
 }
 ```
 

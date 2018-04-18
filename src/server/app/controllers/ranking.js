@@ -6,7 +6,6 @@ const Quiz = require('../models/quiz');
 const User = require('../models/user');
 
 exports.quiz = function(req, res) {
-    log.debug(req.params.id);
     Quiz.findById(req.params.id)
     .then(quiz => {
         quiz.questions = undefined;
@@ -15,8 +14,24 @@ exports.quiz = function(req, res) {
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
-//retourner nb_participations pour un quiz
 
+exports.player = function(req, res) {
+    User.findById(req.params.id)
+    .then(user => {
+        log.debug(user);
+        const entry = {
+            id: user._id,
+            name: user.pseudo,
+            email: user.email,
+            role: user.role,
+            points:
+                user.participedQuizzes.length !== 0 ?
+                user.participedQuizzes.reduce((pre, curr) => ({score: pre.score + curr.score})).score : 0
+        };
+        res.status(200).json(entry);
+    })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}
 
 exports.quizzes = function(req, res) {
     Quiz.find()
@@ -38,10 +53,11 @@ exports.players = function(req, res) {
     .then(users => {
         let data = [];
         users.forEach(user => {
-            log.debug(user);
-            let entry = {
+            const entry = {
                 id: user._id,
-                name: user.email, // TODO: change with name
+                name: user.pseudo,
+                email: user.email,
+                role: user.role,
                 points:
                     user.participedQuizzes.length !== 0 ?
                     user.participedQuizzes.reduce((pre, curr) => ({score: pre.score + curr.score})).score : 0

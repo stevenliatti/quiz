@@ -61,9 +61,9 @@ const setScore = (client, answerTime) => {
 		client.timeEnd = currentTime();
 		let elapsed = client.timeEnd - client.timeStart;
 		let remainder = Math.abs(elapsed - answerTime);
-		console.log(remainder);
+		log.debug(remainder);
 		let pourcent = (Math.ceil(remainder / answerTime * 10)) * 10;
-		console.log(pourcent);
+		log.debug(pourcent);
 		client.score += pourcent * client.coeff + 10;
 }
 
@@ -95,8 +95,8 @@ const answerTimeout = (socket, client) =>
         // idQuiz
         };
 
-    console.log("==> emit ANSWER_CONFIRM");
-    console.log(answerConfirm);
+    log.debug("==> emit ANSWER_CONFIRM");
+    log.debug(answerConfirm);
     socket.emit('ANSWER_CONFIRM', answerConfirm);
     client.questionIndex++;
 }
@@ -115,13 +115,13 @@ const User = require('./app/models/user');
 
 io.on('connection', function (socket) {
 
-    console.log("==> connection : " + socket.id);
+    log.debug("==> connection : " + socket.id);
 
     // get socket id
     let timeoutController;
 
     socket.on('JOIN', function (data) {
-        console.log("==> receive JOIN");
+        log.debug("==> receive JOIN");
 
         if (checkFormatJoin(data))
         {
@@ -141,7 +141,7 @@ io.on('connection', function (socket) {
             };
             User.findById(clients[socket.id].idUser, function(err, user) {
                 if (user === undefined || user === null) {
-                    console.log("==> user not found!");
+                    log.debug("==> user not found!");
                     return;
                 }
                 // if the user hasn't participate yet
@@ -151,17 +151,17 @@ io.on('connection', function (socket) {
             });
             Quiz.findById(clients[socket.id].idQuiz, function(err, quiz) {
                 if (quiz === undefined || quiz === null) {
-                    console.log("==> quiz not found!");
+                    log.debug("==> quiz not found!");
                     return;
                 }
+                clients[socket.id].allowed = quiz.idUser !== clients[socket.id].idUser;
                 clients[socket.id].quiz = quiz;
             });
         }
-
     });
 
     socket.on('NEXT_QUESTION', function () {
-        console.log("==> receive NEXT_QUESTION");
+        log.debug("==> receive NEXT_QUESTION");
         if (checkUserAllowed(clients[socket.id])) {
 
             let status = getStatusGame(clients[socket.id]);
@@ -181,8 +181,8 @@ io.on('connection', function (socket) {
                     'questionCount' : clients[socket.id].quiz.nbQuestions
                 }
 
-                console.log("==> emit NEW_QUESTION");
-                console.log(newQuestion.idQuestion);
+                log.debug("==> emit NEW_QUESTION");
+                log.debug(newQuestion.idQuestion);
                 socket.emit('NEW_QUESTION', newQuestion);
 
                 timeoutController = setTimeout(function(){
@@ -193,11 +193,11 @@ io.on('connection', function (socket) {
                 clients[socket.id].timeStart = currentTime();
             }
             else if (status === StatusGame.END) {
-                console.log("==> emit QUIZ_FINISH");
+                log.debug("==> emit QUIZ_FINISH");
                 socket.emit('QUIZ_FINISH', {status : StatusGame.END, score: clients[socket.id].score });
                 Quiz.findById(clients[socket.id].idQuiz, function(err, quiz) {
                     if (quiz === undefined || quiz === null) {
-                        console.log("==> quiz not found!");
+                        log.debug("==> quiz not found!");
                         return;
                     }
                     quiz.participations += 1;
@@ -205,7 +205,7 @@ io.on('connection', function (socket) {
                 });
                 User.findById(clients[socket.id].idUser, function(err, user) {
                     if (user === undefined || user === null) {
-                        console.log("==> user not found!");
+                        log.debug("==> user not found!");
                         return;
                     }
                     user.participedQuizzes.push({ id: clients[socket.id].idQuiz, score: clients[socket.id].score });
@@ -213,11 +213,14 @@ io.on('connection', function (socket) {
                 });
             }
         }
-        // TODO: inform the user that he has already participate to the quiz
+        else {
+            log.debug('UNAUTHORIZED');
+            socket.emit('UNAUTHORIZED');
+        }
     });
 
     socket.on('ANSWER', function (data) {
-        console.log("==> receive ANSWER");
+        log.debug("==> receive ANSWER");
 
         //TODO: fix multipes requests answers
         if (checkUserAllowed(clients[socket.id]) && checkFormatAnswer(data)) {
@@ -229,11 +232,11 @@ io.on('connection', function (socket) {
                 clearTimeout(timeoutController);
                 let question = getQuestion(clients[socket.id], idCurrentQuestion);
 
-                console.log("Reponse user : " + data.rightAnswer);
-                console.log("Reponse correcte : " + question.rightAnswer);
+                log.debug("Reponse user : " + data.rightAnswer);
+                log.debug("Reponse correcte : " + question.rightAnswer);
 
                 if (data.rightAnswer['content'] === question.rightAnswer['content']) {
-                    console.log("BONNE REPONSE");
+                    log.debug("BONNE REPONSE");
 
                     clients[socket.id].results.rightAnswers.push(data.rightAnswer);
                     clients[socket.id].results.correctAnswers++;
@@ -243,7 +246,7 @@ io.on('connection', function (socket) {
                     }
                     setScore(clients[socket.id], question.answerTime);
                 } else {
-                    console.log("MAUVAISE REPONSE");
+                    log.debug("MAUVAISE REPONSE");
                     clients[socket.id].results.wrongAnswers.push(data.rightAnswer);
                     clients[socket.id].coeff = 0;
                 }
@@ -257,8 +260,8 @@ io.on('connection', function (socket) {
                     // idUser,
                     // idQuiz
                 };
-                console.log("==> emit ANSWER_CONFIRM");
-                console.log(answerConfirm);
+                log.debug("==> emit ANSWER_CONFIRM");
+                log.debug(answerConfirm);
                 socket.emit('ANSWER_CONFIRM', answerConfirm);
                 clients[socket.id].questionIndex++;
             }
@@ -269,6 +272,6 @@ io.on('connection', function (socket) {
         //Clear client
         clearTimeout(timeoutController);
         clients[socket.id] = {};
-        console.log("==> disconnect : " + socket.id)
+        log.debug("==> disconnect : " + socket.id)
     });
 });

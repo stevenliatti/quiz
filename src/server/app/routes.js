@@ -29,12 +29,14 @@ module.exports = function(app) {
     // Quiz routes
     router.use('/quiz', quizRoutes);
     quizRoutes.get('/getAll', quizController.getAll);
+    quizRoutes.get('/getParticipated/:idUser', quizController.getParticipated);
     quizRoutes.get('/getNotParticipated/:idUser', quizController.getNotParticipated);
     quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
 
     // Ranking routes
     router.use('/ranking', rankingRoutes);
     rankingRoutes.get('/quiz/:id', rankingController.quiz);
+    rankingRoutes.get('/player/:id', rankingController.player);
     rankingRoutes.get('/quizzes', rankingController.quizzes);
     rankingRoutes.get('/players', rankingController.players);
 

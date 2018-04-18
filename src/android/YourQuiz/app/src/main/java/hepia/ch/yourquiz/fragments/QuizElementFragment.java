@@ -19,11 +19,13 @@ public class QuizElementFragment extends Fragment {
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
     public static final String OWNER = "owner";
+    public static final String NBQUESTION = "nbQuestions";
 
     private String id;
     private String name;
     private String description;
     private String owner;
+    private String nbQuestion;
 
     @Nullable
     @Override
@@ -43,6 +45,8 @@ public class QuizElementFragment extends Fragment {
             owner = bundle.getString(OWNER);
             ((TextView) view.findViewById(R.id.quiz_name)).setText(bundle.getString(NAME, "Not Found"));
             ((TextView) view.findViewById(R.id.quiz_description)).setText(bundle.getString(DESCRIPTION, "Not Found"));
+            ((TextView) view.findViewById(R.id.quiz_nb_question)).setText(bundle.getString(NBQUESTION, "Not Found"));
+            ((TextView) view.findViewById(R.id.quiz_nb_question)).setText(bundle.getString(NBQUESTION, "Not Found"));
             view.findViewById(R.id.participate_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
