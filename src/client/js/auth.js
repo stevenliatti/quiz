@@ -121,7 +121,10 @@ function edit() {
     xhr.onload = function() {
             if (this.status === 200) {
                 console.log('success editing', JSON.parse(this.response));
-                localStorage.setItem('edit', this.response);
+                let user = localStorage.getItem('user');
+               
+                console.log("USER ONLOAD : " + user);
+                
                 document.getElementById('form').remove();
                 const newP = document.createElement('p');
                 newP.style = 'color: green';
