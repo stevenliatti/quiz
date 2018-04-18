@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Mes participations</title>
+    <title>Mes Quiz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -43,8 +43,8 @@ and open the template in the editor.
       </header>
 
       <div class="w3-container w3-padding-large header-margin">
-        <h2>Mes participations</h2>
-        <p>Voici l'historique des quiz auxquels vous avez participé ainsi que le total de points obtenus à chacun d'eux.</p>
+        <h2>Mes Quiz</h2>
+        <p>Vous pouvez consulter les quiz que vous avez créé sur le site, le nombre de participants à ceux-ci ainsi que la date de mise en ligne.</p>
       </div>
 
 
@@ -54,9 +54,8 @@ and open the template in the editor.
           <tr>
             <th>Nom du quiz</th>
             <th>Description</th>
-            <th>Créateur du quiz</th>
-            <th>Nombre de questions</th>
-            <th>Score obtenu</th>
+            <th>Date de création</th>
+            <th>Nombre de participations</th>
           </tr>
         </table>
       </div>
@@ -70,10 +69,10 @@ and open the template in the editor.
     <script src="js/menuSidebar.js"></script>
     <script>
         let userId = JSON.parse(localStorage.getItem('user'));
-          $.getJSON("https://" + SERVER_IP + "/quiz/getParticipated/" + userId._id, function (data) {
+          $.getJSON("https://" + SERVER_IP + "/quiz/getMyQuizzes/" + userId._id, function (data) {
               for (var i = 0; i < data.length; i++) {
                           $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
-                            <td>" + data[i].description + "</td><td>" + data[i].owner + "</td><td>" + data[i].nbQuestions + "</td><td>" + data[i].score + "</td></tr>");
+                            <td>" + data[i].description + "</td><td>" + data[i].startDateTime + "</td><td>" + data[i].participations + "</td></tr>");
                   }
               }, "json");
 
