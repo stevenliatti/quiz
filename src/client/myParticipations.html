@@ -67,7 +67,7 @@ and open the template in the editor.
     <script src="js/menuSidebar.js"></script>
     <script>
         let userId = JSON.parse(localStorage.getItem('user'));
-          $.getJSON("https://" + SERVER_IP + "/quiz/getParticipated/:" +userId._id, function (data) {
+          $.getJSON("https://" + SERVER_IP + "/quiz/getParticipated/" + userId._id, function (data) {
               for (var i = 0; i < data.length; i++) {
                           $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
                             <td>" + data[i].score + "</td></tr>");

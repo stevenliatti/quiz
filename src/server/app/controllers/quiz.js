@@ -49,35 +49,19 @@ exports.getNotParticipated = function(req, res ) {
 
 exports.getParticipated = function(req, res ) {
     let idUser = req.params.idUser;
-    let ObjectID = require('mongodb').ObjectID;
-    let data = [];
-
+    
     Users.findById(idUser)
     .then(user => {
         let quizzesIds = user.participedQuizzes.map(quiz => quiz.id);
-        let quizzesScores = user.participedQuizzes.map(quiz => quiz.score);
-        // for (let i = 0; i < quizzes.length; i++) {
-        //     quizzes[i].score = quizzesScores[i];
-        // }
-        return {
-            quizContents : Quiz.find({'_id': {$in: quizzesIds}}),
-            scores : quizzesScores
-        };
-    })
-    .then(quizzes => {
-        log.debug(quizzes.scores.length);
-        for (let i = 0; i < quizzes.scores.length; i++) {
-            // log.debug(quizzes.quizzesScores);
-            quizzes.quizContents[i].score = quizzes.scores[i];
-        }
-        // log.debug(quizzes);
-        return quizzes.quizContents;
-    })
-    .then(quizzes => {
-        quizzes.forEach(quiz => {
-            data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions, score : quiz.score })
+        Quiz.find({'_id': { $in: quizzesIds }})
+        .then(quizz => {
+            return quizz.map(quiz => {
+                let score = user.participedQuizzes.filter(p => p.id == quiz.id).map(p => p.score)[0];
+                return {id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions, score : score};
+            });
         })
-        res.status(200).json(data);
+        .then(qq => res.status(200).json(qq))
+        .catch(error => { use.sendError(error, res, 500, error); });
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
