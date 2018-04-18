@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "530d0df0-8ff6-4939-b8de-cad551f16cea",
+		"name": "YourQuiz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login with correct password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fcd89661-4c4d-4727-98f6-487422137809",
+						"type": "text/javascript",
+						"exec": [
+							"// Status must be 200 OK",
+							"pm.test(\"Response is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Token start with JWT",
+							"pm.test(\"Token start with JWT\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.token).to.include(\"JWT\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@mail.com\",\n\t\"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "yourquiz.eracnos.ch/auth/login",
+					"host": [
+						"yourquiz",
+						"eracnos",
+						"ch"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with bad password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8df4374-dc77-4541-a76a-da42bebadbca",
+						"type": "text/javascript",
+						"exec": [
+							"// Status must be 200 OK",
+							"pm.test(\"Response is 401 Unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@mail.com\",\n\t\"password\": \"12345\"\n\t\n}"
+				},
+				"url": {
+					"raw": "yourquiz.eracnos.ch/auth/login",
+					"host": [
+						"yourquiz",
+						"eracnos",
+						"ch"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
