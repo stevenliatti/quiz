@@ -32,10 +32,11 @@ exports.getMyQuizzes = function(req, res ) {
 exports.getNotParticipated = function(req, res ) {
     let idUser = req.params.idUser;
     let ObjectID = require('mongodb').ObjectID;
-
+    log.debug(idUser);
     Users.findById(idUser)
     .then(user => {
         let participedQuizzes_list = [];
+        //log.debug("Controller : " + user);
         user.participedQuizzes.forEach(participedQuiz => {
             participedQuizzes_list.push(participedQuiz.id);
         });

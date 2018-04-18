@@ -54,15 +54,17 @@ exports.register = function(req, res, next) {
 exports.edit = function(req, res) {
     console.log('Authentification.js : edit function');
     let user = req.body;
-    console.log(user);
+    console.log("EDIT : " + user);
 
     User.findOne({email: user.email}, function(err, existingUser) {
          if (err) return next(err);
          console.log("mongo : " + existingUser);
-
-    });
-    res.status(200).json({update: "success"});   
+         res.status(200).json({user_updated : existingUser});
+     });
+    //res.status().json({status : "user not found !"});
+     
 }
+    
 
 exports.roleAuthorization = function(roles) {
     return function(req, res, next) {

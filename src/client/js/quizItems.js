@@ -1,11 +1,12 @@
 
-function Quiz(owner, name, description)
+function Quiz(idUser,owner, name, description)
 {
     this.name = name;
     this.owner = owner;
     this.description = description;
     this.questions = [];
     this.nbQuestions = 0;
+    this.idUser = idUser;
     this.addQuestions = function(questions)
     {
       this.questions = questions;  

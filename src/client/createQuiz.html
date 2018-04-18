@@ -105,12 +105,13 @@ and open the template in the editor.
          });
 
          $("#btnSend").on("click", function () {
-             let quiz = new Quiz("Loic", $("#name").val(), $("#description").val());
+             const user = JSON.parse(localStorage.getItem('user'));
+             let quiz = new Quiz(user._id,user.pseudo, $("#name").val(), $("#description").val());
              console.log(allQuestions);
              quiz.addQuestions(allQuestions);
              console.log(quiz);
              
-             const user = JSON.parse(localStorage.getItem('user'));
+             
              console.log(user.token);
              $.ajax("https://" + SERVER_IP + "/quiz/create", {
                  data: JSON.stringify(quiz),
