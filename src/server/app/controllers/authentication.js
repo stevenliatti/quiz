@@ -59,7 +59,7 @@ exports.edit = function(req, res) {
     User.findOne({email: user.email}, function(err, existingUser) {
          if (err) return next(err);
          console.log("mongo : " + existingUser);
-         res.status(200).json({existingUser});
+         res.status(200).json({user_updated : existingUser});
      });
     //res.status().json({status : "user not found !"});
      

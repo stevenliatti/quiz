@@ -121,7 +121,7 @@ function edit() {
     xhr.onload = function() {
             if (this.status === 200) {
                 console.log('success editing', JSON.parse(this.response));
-                let user = localStorage.getItem('user');
+                const user = JSON.parse(localStorage.getItem('user'));
                
                 console.log("USER ONLOAD : " + user);
                 
