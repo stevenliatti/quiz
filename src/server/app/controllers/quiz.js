@@ -18,6 +18,17 @@ exports.getAll = function(req, res) {
     .catch(error => { use.sendError(error, res, 500, error); });
 }
 
+exports.getMyQuizzes = function(req, res ) {
+    let userId = req.params.idUser;
+    Users.findById(userId)
+    .then(user => {
+        return Quiz.find({ idUser : userId });
+    }).then(quizzes => {
+        res.status(200).json(quizzes);
+    })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}
+
 exports.getNotParticipated = function(req, res ) {
     let idUser = req.params.idUser;
     let ObjectID = require('mongodb').ObjectID;
@@ -49,7 +60,7 @@ exports.getNotParticipated = function(req, res ) {
 
 exports.getParticipated = function(req, res ) {
     let idUser = req.params.idUser;
-    
+
     Users.findById(idUser)
     .then(user => {
         let quizzesIds = user.participedQuizzes.map(quiz => quiz.id);
