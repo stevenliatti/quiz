@@ -1,5 +1,6 @@
 package hepia.ch.yourquiz;
 
+import android.app.FragmentManager;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +23,10 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import hepia.ch.yourquiz.customUI.QuizFinishDialog;
+import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.QuizElementFragment;
+import hepia.ch.yourquiz.fragments.QuizListFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
 import hepia.ch.yourquiz.models.AnswerModel;
 import hepia.ch.yourquiz.models.JoinModel;
@@ -43,6 +47,7 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
     ProgressBar progressBarTimeLeft;
     LinearLayout answersLayout;
+    Bundle extras;
 
     public final static String SERVER_IP = "raed.eracnos.ch";
     public final static String SERVER_PORT = "443";
@@ -77,7 +82,7 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
         socket.connect();
 
-        Bundle extras = getIntent().getBundleExtra(QUIZ_EXTRA);
+        extras = getIntent().getBundleExtra(QUIZ_EXTRA);
         if (extras != null) {
             JoinModel joinModel = new JoinModel(
                     CurrentUser.getUser().getId(),
@@ -204,21 +209,31 @@ public class ParticipateQuizActivity extends AppCompatActivity {
         @Override
         public void call(final Object... args) {
             JSONObject data = (JSONObject) args[0];
-            Log.println(Log.ASSERT, "QUIZ_FINISH :", data.toString());
-
-            ParticipateQuizActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
+            Log.println(Log.ASSERT, "QUIZ_FINISH", data.toString());
+            String quizName = extras.getString(QuizElementFragment.NAME);
+            int score = 0;
+            try {
+                score = data.getInt("score");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            QuizFinishDialog.newInstance(quizName, score).show(getFragmentManager(), "");
         }
     };
+
+    public void exitClick() {
+        socket.off("NEW_QUESTION", onNewQuestion);
+        socket.off("ANSWER_CONFIRM", onAnswerConfirm);
+        socket.off("QUIZ_FINISH", onQuizFinish);
+        socket.disconnect();
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
         socket.off("NEW_QUESTION", onNewQuestion);
         socket.off("ANSWER_CONFIRM", onAnswerConfirm);
+        socket.off("QUIZ_FINISH", onQuizFinish);
         socket.disconnect();
         super.onDestroy();
     }

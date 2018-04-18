@@ -67,7 +67,7 @@ public class LoginFragment extends Fragment {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Toast.makeText(getContext(), response.toString(), Toast.LENGTH_LONG).show();
+//                                Toast.makeText(getContext(), response.toString(), Toast.LENGTH_LONG).show();
                                 Log.e("response", response.toString());
                                 try {
                                     CurrentUser.setUser(new UserModel(response));
