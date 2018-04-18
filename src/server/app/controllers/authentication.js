@@ -30,9 +30,11 @@ exports.register = function(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
     const role = req.body.role;
+    const pseudo = req.body.pseudo;
 
     if (!email) return res.status(422).send({error: 'You must enter an email address'});
     if (!password) return res.status(422).send({error: 'You must enter a password'});
+    if (!pseudo) return res.status(422).send({error: 'You must enter a pseudo'});
 
     User.findOne({email: email}, function(err, existingUser) {
         if (err) return next(err);
@@ -41,7 +43,8 @@ exports.register = function(req, res, next) {
         const user = new User({
             email: email,
             password: password,
-            role: role
+            role: role,
+            pseudo: pseudo
         });
 
         user.save(function(err, user) {

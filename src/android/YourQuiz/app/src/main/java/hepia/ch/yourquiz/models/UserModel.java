@@ -44,4 +44,8 @@ public class UserModel {
     public String getId() {
         return id;
     }
+
+    public String getToken() {
+        return token;
+    }
 }

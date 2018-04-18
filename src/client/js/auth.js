@@ -67,8 +67,9 @@ function register() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const repeatedPassword = document.getElementById('repeat_password').value;
+    const pseudo = document.getElementById('pseudo').value;
 
-    if (email !== '' && password !== '' && repeatedPassword !== '') {
+    if (email !== '' && password !== '' && repeatedPassword !== '' && pseudo !== '') {
         if (password !== repeatedPassword) {
             console.log('Passwords mismatch');
             error.innerHTML = 'Passwords doesn\'t match';
@@ -88,13 +89,16 @@ function register() {
                 const newContent = document.createTextNode('Register success !');
                 newP.appendChild(newContent);
                 document.getElementById('content').appendChild(newP);
+                window.setTimeout(function () {
+                    window.location.href = "index.html";
+                }, 1000);
             } else {
                 const resp = JSON.parse(this.response);
                 console.log('error', this.response);
                 error.innerHTML = resp.error;
             }
         }
-        xhr.send(JSON.stringify({email: email, password: password}));
+        xhr.send(JSON.stringify({email: email, password: password, pseudo: pseudo}));
     }
 }
 

@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import hepia.ch.yourquiz.fragments.QuizElementFragment;
+import hepia.ch.yourquiz.manager.CurrentUser;
 import hepia.ch.yourquiz.models.AnswerModel;
 import hepia.ch.yourquiz.models.JoinModel;
 import hepia.ch.yourquiz.models.QuestionModel;
@@ -72,12 +73,16 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
         socket.on("NEW_QUESTION", onNewQuestion);
         socket.on("ANSWER_CONFIRM", onAnswerConfirm);
+        socket.on("QUIZ_FINISH", onQuizFinish);
 
         socket.connect();
 
         Bundle extras = getIntent().getBundleExtra(QUIZ_EXTRA);
         if (extras != null) {
-            JoinModel joinModel = new JoinModel("android client", extras.getString(QuizElementFragment.ID), "LA CHANCLA");
+            JoinModel joinModel = new JoinModel(
+                    CurrentUser.getUser().getId(),
+                    extras.getString(QuizElementFragment.ID),
+                    CurrentUser.getUser().getToken());
             socket.emit("JOIN", joinModel.getJsonObject());
 
             socket.emit("NEXT_QUESTION");
@@ -191,6 +196,22 @@ public class ParticipateQuizActivity extends AppCompatActivity {
             } catch (JSONException | InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    };
+
+    private Emitter.Listener onQuizFinish = new Emitter.Listener() {
+
+        @Override
+        public void call(final Object... args) {
+            JSONObject data = (JSONObject) args[0];
+            Log.println(Log.ASSERT, "QUIZ_FINISH :", data.toString());
+
+            ParticipateQuizActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
         }
     };
 

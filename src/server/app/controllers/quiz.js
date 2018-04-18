@@ -43,10 +43,9 @@ exports.getNotParticipated = function(req, res ) {
 
         Quiz.find()
         .then(quizzes => {
-            let 
-            data = [];
+            let data = [];
             quizzes.forEach(quiz => {
-                if (participedQuizzes_list.indexOf(quiz._id.toString()) < 0) {
+                if (participedQuizzes_list.indexOf(quiz._id.toString()) < 0 && idUser != quiz.idUser) {
                     data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions });
                 }
             });

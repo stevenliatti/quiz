@@ -21,8 +21,6 @@ import hepia.ch.yourquiz.manager.CurrentUser;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static int currentNavigationItemSelected = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_account) {
+        if (id == R.id.action_about) {
             return true;
         }
 
@@ -104,26 +102,24 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
         Fragment newFragment;
-//        if (currentNavigationItemSelected != id) {
-            switch (id) {
-                case R.id.nav_home:
+        switch (id) {
+            case R.id.nav_home:
+                newFragment = new QuizListFragment();
+                break;
+            case R.id.nav_login:
+                if (CurrentUser.isConnected()) {
+                    CurrentUser.setIsConnected(false);
+                    item.setTitle("Se connecter");
+                    item.setChecked(false);
                     newFragment = new QuizListFragment();
-                    break;
-                case R.id.nav_login:
-                    if (CurrentUser.isConnected()) {
-                        CurrentUser.setIsConnected(false);
-                        item.setTitle("Se connecter");
-                        newFragment = new QuizListFragment();
-                    } else {
-                        newFragment = new LoginFragment();
-                    }
-                    break;
-                default:
-                    return false;
-            }
-            fragmentManager.beginTransaction().replace(R.id.content_frame, newFragment).commit();
-            currentNavigationItemSelected = id;
-//        }
+                } else {
+                    newFragment = new LoginFragment();
+                }
+                break;
+            default:
+                return false;
+        }
+        fragmentManager.beginTransaction().replace(R.id.content_frame, newFragment).commit();
         DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;

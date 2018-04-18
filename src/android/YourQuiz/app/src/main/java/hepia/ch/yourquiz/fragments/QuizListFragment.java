@@ -69,6 +69,7 @@ public class QuizListFragment extends Fragment {
                         bundle.putString(QuizElementFragment.NAME, response.getJSONObject(i).getString(QuizElementFragment.NAME));
                         bundle.putString(QuizElementFragment.DESCRIPTION, response.getJSONObject(i).getString(QuizElementFragment.DESCRIPTION));
                         bundle.putString(QuizElementFragment.OWNER, response.getJSONObject(i).getString(QuizElementFragment.OWNER));
+                        bundle.putString(QuizElementFragment.NBQUESTION, response.getJSONObject(i).getString(QuizElementFragment.NBQUESTION));
                         quizElementFragment.setArguments(bundle);
                         fragmentManager.beginTransaction().add(R.id.quiz_list, quizElementFragment).commit();
                     } catch (JSONException e) {
