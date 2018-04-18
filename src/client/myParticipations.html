@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mes participations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Oswald:200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" type="text/css"/>
+
+  </head>
+  <body class="w3-content color-background page-width">
+    <nav class="w3-sidebar w3-collapse w3-animate-left color-menu menu-nav-bar" id="mySidebar"><br>
+      <div class="w3-container">
+        <a href="#" onclick="w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-black" title="close menu">
+          <i class="fa fa-remove"></i>
+        </a>
+        <img src="./images/litzicoin.png" style="width:100%;" ><br><br>
+        <h3>MENU</h3>
+      </div>
+      <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar();"></div>
+    </nav>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close();" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main nav-size">
+
+      <!-- Header -->
+      <header id="portfolio">
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i></span>
+        <div class="w3-container">
+          <h1><b>Yourquiz</b></h1>
+        </div>
+      </header>
+
+      <div class="w3-container w3-padding-large header-margin">
+        <h2>Mes participations</h2>
+        <p>Voici l'historique des quiz auxquels vous avez participé ainsi que le total de points obtenus à chacun d'eux.</p>
+      </div>
+
+
+      <!-- Liste des participations -->
+      <div class="w3-center w3-padding-small color-menu" style="border: 1px solid white;">
+        <table class="w3-table w3-bordered" id="MyQuizzesTable">
+          <tr>
+            <th>Nom du quiz</th>
+            <th>Score obtenu</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/menuSidebar.js"></script>
+    <script>
+        let userId = JSON.parse(localStorage.getItem('user'));
+          $.getJSON("https://" + SERVER_IP + "/quiz/getParticipated/:" +userId._id, function (data) {
+              for (var i = 0; i < data.length; i++) {
+                          $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
+                            <td>" + data[i].score + "</td></tr>");
+                  }
+              }, "json");
+
+          $("#menu_navbar").load("menu/menu_navbar.html");
+    </script>
+  </body>
+</html>

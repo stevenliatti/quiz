@@ -5,7 +5,7 @@
   if (JSON.parse(localStorage.getItem('user')) !== null){
     $("#menu_navbar").append("<a href=\"./account.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-edit fa-fw w3-margin-right\"></i>Compte</a>");
     $("#menu_navbar").append("<a href=\"#TODO\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-th-list fa-fw w3-margin-right\"></i>Vos quiz</a>");
-    $("#menu_navbar").append("<a href=\"#TODO\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-ticket fa-fw w3-margin-right\"></i>Vos participations</a>");
+    $("#menu_navbar").append("<a href=\"./myParticipations.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-ticket fa-fw w3-margin-right\"></i>Vos participations</a>");
     $("#menu_navbar").append("<a href=\"./createQuiz.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-plus-square fa-fw w3-margin-right\"></i>Créer un quiz</a>");
     $("#menu_navbar").append("<a href=\"logout.html\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-padding\"><i class=\"fa fa-minus-square fa-fw w3-margin-right\"></i>Logout</a>");
 }

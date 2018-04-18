@@ -29,6 +29,7 @@ module.exports = function(app) {
     // Quiz routes
     router.use('/quiz', quizRoutes);
     quizRoutes.get('/getAll', quizController.getAll);
+    quizRoutes.get('/getParticipated/:idUser', quizController.getParticipated);
     quizRoutes.get('/getNotParticipated/:idUser', quizController.getNotParticipated);
     quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
 
