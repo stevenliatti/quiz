@@ -62,14 +62,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c8df4374-dc77-4541-a76a-da42bebadbca",
+						"id": "77a81842-eda9-47dd-b2d0-f7bdf07a8678",
 						"type": "text/javascript",
 						"exec": [
 							"// Status must be 200 OK",
 							"pm.test(\"Response is 401 Unauthorized\", function () {",
 							"    pm.response.to.have.status(401);",
-							"});",
-							""
+							"});"
 						]
 					}
 				}
@@ -98,6 +97,51 @@
 						"login"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllQuiz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7a5d42c-87c3-43f9-ad39-08c07fd9c070",
+						"type": "text/javascript",
+						"exec": [
+							"// Status must be 200 OK",
+							"pm.test(\"Response is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Response contain [(...)]",
+							"pm.test(\"Response contain [(...)]\", function () { ",
+							"    pm.response.to.not.be.error;",
+							"    var text = pm.response.text();",
+							"    pm.expect(text).to.include(\"[\");",
+							"    pm.expect(text).to.include(\"]\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "yourquiz.eracnos.ch/quiz/getAll",
+					"host": [
+						"yourquiz",
+						"eracnos",
+						"ch"
+					],
+					"path": [
+						"quiz",
+						"getAll"
+					]
+				},
+				"description": "This endpoint allows one to instruct the server which status code to respond with.\n\nEvery response is accompanied by a status code. The status code provides a summary of the nature of response sent by the server. For example, a status code of `200` means everything is okay with the response and a code of `404` implies that the requested URL does not exist on server. \nA list of all valid HTTP status code can be found at the [List of Status Codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) wikipedia article. When using Postman, the response status code is described for easy reference.\n\nNote that if an invalid status code is requested to be sent, the server returns a status code of `400 Bad Request`."
 			},
 			"response": []
 		}
