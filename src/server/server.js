@@ -200,6 +200,7 @@ io.on('connection', function (socket) {
                         log.debug("==> quiz not found!");
                         return;
                     }
+                    log.debug(quiz);
                     quiz.participations += 1;
                     quiz.save();
                 });

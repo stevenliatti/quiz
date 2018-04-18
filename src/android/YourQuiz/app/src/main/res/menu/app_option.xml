@@ -2,9 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_account"
+        android:id="@+id/action_about"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_action_login"
-        app:showAsAction="always"
-        android:title="Mon compte" />
+        app:showAsAction="never"
+        android:title="A propos de yourquiz" />
 </menu>
