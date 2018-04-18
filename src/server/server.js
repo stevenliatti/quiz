@@ -208,7 +208,7 @@ io.on('connection', function (socket) {
                         log.debug("==> user not found!");
                         return;
                     }
-                    user.participedQuizzes.push({ id: clients[socket.id].idQuiz, score: clients[socket.id].score });
+                    user.participedQuizzes.push({ _id: clients[socket.id].idQuiz, score: clients[socket.id].score });
                     user.save();
                 });
             }

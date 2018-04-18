@@ -25,6 +25,7 @@ exports.getNotParticipated = function(req, res ) {
     Users.findById(idUser)
     .then(user => {
         let participedQuizzes_list = [];
+        log.debug("Controller : " + user);
         user.participedQuizzes.forEach(participedQuiz => {
             participedQuizzes_list.push(participedQuiz.id);
         });
