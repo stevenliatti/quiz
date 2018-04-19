@@ -46,9 +46,9 @@ public class QuizElementFragment extends Fragment {
         if (bundle != null) {
             id = bundle.getString(ID);
             owner = bundle.getString(OWNER);
-            ((TextView) view.findViewById(R.id.quiz_participate_name)).setText(bundle.getString(NAME, "Not Found"));
+            ((TextView) view.findViewById(R.id.my_quiz_name)).setText(bundle.getString(NAME, "Not Found"));
             ((TextView) view.findViewById(R.id.quiz_description)).setText(bundle.getString(DESCRIPTION, "Not Found"));
-            ((TextView) view.findViewById(R.id.quiz_owner)).setText(bundle.getString(OWNER, "Not Found"));
+            ((TextView) view.findViewById(R.id.my_quiz_participations)).setText(bundle.getString(OWNER, "Not Found"));
             ((TextView) view.findViewById(R.id.quiz_nb_question)).setText(bundle.getString(NBQUESTION, "Not Found"));
             view.findViewById(R.id.participate_button).setOnClickListener(new View.OnClickListener() {
                 @Override

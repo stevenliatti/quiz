@@ -12,7 +12,7 @@
 
 
     <TextView
-        android:id="@+id/quiz_participate_name"
+        android:id="@+id/my_quiz_name"
         style="@android:style/TextAppearance.DeviceDefault.Inverse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:textColor="@color/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_participate_name" />
+        app:layout_constraintTop_toBottomOf="@+id/my_quiz_name" />
 
     <Button
         android:id="@+id/participate_button"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/quiz_description" />
 
     <TextView
-        android:id="@+id/quiz_owner"
+        android:id="@+id/my_quiz_participations"
         style="@android:style/TextAppearance.DeviceDefault.Inverse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
         android:text="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_owner" />
+        app:layout_constraintTop_toBottomOf="@+id/my_quiz_participations" />
 
     <TextView
         android:id="@+id/textView6"

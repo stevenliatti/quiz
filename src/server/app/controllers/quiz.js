@@ -1,6 +1,8 @@
 const Log = require('log');
 const log = new Log('debug');
 const use = require('./use');
+const jwt = require('jsonwebtoken');
+const authConfig = require('../../config/config');
 
 const Quiz = require('../models/quiz');
 const Users = require('../models/user');
@@ -19,19 +21,30 @@ exports.getAll = function(req, res) {
 }
 
 exports.getQuiz = function(req, res) {
-    // TODO: Add check on user (not return quiz from others)
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, authConfig.secret);
+    log.debug(user);
+    
     Quiz.findById(req.params.id)
     .then(quiz => {
+        if (quiz.idUser === user._id) {
         res.status(200).json(quiz);
+        }
+        else {
+            res.status(401).json({ message: 'You can\'t access to this quiz'});
+        }
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
 
 exports.getMyQuizzes = function(req, res ) {
-    let userId = req.params.idUser;
-    Users.findById(userId)
-    .then(user => {
-        return Quiz.find({ idUser : userId });
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, authConfig.secret);
+    log.debug(user);
+
+    Users.findById(user._id)
+    .then(_ => {
+        return Quiz.find({ idUser : user._id });
     }).then(quizzes => {
         res.status(200).json(quizzes);
     })
@@ -39,22 +52,23 @@ exports.getMyQuizzes = function(req, res ) {
 }
 
 exports.getNotParticipated = function(req, res ) {
-    let idUser = req.params.idUser;
-    let ObjectID = require('mongodb').ObjectID;
-    log.debug(idUser);
-    Users.findById(idUser)
-    .then(user => {
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, authConfig.secret);
+    log.debug(user);
+
+    Users.findById(user._id)
+    .then(user_mongo => {
         let participedQuizzes_list = [];
-        //log.debug("Controller : " + user);
-        user.participedQuizzes.forEach(participedQuiz => {
+        user_mongo.participedQuizzes.forEach(participedQuiz => {
             participedQuizzes_list.push(participedQuiz.id);
         });
 
         Quiz.find()
         .then(quizzes => {
             let data = [];
+            log.debug(quizzes);
             quizzes.forEach(quiz => {
-                if (participedQuizzes_list.indexOf(quiz._id.toString()) < 0 && idUser != quiz.idUser) {
+                if (participedQuizzes_list.indexOf(quiz._id.toString()) < 0 && user._id != quiz.idUser) {
                     data.push({ id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions });
                 }
             });
@@ -68,19 +82,21 @@ exports.getNotParticipated = function(req, res ) {
 }
 
 exports.getParticipated = function(req, res ) {
-    let idUser = req.params.idUser;
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, authConfig.secret);
+    log.debug(user);
 
-    Users.findById(idUser)
-    .then(user => {
-        let quizzesIds = user.participedQuizzes.map(quiz => quiz.id);
+    Users.findById(user._id)
+    .then(user_mongo => {
+        let quizzesIds = user_mongo.participedQuizzes.map(quiz => quiz.id);
         Quiz.find({'_id': { $in: quizzesIds }})
-        .then(quizz => {
-            return quizz.map(quiz => {
-                let score = user.participedQuizzes.filter(p => p.id == quiz.id).map(p => p.score)[0];
+        .then(quizzes => {
+            return quizzes.map(quiz => {
+                let score = user_mongo.participedQuizzes.filter(p => p.id == quiz.id).map(p => p.score)[0];
                 return {id: quiz._id, name: quiz.name, description: quiz.description, owner: quiz.owner, nbQuestions: quiz.nbQuestions, score : score};
             });
         })
-        .then(qq => res.status(200).json(qq))
+        .then(data => res.status(200).json(data))
         .catch(error => { use.sendError(error, res, 500, error); });
     })
     .catch(error => { use.sendError(error, res, 500, error); });
@@ -96,6 +112,40 @@ exports.createQuiz = function(req, res) {
             date: new Date(),
             message: 'Quiz saved !'
         });
+    })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}
+
+exports.updateQuiz = function(req, res) {
+    const quiz = req.body;
+    const idQuiz = req.params.id === '' ? quiz._id : req.params.id;
+    log.debug(quiz);
+    log.debug(idQuiz);
+    Quiz.findByIdAndUpdate(idQuiz, req.body, {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true
+    })
+    .then(quiz => {
+        log.debug(quiz);
+        res.status(200).json({
+            error: false,
+            date: new Date(),
+            message: 'Quiz saved !'
+        });
+    })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}
+
+exports.deleteQuiz = function(req, res) {
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, authConfig.secret);
+    log.debug(user);
+
+    Quiz.findOneAndRemove({ _id: req.params.id, idUser: user._id })
+    .then(quiz => {
+        log.debug('quiz', quiz);
+        res.status(200).json(quiz);
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }

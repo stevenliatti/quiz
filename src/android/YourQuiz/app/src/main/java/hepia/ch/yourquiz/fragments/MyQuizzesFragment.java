@@ -28,16 +28,16 @@ import java.util.List;
 import java.util.Map;
 
 import hepia.ch.yourquiz.R;
-import hepia.ch.yourquiz.customUI.MyParticipationsAdapter;
+import hepia.ch.yourquiz.customUI.MyQuizzesAdapter;
 import hepia.ch.yourquiz.manager.CurrentUser;
-import hepia.ch.yourquiz.models.MyParticipationsModel;
+import hepia.ch.yourquiz.models.MyQuizzesModel;
 
 import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_IP;
 import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_PORT;
 
-public class MyParticipationsFragment extends Fragment {
-    private List<MyParticipationsModel> myParticipationsList = new ArrayList<>();
-    private MyParticipationsAdapter adapter;
+public class MyQuizzesFragment extends Fragment {
+    private List<MyQuizzesModel> myQuizzesList = new ArrayList<>();
+    private MyQuizzesAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,14 +47,14 @@ public class MyParticipationsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_participations, container, false);
+        return inflater.inflate(R.layout.fragment_my_quizzes, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new MyParticipationsAdapter(myParticipationsList);
-        RecyclerView recyclerView = getActivity().findViewById(R.id.my_participations_RecyclerView);
+        adapter = new MyQuizzesAdapter(myQuizzesList);
+        RecyclerView recyclerView = getActivity().findViewById(R.id.my_quizzes_RecyclerView);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -67,40 +67,36 @@ public class MyParticipationsFragment extends Fragment {
 
     private void prepareMyParticipations() {
         if (CurrentUser.isConnected()) {
-            String url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getParticipated";
+            String url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getMyQuizzes";
 
             RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                    Request.Method.GET,
-                    url,
-                    null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            Log.e("participations", String.valueOf(response));
-                            for (int i = 0; i < response.length(); i++) {
-                                try {
-                                    myParticipationsList.add(new MyParticipationsModel(response.getJSONObject(i)));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            adapter.notifyDataSetChanged();
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    Log.e("myQuizzes", String.valueOf(response));
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            myQuizzesList.add(new MyQuizzesModel(response.getJSONObject(i)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("ERROR", error.getMessage());
-                        }
-                    }) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            HashMap<String, String> headers = new HashMap<>();
-                            headers.put("Authorization", CurrentUser.getUser().getToken());
-                            return headers;
-                        }
-                    };
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("ERROR", error.getMessage());
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", CurrentUser.getUser().getToken());
+                    return headers;
+                }
+            };
 
             queue.add(jsonArrayRequest);
         }

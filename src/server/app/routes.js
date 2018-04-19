@@ -29,11 +29,13 @@ module.exports = function(app) {
     // Quiz routes
     router.use('/quiz', quizRoutes);
     quizRoutes.get('/getAll', quizController.getAll);
-    quizRoutes.get('/getParticipated/:idUser', quizController.getParticipated);
-    quizRoutes.get('/getNotParticipated/:idUser', quizController.getNotParticipated);
-    quizRoutes.get('/getMyQuizzes/:idUser', quizController.getMyQuizzes);
+    quizRoutes.get('/getParticipated', requireAuth, authController.roleAuthorization(allRoles), quizController.getParticipated);
+    quizRoutes.get('/getNotParticipated', requireAuth, authController.roleAuthorization(allRoles), quizController.getNotParticipated);
+    quizRoutes.get('/getMyQuizzes', requireAuth, authController.roleAuthorization(allRoles), quizController.getMyQuizzes);
     quizRoutes.get('/get/:id', requireAuth, authController.roleAuthorization(allRoles), quizController.getQuiz);
     quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
+    quizRoutes.post('/update/:id?', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
+    quizRoutes.delete('/delete/:id', requireAuth, authController.roleAuthorization(allRoles), quizController.deleteQuiz);
 
     // Ranking routes
     router.use('/ranking', rankingRoutes);

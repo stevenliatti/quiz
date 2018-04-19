@@ -19,9 +19,9 @@ public class MyParticipationsAdapter extends RecyclerView.Adapter<MyParticipatio
 
         ViewHolder(View view) {
             super(view);
-            quizNameTextView = view.findViewById(R.id.quiz_participate_name);
-            quizDescrTextView = view.findViewById(R.id.quiz_decr);
-            quizOwnerTextView = view.findViewById(R.id.quiz_owner);
+            quizNameTextView = view.findViewById(R.id.my_quiz_name);
+            quizDescrTextView = view.findViewById(R.id.my_quiz_decr);
+            quizOwnerTextView = view.findViewById(R.id.my_quiz_participations);
             quizScoreTextView = view.findViewById(R.id.quiz_score);
         }
     }

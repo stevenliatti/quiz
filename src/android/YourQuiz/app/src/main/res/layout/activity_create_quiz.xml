@@ -29,11 +29,11 @@
 
             <TextView
                 style="@style/TextViewForm"
-                android:labelFor="@id/quiz_participate_name"
+                android:labelFor="@id/my_quiz_name"
                 android:text="@string/nom" />
 
             <EditText
-                android:id="@+id/quiz_participate_name"
+                android:id="@+id/my_quiz_name"
                 style="@style/EditTextForm"
                 android:inputType="text" />
 

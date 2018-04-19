@@ -80,6 +80,7 @@ public class LoginFragment extends Fragment {
                                     navigationView.setCheckedItem(R.id.nav_home);
                                     navigationView.getMenu().findItem(R.id.nav_login).setTitle("Se déconnecter");
                                     ((MainActivity)getActivity()).changeNavMenuState();
+                                    Toast.makeText(getContext(), "Vous êtes connecté(e)s", Toast.LENGTH_LONG).show();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
