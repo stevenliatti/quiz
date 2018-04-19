@@ -67,15 +67,19 @@ and open the template in the editor.
     <script src="js/config.js"></script>
     <script src="js/menuSidebar.js"></script>
     <script>
-        let userId = JSON.parse(localStorage.getItem('user'));
-          $.getJSON("https://" + SERVER_IP + "/quiz/getMyQuizzes/" + userId._id, function (data) {
-              for (var i = 0; i < data.length; i++) {
-                          $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
-                            <td>" + data[i].description + "</td><td>" + data[i].participations + "</td></tr>");
-                  }
-              }, "json");
+        let user = JSON.parse(localStorage.getItem('user'));
+        $.ajax("https://" + SERVER_IP + "/quiz/getMyQuizzes", {
+          contentType: 'application/json',
+          type: 'GET',
+          headers: { 'Authorization': user.token }
+        }).done(function(data) {
+          for (var i = 0; i < data.length; i++) {
+                      $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
+                        <td>" + data[i].description + "</td><td>" + data[i].participations + "</td></tr>");
+              }
+        });
 
-          $("#menu_navbar").load("menu/menu_navbar.html");
+        $("#menu_navbar").load("menu/menu_navbar.html");
     </script>
   </body>
 </html>
