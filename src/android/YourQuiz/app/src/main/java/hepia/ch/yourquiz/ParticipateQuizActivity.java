@@ -1,6 +1,5 @@
 package hepia.ch.yourquiz;
 
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,14 +23,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import hepia.ch.yourquiz.customUI.QuizFinishDialog;
-import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.QuizElementFragment;
-import hepia.ch.yourquiz.fragments.QuizListFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
 import hepia.ch.yourquiz.models.AnswerModel;
 import hepia.ch.yourquiz.models.JoinModel;
 import hepia.ch.yourquiz.models.QuestionModel;
 import hepia.ch.yourquiz.threads.UpdateTime;
+
+import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_IP;
+import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_PORT;
 
 public class ParticipateQuizActivity extends AppCompatActivity {
     public static final String QUIZ_EXTRA = "quiz_extra";
@@ -49,13 +49,10 @@ public class ParticipateQuizActivity extends AppCompatActivity {
     LinearLayout answersLayout;
     Bundle extras;
 
-    public final static String SERVER_IP = "raed.eracnos.ch";
-    public final static String SERVER_PORT = "443";
-
     private Socket socket;
     {
         try {
-            socket = IO.socket("https://" + SERVER_IP + ":" + SERVER_PORT);
+            socket = IO.socket(SERVER_IP + ":" + SERVER_PORT);
         } catch (URISyntaxException ignored) {
         }
     }

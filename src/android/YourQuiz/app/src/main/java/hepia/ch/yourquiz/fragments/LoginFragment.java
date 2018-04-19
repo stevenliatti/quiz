@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,8 +30,8 @@ import hepia.ch.yourquiz.R;
 import hepia.ch.yourquiz.manager.CurrentUser;
 import hepia.ch.yourquiz.models.UserModel;
 
-import static hepia.ch.yourquiz.ParticipateQuizActivity.SERVER_IP;
-import static hepia.ch.yourquiz.ParticipateQuizActivity.SERVER_PORT;
+import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_IP;
+import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_PORT;
 
 public class LoginFragment extends Fragment {
 
@@ -57,7 +56,7 @@ public class LoginFragment extends Fragment {
                 jsonParams.put("email", email.getText().toString());
                 jsonParams.put("password", password.getText().toString());
 
-                String url = "https://" + SERVER_IP + ":" + SERVER_PORT + "/auth/login";
+                String url = SERVER_IP + ":" + SERVER_PORT + "/auth/login";
 
                 JsonObjectRequest loginRequest = new JsonObjectRequest(
                         Request.Method.POST,
