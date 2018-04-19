@@ -22,12 +22,16 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import hepia.ch.yourquiz.customUI.QuizFinishDialog;
 import hepia.ch.yourquiz.fragments.QuizElementFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
 import hepia.ch.yourquiz.models.AnswerModel;
 import hepia.ch.yourquiz.models.JoinModel;
 import hepia.ch.yourquiz.models.QuestionModel;
 import hepia.ch.yourquiz.threads.UpdateTime;
+
+import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_IP;
+import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_PORT;
 
 public class ParticipateQuizActivity extends AppCompatActivity {
     public static final String QUIZ_EXTRA = "quiz_extra";
@@ -43,14 +47,12 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
     ProgressBar progressBarTimeLeft;
     LinearLayout answersLayout;
-
-    public final static String SERVER_IP = "raed.eracnos.ch";
-    public final static String SERVER_PORT = "443";
+    Bundle extras;
 
     private Socket socket;
     {
         try {
-            socket = IO.socket("https://" + SERVER_IP + ":" + SERVER_PORT);
+            socket = IO.socket(SERVER_IP + ":" + SERVER_PORT);
         } catch (URISyntaxException ignored) {
         }
     }
@@ -77,7 +79,7 @@ public class ParticipateQuizActivity extends AppCompatActivity {
 
         socket.connect();
 
-        Bundle extras = getIntent().getBundleExtra(QUIZ_EXTRA);
+        extras = getIntent().getBundleExtra(QUIZ_EXTRA);
         if (extras != null) {
             JoinModel joinModel = new JoinModel(
                     CurrentUser.getUser().getId(),
@@ -204,21 +206,31 @@ public class ParticipateQuizActivity extends AppCompatActivity {
         @Override
         public void call(final Object... args) {
             JSONObject data = (JSONObject) args[0];
-            Log.println(Log.ASSERT, "QUIZ_FINISH :", data.toString());
-
-            ParticipateQuizActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
+            Log.println(Log.ASSERT, "QUIZ_FINISH", data.toString());
+            String quizName = extras.getString(QuizElementFragment.NAME);
+            int score = 0;
+            try {
+                score = data.getInt("score");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            QuizFinishDialog.newInstance(quizName, score).show(getFragmentManager(), "");
         }
     };
+
+    public void exitClick() {
+        socket.off("NEW_QUESTION", onNewQuestion);
+        socket.off("ANSWER_CONFIRM", onAnswerConfirm);
+        socket.off("QUIZ_FINISH", onQuizFinish);
+        socket.disconnect();
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
         socket.off("NEW_QUESTION", onNewQuestion);
         socket.off("ANSWER_CONFIRM", onAnswerConfirm);
+        socket.off("QUIZ_FINISH", onQuizFinish);
         socket.disconnect();
         super.onDestroy();
     }

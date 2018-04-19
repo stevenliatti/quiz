@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Gravity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 
 import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.QuizListFragment;
+import hepia.ch.yourquiz.fragments.RankingFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
 
 public class MainActivity extends AppCompatActivity
@@ -116,6 +118,9 @@ public class MainActivity extends AppCompatActivity
                     newFragment = new LoginFragment();
                 }
                 break;
+            case R.id.nav_ranking:
+                newFragment = new RankingFragment();
+                break;
             default:
                 return false;
         }
@@ -123,5 +128,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        Log.e("resume", "hello");
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, new QuizListFragment())
+                .commit();
+        super.onResume();
     }
 }

@@ -9,13 +9,13 @@
             android:icon="@drawable/ic_action_home"
             android:title="Accueil" />
         <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ic_action_login"
-            android:title="Se connecter" />
-        <item
             android:id="@+id/nav_ranking"
             android:icon="@drawable/ic_action_trophy"
-            android:title="Voir le classement" />
+            android:title="Classement" />
+        <item
+            android:id="@+id/nav_myQuizzes"
+            android:icon="@drawable/ic_action_ranking"
+            android:title="Vos Quiz" />
         <item
             android:id="@+id/nav_myParticipations"
             android:icon="@drawable/ic_action_ticket"
@@ -27,15 +27,19 @@
         <!--<item-->
             <!--android:id="@+id/nav_gallery"-->
             <!--android:icon="@drawable/ic_menu_gallery"-->
-            <!--android:title="Gallery" />-->
+            <!--android:rankingTextView="Gallery" />-->
         <!--<item-->
             <!--android:id="@+id/nav_slideshow"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->
-            <!--android:title="Slideshow" />-->
+            <!--android:rankingTextView="Slideshow" />-->
         <!--<item-->
             <!--android:id="@+id/nav_manage"-->
             <!--android:icon="@drawable/ic_menu_manage"-->
             <!--android:title="Tools" />-->
     </group>
+    <item
+        android:id="@+id/nav_login"
+        android:icon="@drawable/ic_action_login"
+        android:title="Se connecter" />
 
 </menu>

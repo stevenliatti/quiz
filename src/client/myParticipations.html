@@ -50,7 +50,7 @@ and open the template in the editor.
 
       <!-- Liste des participations -->
       <div class="w3-center w3-padding-small color-menu" style="border: 1px solid white;">
-        <table class="w3-table w3-bordered" id="MyQuizzesTable">
+        <table class="w3-table w3-bordered" id="MyParticipationTable">
           <tr>
             <th>Nom du quiz</th>
             <th>Description</th>
@@ -72,7 +72,7 @@ and open the template in the editor.
         let userId = JSON.parse(localStorage.getItem('user'));
           $.getJSON("https://" + SERVER_IP + "/quiz/getParticipated/" + userId._id, function (data) {
               for (var i = 0; i < data.length; i++) {
-                          $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
+                          $("#MyParticipationTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
                             <td>" + data[i].description + "</td><td>" + data[i].owner + "</td><td>" + data[i].nbQuestions + "</td><td>" + data[i].score + "</td></tr>");
                   }
               }, "json");
