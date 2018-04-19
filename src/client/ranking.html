@@ -120,7 +120,7 @@ and open the template in the editor.
               for (var i = 0; i < data.length; i++) {
 
                   $("#BestQuizTable").append("<tr><td>" + bestQuizCounter + "</td>\n\
-            <td><a href=\"./participationQuiz.html?id=" + data[i].id + "\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+            <td><a href=\"./participationQuiz.html?id=" + data[i]._id + "\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
             <td>" + data[i].participations + "</td></tr>");
                   bestQuizCounter++;
               }
