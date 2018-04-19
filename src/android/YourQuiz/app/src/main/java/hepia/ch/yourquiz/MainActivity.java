@@ -20,6 +20,7 @@ import android.view.View;
 
 import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.MyParticipationsFragment;
+import hepia.ch.yourquiz.fragments.MyQuizzesFragment;
 import hepia.ch.yourquiz.fragments.QuizListFragment;
 import hepia.ch.yourquiz.fragments.RankingFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
@@ -126,6 +127,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_ranking:
                 newFragment = new RankingFragment();
+                break;
+            case R.id.nav_myQuizzes:
+                newFragment = new MyQuizzesFragment();
                 break;
             case R.id.nav_myParticipations:
                 newFragment = new MyParticipationsFragment();
