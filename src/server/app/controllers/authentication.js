@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const Quiz = require('../models/quiz');
 const authConfig = require('../../config/config');
-
+const bcrypt = require('bcrypt-nodejs');
 const tokenDuration = 8 * 3600;
 
 function generateToken(user) {
@@ -57,17 +58,30 @@ exports.register = function(req, res, next) {
 exports.edit = function(req, res) {
     console.log('Authentification.js : edit function');
     let user = req.body;
-    console.log("EDIT : " + user);
+    console.log(user);
+    if (!user.email) return res.status(422).send({error: 'You must enter an email address'});
+    if (!user.password) return res.status(422).send({error: 'You must enter a password'});
+    if (!user.pseudo) return res.status(422).send({error: 'You must enter a pseudo'});
 
-    User.findOne({email: user.email}, function(err, existingUser) {
-         if (err) return next(err);
-         console.log("mongo : " + existingUser);
-         res.status(200).json({user_updated : existingUser});
-     });
-    //res.status().json({status : "user not found !"});
-     
+    const SALT_FACTOR = require('../../pass').SALT_FACTOR;
+
+    bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+        if (err) return next(err);
+
+        bcrypt.hash(user.password, salt, null, function(err, hash) {
+            if (err) return next(err);
+            user.password = hash;
+            User.findOneAndUpdate({_id: user.id}, { $set:{pseudo: user.pseudo, email: user.email, password:user.password} }, {new: true}, function(err, data) {
+                Quiz.update({idUser: user.id},{ $set: {owner: user.pseudo}},function(error, data){
+                     if (err) return next(err);
+                     console.log(data);
+                });
+                if (err) return next(err);
+                return res.status(200).json(setUserInfo(data));
+            });
+        });
+    });
 }
-    
 
 exports.roleAuthorization = function(roles) {
     return function(req, res, next) {

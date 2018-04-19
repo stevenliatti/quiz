@@ -12,7 +12,7 @@
 
 
     <TextView
-        android:id="@+id/quiz_name"
+        android:id="@+id/quiz_participate_name"
         style="@android:style/TextAppearance.DeviceDefault.Inverse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:textColor="@color/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_name" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_participate_name" />
 
     <Button
         android:id="@+id/participate_button"

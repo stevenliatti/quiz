@@ -106,6 +106,7 @@ function register() {
 function edit() {
     let error = document.getElementById('error');
     error.innerHTML = '';
+    const user = JSON.parse(localStorage.getItem('user'));
     const email = document.getElementById('email').value;
     const pseudo = document.getElementById('pseudo').value;
     const password = document.getElementById('password').value;
@@ -124,10 +125,11 @@ function edit() {
     console.log("onload");
     xhr.onload = function() {
             if (this.status === 200) {
-                console.log('success editing', JSON.parse(this.response));
-                const user = JSON.parse(localStorage.getItem('user'));
-               
-                console.log("USER ONLOAD : " + user);
+                const user_updated = JSON.parse(this.response);
+                user_updated._id = user._id;
+                console.log(user_updated);
+
+                localStorage.setItem('user',JSON.stringify(user_updated));
                 
                 document.getElementById('form').remove();
                 const newP = document.createElement('p');
@@ -135,6 +137,9 @@ function edit() {
                 const newContent = document.createTextNode('Editing success !');
                 newP.appendChild(newContent);
                 document.getElementById('content').appendChild(newP);
+                window.setTimeout(function () {
+                    window.location.href = "account.html";
+                }, 1000);
             }
             else {
                 const resp = JSON.parse(this.response);
@@ -142,6 +147,8 @@ function edit() {
                 error.innerHTML = resp.error;
             }
         }
-        xhr.send(JSON.stringify({ email: email, pseudo: pseudo, password: password}));
+       
+        const data = { id:user._id, email: email, pseudo: pseudo, password: password};
+        xhr.send(JSON.stringify(data));
     }
 }
