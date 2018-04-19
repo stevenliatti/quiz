@@ -23,13 +23,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hepia.ch.yourquiz.R;
-import hepia.ch.yourquiz.customUI.MyParticipationsAdapter;
 import hepia.ch.yourquiz.customUI.MyQuizzesAdapter;
 import hepia.ch.yourquiz.manager.CurrentUser;
-import hepia.ch.yourquiz.models.MyParticipationsModel;
 import hepia.ch.yourquiz.models.MyQuizzesModel;
 
 import static hepia.ch.yourquiz.manager.ServerConfig.SERVER_IP;
@@ -67,7 +67,7 @@ public class MyQuizzesFragment extends Fragment {
 
     private void prepareMyParticipations() {
         if (CurrentUser.isConnected()) {
-            String url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getMyQuizzes/" + CurrentUser.getUser().getId();
+            String url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getMyQuizzes";
 
             RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
@@ -89,7 +89,14 @@ public class MyQuizzesFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("ERROR", error.getMessage());
                 }
-            });
+            }){
+                @Override
+                public Map<String, String> getHeaders() {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", CurrentUser.getUser().getToken());
+                    return headers;
+                }
+            };
 
             queue.add(jsonArrayRequest);
         }

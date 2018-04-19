@@ -90,29 +90,5 @@ public class GeneralRankingFragment extends Fragment {
         });
 
         queue.add(jsonArrayRequest);
-
-
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-//        generalRankingList.add(new GeneralRankingRowModel(1, "ddd", 525));
-
     }
 }

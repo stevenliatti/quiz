@@ -20,6 +20,9 @@ import org.apmem.tools.layouts.FlowLayout;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import hepia.ch.yourquiz.R;
 import hepia.ch.yourquiz.manager.CurrentUser;
 
@@ -48,7 +51,7 @@ public class QuizListFragment extends Fragment {
 
         String url;
         if (CurrentUser.isConnected()) {
-            url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getNotParticipated/" + CurrentUser.getUser().getId();
+            url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getNotParticipated";
         } else {
             url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getAll";
         }
@@ -82,7 +85,14 @@ public class QuizListFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e("ERROR", error.getMessage());
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", CurrentUser.getUser().getToken());
+                return headers;
+            }
+        };
 
         queue.add(jsonArrayRequest);
     }
