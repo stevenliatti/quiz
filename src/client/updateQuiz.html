@@ -99,6 +99,12 @@ and open the template in the editor.
   <script src="js/auth.js"></script>
   <script>authorized('createQuiz');</script>
   <script>
+    function getUrlParams(field, url) {
+      let href = url ? url : window.location.href;
+      let reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+      let string = reg.exec(href);
+      return string ? string[1].replace('%20', ' ') : null;
+    }
 
     const extractId = (idQuestion) => {
       if(idQuestion.charAt(0) === 'q') {
@@ -113,7 +119,9 @@ and open the template in the editor.
      manager.addQuestion('#questions', '#selectorQuestions');
    });
 
-    $.ajax("https://" + SERVER_IP + "/quiz/get/5ad8a047042c2237b12dc1e8",{
+    const idQuizUrl = getUrlParams('id');
+
+    $.ajax("https://" + SERVER_IP + "/quiz/get/" + idQuizUrl,{
       contentType: 'application/json',
       type: 'GET',
       headers: {'Authorization' : user.token}
@@ -141,8 +149,7 @@ and open the template in the editor.
     $("#btnSend").on("click", function () {
       const user = JSON.parse(localStorage.getItem('user'));
       let quiz = new Quiz(user._id,user.pseudo, $("#name").val(), $("#description").val());
-      //TODO:
-      quiz.id = "5ad8a047042c2237b12dc1e8";
+      quiz.id = idQuizUrl;
 
       quiz.addQuestions(allQuestions);
       console.log(quiz);
