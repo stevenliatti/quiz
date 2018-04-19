@@ -2,10 +2,9 @@ package hepia.ch.yourquiz;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.support.design.widget.NavigationView;
@@ -16,13 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.MyParticipationsFragment;
 import hepia.ch.yourquiz.fragments.MyQuizzesFragment;
 import hepia.ch.yourquiz.fragments.QuizListFragment;
-import hepia.ch.yourquiz.fragments.RankingFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
 
 public class MainActivity extends AppCompatActivity
@@ -109,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
-        Fragment newFragment;
+        Fragment newFragment = null;
         switch (id) {
             case R.id.nav_home:
                 newFragment = new QuizListFragment();
@@ -126,7 +123,10 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case R.id.nav_ranking:
-                newFragment = new RankingFragment();
+//                newFragment = new RankingFragment();
+                Intent intent = new Intent(this, RankingActivity.class);
+//                intent.putExtra(RankingActivity.QUIZ_EXTRA, bundle);
+                startActivity(intent);
                 break;
             case R.id.nav_myQuizzes:
                 newFragment = new MyQuizzesFragment();
@@ -137,9 +137,11 @@ public class MainActivity extends AppCompatActivity
             default:
                 return false;
         }
-        fragmentManager.beginTransaction().replace(R.id.content_frame, newFragment).commit();
-        DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
-        drawer.closeDrawer(GravityCompat.START);
+        if (newFragment != null) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, newFragment).commit();
+            DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 

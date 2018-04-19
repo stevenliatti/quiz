@@ -23,6 +23,7 @@ and open the template in the editor.
           <i class="fa fa-remove"></i>
         </a>
         <img src="./images/litzicoin.png" style="width:100%;" ><br><br>
+        <div id="nickname"></div>
         <h3>MENU</h3>
       </div>
       <div id="menu_navbar" class="w3-bar-block" onload="get_menu_navbar();"></div>
@@ -120,7 +121,7 @@ and open the template in the editor.
               for (var i = 0; i < data.length; i++) {
 
                   $("#BestQuizTable").append("<tr><td>" + bestQuizCounter + "</td>\n\
-            <td><a href=\"./participationQuiz.html?id=" + data[i].id + "\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
+            <td><a href=\"./participationQuiz.html?id=" + data[i]._id + "\"><button class=\"w3-button\">" + data[i].name + "</button></a></td>\n\
             <td>" + data[i].participations + "</td></tr>");
                   bestQuizCounter++;
               }

@@ -23,7 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hepia.ch.yourquiz.R;
 import hepia.ch.yourquiz.customUI.MyParticipationsAdapter;
@@ -65,29 +67,40 @@ public class MyParticipationsFragment extends Fragment {
 
     private void prepareMyParticipations() {
         if (CurrentUser.isConnected()) {
-            String url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getParticipated/" + CurrentUser.getUser().getId();
+            String url = SERVER_IP + ":" + SERVER_PORT + "/quiz/getParticipated";
 
             RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    Log.e("participations", String.valueOf(response));
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            myParticipationsList.add(new MyParticipationsModel(response.getJSONObject(i)));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.GET,
+                    url,
+                    null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.e("participations", String.valueOf(response));
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
+                                    myParticipationsList.add(new MyParticipationsModel(response.getJSONObject(i)));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
                         }
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("ERROR", error.getMessage());
-                }
-            });
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("ERROR", error.getMessage());
+                        }
+                    }) {
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            HashMap<String, String> headers = new HashMap<>();
+                            headers.put("Authorization", CurrentUser.getUser().getToken());
+                            return headers;
+                        }
+                    };
 
             queue.add(jsonArrayRequest);
         }
