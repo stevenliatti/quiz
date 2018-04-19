@@ -15,11 +15,13 @@
         <item
             android:id="@+id/nav_myQuizzes"
             android:icon="@drawable/ic_action_ranking"
-            android:title="Vos Quiz" />
+            android:title="Vos Quiz"
+            android:enabled="false"/>
         <item
             android:id="@+id/nav_myParticipations"
             android:icon="@drawable/ic_action_ticket"
-            android:title="Vos participations" />
+            android:title="Vos participations"
+            android:enabled="false"/>
         <!--<item-->
             <!--android:id="@+id/participation_layout"-->
             <!--android:icon="@drawable/ic_menu_camera"-->
