@@ -56,6 +56,8 @@ and open the template in the editor.
             <th>Nom du quiz</th>
             <th>Description</th>
             <th>Nombre de participations</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
           </tr>
         </table>
       </div>
@@ -75,9 +77,12 @@ and open the template in the editor.
           headers: { 'Authorization': user.token }
         }).done(function(data) {
           for (var i = 0; i < data.length; i++) {
-                      $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
-                        <td>" + data[i].description + "</td><td>" + data[i].participations + "</td></tr>");
-              }
+            $("#MyQuizzesTable").append("<tr><td><p>" + data[i].name + "</p></td>\n\
+            <td>" + data[i].description + "</td><td>" + data[i].participations + 
+            "</td><td><a href=\"/static/updateQuiz.html?id=" + data[i]._id + "\">Modifier</a></td>" +
+            "</td><td><a href=\"/static/deleteQuiz.html?id=" + data[i]._id + "\">Supprimer</a></td>" +
+            "</tr>");
+          }
         });
 
         $("#menu_navbar").load("menu/menu_navbar.html");

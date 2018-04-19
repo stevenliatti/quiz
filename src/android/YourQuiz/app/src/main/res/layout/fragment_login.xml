@@ -42,13 +42,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <EditText
-                android:inputType="textEmailAddress"
                 android:id="@+id/email_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
+                android:inputType="textEmailAddress"
                 android:text="raed@raed.com"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,12 +69,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/email_edit_text" />
 
             <EditText
-                android:inputType="textPassword"
-                android:text="raed"
                 android:id="@+id/password_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:inputType="textPassword"
+                android:text="raed"
                 app:layout_constraintEnd_toEndOf="@+id/email_edit_text"
                 app:layout_constraintStart_toStartOf="@+id/email_edit_text"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />

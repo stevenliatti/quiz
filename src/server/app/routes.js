@@ -34,7 +34,7 @@ module.exports = function(app) {
     quizRoutes.get('/getMyQuizzes', requireAuth, authController.roleAuthorization(allRoles), quizController.getMyQuizzes);
     quizRoutes.get('/get/:id', requireAuth, authController.roleAuthorization(allRoles), quizController.getQuiz);
     quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
-    quizRoutes.post('/update/:id?', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
+    quizRoutes.post('/update/:id?', requireAuth, authController.roleAuthorization(allRoles), quizController.updateQuiz);
     quizRoutes.delete('/delete/:id', requireAuth, authController.roleAuthorization(allRoles), quizController.deleteQuiz);
 
     // Ranking routes
