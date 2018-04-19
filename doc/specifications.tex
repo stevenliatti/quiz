@@ -34,7 +34,7 @@
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.85\textwidth]{../mockups/png/mainPage.png}
+		\includegraphics[width=0.85\textwidth]{mockups/png/mainPage.png}
 	\end{center}
 \end{figure}
 \newpage
@@ -59,59 +59,46 @@
     \item Créer un quiz
     \item S'inscrire à un quiz
     \item Participer à un quiz
-    \item Supprimer un quiz (définir dans quelles conditions)
+    \item Supprimer un quiz
     \item Visualiser le classement
 \end{itemize}
 \subsection{Définition des besoins}
 \subsubsection{Exigences du projet}
 \begin{itemize}
-    \item Définir des règles
     \item Les rôles des utilisateurs
     \item Réalisation d'un client Web et Mobile
-    \item Déploiement Cloud
-    \item Effectuer une montée en charge
+    \item Déploiement Cloud automatique
     \item Mettre en place des tests de performance
 \end{itemize}
 \subsubsection{Exigences fonctionnelles}
 Les fonctions et les services offerts par le logiciel :
 \begin{itemize}
-    \item Sign In
+    \item Création de compte
     \item Login
-    \item Logout
     \item Création d'un quiz
-    \item Inscription à un ou plusieurs quiz
     \item Participer à un quiz
     \item Voir la liste des quiz
-\end{itemize}
-\subsubsection{Exigences non fonctionnelles}
-\begin{itemize}
-    \item Disponibilité
-    \item Performance (gérer un grand nombre d'utilisateurs)
+    \item Voir le classement
 \end{itemize}
 
+\newpage
 \section{Règles de fonctionnement du site}
 \subsection{Participation}
-Un quiz commence à un instant t. L'utilisateur peut commencer à répondre (démarrer) au quiz jusqu'à l'instant u (défini par le créateur). Par exemple : un quiz est ouvert de 12h à 18h. Les joueurs peuvent le commencer jusqu'à 17h59.
-\bigbreak
-La structure des questions est la suivante : pour une question, il y aura plusieurs réponses possibles et une seule bonne réponse. Une limite maximale de temps par question est définie. Cependant, une limite minimale et maximale seront définies par défaut (par exemple: min = 3 sec, max = 60 sec). Chaque question peut avoir un temps maximum différent.
+La structure des questions est la suivante : pour une question, il y aura plusieurs réponses possibles et une seule bonne réponse. Une limite maximale de temps par question est définie à 10 secondes.
 \bigbreak
 L'utilisateur est obligé de répondre à la question pour pouvoir continuer. Si l'utilisateur n'a pas répondu à la question avant la fin du temps imparti la réponse est considérée comme fausse et il passe automatiquement à la question suivante. Lorsqu'il répond à la question, on lui indique s'il a correctement répondu et on passe à la question suivante. L'utilisateur ne peut pas revenir en arrière. Il peut voir son score en tout temps et son avancement dans le questionnaire.
 \bigbreak
 Un système de coefficient multiplicateur par bonne réponse est présent. Au fur et à mesure que l'utilisateur répond juste aux questions, un coeffcient augmente jusqu'à une réponse fausse qui remet ce coefficient bonus à 0.
 \bigbreak
-Un questionnaire ne peut pas être refait. À la fin du quiz, on obtient un résumé de notre participation (bonnes/mauvaises réponses, score) et une note et des commentaires peuvent être donnés. Un système de ranking des quiz et créateurs de quiz sera mis en place.
+Un questionnaire ne peut pas être refait. Un système de ranking des quiz et joueurs de quiz est disponible.
 \subsection{Création}
-N'importe quel utilisateur peut créer un quiz, mais il ne peut pas participer à ses propres quiz. L'utilisateur choisi le nom, la description, le thème, le nombre de questions et les réponses possibles. Les utilisateurs peuvent signaler les quiz à contenu inapproprié. Si un certain nombre de clients signalent le quiz, une notification est envoyée aux administrateurs.
-\bigbreak
-Un quiz populaire pourrait avoir la possibilité d'être relancé après un certain temps. Une fois que le quiz est publié, son créateur ne peut ni le modifier ni le supprimer et les joueurs peuvent y participer. Une fois la période de jeu terminée, le créateur du quiz peut à nouveau modifier/supprimer le quiz.
-\subsection{Consultation et recherche d'un quiz}
-Les joueurs peuvent chercher les quiz par créateur, thème (tags). Il peuvent lire la description du quiz.
+N'importe quel utilisateur authentifié peut créer un quiz, mais il ne peut pas participer à ses propres quiz. L'utilisateur choisi le nom, la description, le nombre de questions et les réponses possibles.
 
 \newpage
 \section{Modélisation}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.5\textwidth]{../diagrams/infrastructure.png}
+		\includegraphics[width=0.5\textwidth]{diagrams/infrastructure.png}
 	\end{center}
     \caption{Infrastructure}
 \end{figure}
@@ -119,14 +106,14 @@ Les joueurs peuvent chercher les quiz par créateur, thème (tags). Il peuvent l
 \subsubsection{Login}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.5\textwidth]{../diagrams/login.png}
+		\includegraphics[width=0.5\textwidth]{diagrams/login.png}
 	\end{center}
     \caption{Login}
 \end{figure}
 \subsection{Diagramme de cas d'utilisation}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=1.0\textwidth]{../diagrams/UseCaseQuiz.png}
+		\includegraphics[width=1.0\textwidth]{diagrams/UseCaseQuiz.png}
 	\end{center}
     \caption{Use case}
 \end{figure}
@@ -134,67 +121,67 @@ Les joueurs peuvent chercher les quiz par créateur, thème (tags). Il peuvent l
 \subsection{Maquettes}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/mainPage.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/mainPage.png}
         \caption{mainPage}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/notMemberHome.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/notMemberHome.png}
         \caption{notMemberHome}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/enregistrement.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/enregistrement.png}
         \caption{enregistrement}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/logIn.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/logIn.png}
         \caption{logIn}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/inQuestion.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/inQuestion.png}
         \caption{inQuestion}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/afterQuestion.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/afterQuestion.png}
         \caption{afterQuestion}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/myQuiz.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/myQuiz.png}
         \caption{myQuiz}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/myParticipations.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/myParticipations.png}
         \caption{myParticipations}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/createQuiz.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/createQuiz.png}
         \caption{createQuiz}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/createQuestion.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/createQuestion.png}
         \caption{createQuestion}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.73\textwidth]{../mockups/png/mainPage.png}
+		\includegraphics[width=0.73\textwidth]{mockups/png/mainPage.png}
         \caption{mainPage}
 	\end{center}
 \end{figure}
@@ -208,7 +195,6 @@ pour la facilité d'intégration avec Node.js, la simplicité d'utilisation et l
 Les clients seront faits en HTML + Javascript pour le navigateur et en Java pour Android.
 
 \section{User stories}
-\textit{Un administrateur possède les mêmes users stories qu'un utilisateur authentifié en plus des siennes}
 \begin{enumerate}
     \item Utilisateur anonyme
     \begin{enumerate}
@@ -220,25 +206,17 @@ Les clients seront faits en HTML + Javascript pour le navigateur et en Java pour
     \begin{enumerate}
         \item En tant qu'utilisateur non-authentifié, je veux pouvoir m'authentifier sur le site YourQuiz, afin d'avoir accès à son contenu.
         \item En tant qu'utilisateur authentifié, je veux pouvoir afficher/modifier mon profil personnel.
-        \item En tant qu'utilisateur authentifié, je veux pouvoir participer à un quiz d'un autre membre (lorsque la période pour effectuer le quiz est valide).
+        \item En tant qu'utilisateur authentifié, je veux pouvoir participer à un quiz d'un autre membre.
         \item En tant qu'utilisateur authentifié, je veux pouvoir consulter mes résultats par rapport à un quiz auquel j'ai participé.
         \item En tant qu'utilisateur authentifié, je veux pouvoir consulter ma place dans le classement générale, ainsi que les X meilleurs participants.
-        \item En tant qu'utilisateur authentifié, je veux pouvoir consulter ma place dans le classement, selon une catégorie de mon choix, ainsi que les X meilleurs participants de cette catégorie.
         \item En tant qu'utilisateur authentifié, je veux pouvoir créer un quiz.
         \item En tant qu'utilisateur authentifié, je veux pouvoir visualiser le nombre de quiz que j'ai créé.
         \item En tant qu'utilisateur authentifié, je veux pouvoir publier, modifier ou supprimer mes quiz.
-        \item En tant qu'utilisateur authentifié, je veux pouvoir relancer mes quiz qui sont terminés.
-        \item En tant qu'utilisateur authentifié, je veux pouvoir signaler un quiz dont le contenu me paraît inapproprié, incomplet, ou ayant un problème autre.
         \item En tant qu'utilisateur authentifié, je veux pouvoir me déconnecter de mon compte YourQuiz.
-    \end{enumerate}
-    \item Administrateur
-    \begin{enumerate}
-        \item En tant qu'administrateur authentifié, je veux pouvoir recevoir un message m'informant qu'un quiz a été signalé X fois, afin de prendre les mesures nécessaires.
-        \item En tant qu'administrateur authentifié, je veux pouvoir avoir accès à l'ensemble des quiz des utilisateurs, afin de supprimer ceux qui me seraient signalés.
     \end{enumerate}
 \end{enumerate}
 
-
+\newpage
 \section{Planification du sprint 1}
 Nous partons du principe qu'un sprint s'étale sur 1 semaine, avec 5 jours de 8 heures, ce qui représente 
 40 heures. Nous sommes 5 à coder, cela fait 200 heures de temps total au maximum, nous pensons plutôt atteindre les 100 heures, 
