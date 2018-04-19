@@ -1,7 +1,9 @@
 package hepia.ch.yourquiz;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +17,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import hepia.ch.yourquiz.fragments.LoginFragment;
 import hepia.ch.yourquiz.fragments.MyParticipationsFragment;
 import hepia.ch.yourquiz.fragments.MyQuizzesFragment;
 import hepia.ch.yourquiz.fragments.QuizListFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
+import hepia.ch.yourquiz.manager.ServerConfig;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -163,5 +171,31 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.content_frame, new QuizListFragment())
                 .commit();
         super.onResume();
+    }
+
+    private static int clickCount = 0;
+    public void ServerConfig(final View view) {
+//        Toast.makeText(this, "hahah", Toast.LENGTH_LONG).show();
+        clickCount++;
+        if (clickCount == 5) {
+            clickCount = 0;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LinearLayout linearLayout = new LinearLayout(this);
+            final EditText serverIp = new EditText(this);
+            final EditText serverPort = new EditText(this);
+            linearLayout.addView(serverIp);
+            linearLayout.addView(serverPort);
+            builder.setView(linearLayout);
+            builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+//                    EditText serverIp = view.findViewById(R.id.server_address);
+                    ServerConfig.SERVER_IP = serverIp.getText().toString();
+//                    EditText serverPort = view.findViewById(R.id.server_port);
+                    ServerConfig.SERVER_PORT = serverPort.getText().toString();
+                }
+            });
+            builder.show();
+        }
     }
 }

@@ -62,7 +62,9 @@ public class QuizListFragment extends Fragment {
             public void onResponse(JSONArray response) {
                 Log.e("allquiz", String.valueOf(response));
                 FlowLayout quizListFlowLayout = container.findViewById(R.id.quiz_list);
-                quizListFlowLayout.removeAllViews();
+                if (quizListFlowLayout != null) {
+                    quizListFlowLayout.removeAllViews();
+                }
                 for (int i = 0; i < response.length(); i++) {
                     FragmentManager fragmentManager = getFragmentManager();
                     QuizElementFragment quizElementFragment = new QuizElementFragment();
