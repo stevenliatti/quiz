@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import hepia.ch.yourquiz.MainActivity;
 import hepia.ch.yourquiz.R;
 import hepia.ch.yourquiz.manager.CurrentUser;
 import hepia.ch.yourquiz.models.UserModel;
@@ -78,6 +79,7 @@ public class LoginFragment extends Fragment {
                                     NavigationView navigationView = getActivity().findViewById(R.id.app_nav_view);
                                     navigationView.setCheckedItem(R.id.nav_home);
                                     navigationView.getMenu().findItem(R.id.nav_login).setTitle("Se déconnecter");
+                                    ((MainActivity)getActivity()).changeNavMenuState();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

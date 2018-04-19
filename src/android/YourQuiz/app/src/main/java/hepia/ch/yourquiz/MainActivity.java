@@ -2,8 +2,10 @@ package hepia.ch.yourquiz;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.support.design.widget.NavigationView;
@@ -14,14 +16,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import hepia.ch.yourquiz.fragments.LoginFragment;
+import hepia.ch.yourquiz.fragments.MyParticipationsFragment;
 import hepia.ch.yourquiz.fragments.QuizListFragment;
 import hepia.ch.yourquiz.fragments.RankingFragment;
 import hepia.ch.yourquiz.manager.CurrentUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         drawer.openDrawer(Gravity.START);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.app_nav_view);
+        navigationView = findViewById(R.id.app_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 //        Button participateButton = findViewById(R.id.participate_button);
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity
                     CurrentUser.setIsConnected(false);
                     item.setTitle("Se connecter");
                     item.setChecked(false);
+                    changeNavMenuState();
                     newFragment = new QuizListFragment();
                 } else {
                     newFragment = new LoginFragment();
@@ -121,6 +127,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_ranking:
                 newFragment = new RankingFragment();
                 break;
+            case R.id.nav_myParticipations:
+                newFragment = new MyParticipationsFragment();
+                break;
             default:
                 return false;
         }
@@ -128,6 +137,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.app_nav_drawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void changeNavMenuState() {
+        if (!CurrentUser.isConnected()) {
+            navigationView.getMenu().findItem(R.id.nav_myParticipations).setEnabled(false);
+            navigationView.getMenu().findItem(R.id.nav_myQuizzes).setEnabled(false);
+        } else {
+            navigationView.getMenu().findItem(R.id.nav_myParticipations).setEnabled(true);
+            navigationView.getMenu().findItem(R.id.nav_myQuizzes).setEnabled(true);
+        }
     }
 
     @Override

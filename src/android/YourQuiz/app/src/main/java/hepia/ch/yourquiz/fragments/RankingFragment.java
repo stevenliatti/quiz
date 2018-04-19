@@ -30,7 +30,7 @@ public class RankingFragment extends Fragment{
 
         // Add Fragments to adapter one by one
         adapter.addFragment(new GeneralRankingFragment(), "Général");
-        adapter.addFragment(new MostPlayedFragment(), "Quiz populqires");
+        adapter.addFragment(new MostPlayedFragment(), "Quiz populaires");
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = view.findViewById(R.id.ranking_tabs);
