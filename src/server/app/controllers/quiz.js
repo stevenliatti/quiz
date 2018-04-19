@@ -18,6 +18,15 @@ exports.getAll = function(req, res) {
     .catch(error => { use.sendError(error, res, 500, error); });
 }
 
+exports.getQuiz = function(req, res) {
+    // TODO: Add check on user (not return quiz from others)
+    Quiz.findById(req.params.id)
+    .then(quiz => {
+        res.status(200).json(quiz);
+    })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}
+
 exports.getMyQuizzes = function(req, res ) {
     let userId = req.params.idUser;
     Users.findById(userId)
