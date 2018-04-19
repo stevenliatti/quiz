@@ -7,6 +7,7 @@ function Quiz(idUser,owner, name, description)
     this.questions = [];
     this.nbQuestions = 0;
     this.idUser = idUser;
+    this.id = '';
     this.addQuestions = function(questions)
     {
       this.questions = questions;  

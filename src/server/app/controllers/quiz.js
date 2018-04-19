@@ -118,16 +118,12 @@ exports.createQuiz = function(req, res) {
 
 exports.updateQuiz = function(req, res) {
     const quiz = req.body;
-    const idQuiz = req.params.id === '' ? quiz._id : req.params.id;
-    log.debug(quiz);
-    log.debug(idQuiz);
-    Quiz.findByIdAndUpdate(idQuiz, req.body, {
+    const idQuiz = req.params.id === '' ? quiz.id : req.params.id;
+    Quiz.findByIdAndUpdate(quiz.id, req.body, {
         new: true,
-        upsert: true,
-        setDefaultsOnInsert: true
+        upsert: true
     })
     .then(quiz => {
-        log.debug(quiz);
         res.status(200).json({
             error: false,
             date: new Date(),
