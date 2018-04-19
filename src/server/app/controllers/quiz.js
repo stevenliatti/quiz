@@ -99,3 +99,10 @@ exports.createQuiz = function(req, res) {
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
+
+exports.deleteQuiz = function(req, res) {
+    // TODO: Add check on user (not return quiz from others)
+    Quiz.findByIdAndRemove(req.params.id)
+    .then(quiz => { res.status(200).json(quiz); })
+    .catch(error => { use.sendError(error, res, 500, error); });
+}

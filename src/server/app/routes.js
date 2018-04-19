@@ -34,6 +34,7 @@ module.exports = function(app) {
     quizRoutes.get('/getMyQuizzes/:idUser', quizController.getMyQuizzes);
     quizRoutes.get('/get/:id', requireAuth, authController.roleAuthorization(allRoles), quizController.getQuiz);
     quizRoutes.post('/create', requireAuth, authController.roleAuthorization(allRoles), quizController.createQuiz);
+    quizRoutes.delete('/delete/:id', requireAuth, authController.roleAuthorization(allRoles), quizController.deleteQuiz);
 
     // Ranking routes
     router.use('/ranking', rankingRoutes);
