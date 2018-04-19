@@ -1,6 +1,8 @@
 const Log = require('log');
 const log = new Log('debug');
 const use = require('./use');
+const jwt = require('jsonwebtoken');
+const authConfig = require('../../config/config');
 
 const Quiz = require('../models/quiz');
 const Users = require('../models/user');
@@ -19,10 +21,18 @@ exports.getAll = function(req, res) {
 }
 
 exports.getQuiz = function(req, res) {
-    // TODO: Add check on user (not return quiz from others)
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, authConfig.secret);
+    log.debug(user);
+    
     Quiz.findById(req.params.id)
     .then(quiz => {
+        if (quiz.idUser === user._id) {
         res.status(200).json(quiz);
+        }
+        else {
+            res.status(401).json({ message: 'You can\'t access to this quiz'});
+        }
     })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
@@ -101,8 +111,14 @@ exports.createQuiz = function(req, res) {
 }
 
 exports.deleteQuiz = function(req, res) {
-    // TODO: Add check on user (not return quiz from others)
-    Quiz.findByIdAndRemove(req.params.id)
-    .then(quiz => { res.status(200).json(quiz); })
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, authConfig.secret);
+    log.debug(user);
+
+    Quiz.findOneAndRemove({ _id: req.params.id, idUser: user._id })
+    .then(quiz => {
+        log.debug('quiz', quiz);
+        res.status(200).json(quiz);
+    })
     .catch(error => { use.sendError(error, res, 500, error); });
 }
